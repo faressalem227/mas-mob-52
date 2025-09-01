@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, Dimensions } from 'react-native';
-import { MainLayout, MainButton, DatePickerInput, Dropdown } from '../../../components';
+import { useState } from 'react';
+import { View } from 'react-native';
+import { MainLayout, DatePickerInput, Dropdown, SmallButton } from '../../../components';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import MainGrid from '../../../components/grid/MainGrid';
 import { useGlobalContext } from '../../../context/GlobalProvider';
 import OperatingSystemLang from '../../../constants/Lang/OperatingSystem/OperatingSystemLang';
-import AssetHomeLang from '../../../constants/Lang/AssetManagment/AssetHomeLang';
 
-import { HandleDropdownFormat, useDropDown } from '../../../hooks/useDropDownData';
-import { TouchableOpacity } from 'react-native';
+import { useDropDown } from '../../../hooks/useDropDownData';
 
-const OperatingData = ({ route }) => {
+const OperatingData = () => {
   const {
     AssetID,
     SubLocationID,
@@ -23,15 +21,12 @@ const OperatingData = ({ route }) => {
   } = useLocalSearchParams();
   const { DepartmentID, company } = useGlobalContext();
   const router = useRouter();
-  const [windowWidth, setWindowWidth] = useState(Dimensions.get('window').width);
   const { Lang, user } = useGlobalContext();
   const [date, setDate] = useState(false);
-  const [width, setWidth] = useState();
   const [subLocationID, setSubLocationID] = useState();
   const [TradeID, setTradeID] = useState();
   const [currentView, setCurrentView] = useState(1);
 
-  const screenHeight = Dimensions.get('window').height; // Get screen height dynamically
   const operationHours = [
     ,
     { value: '0', key: 0 },
@@ -59,92 +54,94 @@ const OperatingData = ({ route }) => {
     { value: '22', key: 22 },
     { value: '23', key: 23 },
   ];
-  useEffect(() => {
-    if (windowWidth < 800) {
-      setWidth('w-48');
-    } else {
-      setWidth('w-[80%]');
-    }
-  }, [windowWidth]);
-  const { data: SubLocation, loading: SubLocationLoader } = useDropDown(
-    'api_ms_SubLocation_List',
-    { DepartmentID:DepartmentID, LangID: Lang },
-    'SubLocationID',
-    'SubLocationName'
-  );
-  const { data: TradeList, loading: TradeListLoader } = useDropDown(
+
+  const { data: TradeList } = useDropDown(
     'api_ms_Trade_List_pm',
     { DepartmentID, CompanyID: company, LangID: Lang },
     'TradeID',
     'TradeName'
   );
 
+  const { data: SubLocation } = useDropDown(
+    'api_ms_SubLocation_List',
+    { DepartmentID: DepartmentID, LangID: Lang },
+    'SubLocationID',
+    'SubLocationName'
+  );
+
   return (
-    <>
-      <MainLayout title={OperatingSystemLang.OperatingData[Lang]} className="">
-        <View className="flex h-[100vh] flex-col bg-white">
-          <View className="m-4">
-            <DatePickerInput
-              title={OperatingSystemLang.Date[Lang]}
-              setDate={(selectedDate) => setDate(selectedDate)}
-            />
-            <View className="mt-4">
-              <Dropdown
-                data={TradeList}
-                initailOption={TradeList[0]?.TradeID}
-                title={'اختر التصنيف'}
-                placeholder={OperatingSystemLang.select[Lang]}
-                onChange={(v) => setTradeID(v)}
-              />
-            </View>
-            <View className="mt-4">
-              <Dropdown
-                data={SubLocation}
-                initailOption={SubLocationID || SubLocation[0]?.SubLocationID}
-                title={OperatingSystemLang.Location[Lang]}
-                placeholder={OperatingSystemLang.select[Lang]}
-                onChange={(v) => setSubLocationID(v)}
-              />
-            </View>
-          </View>
+    <MainLayout title={OperatingSystemLang.OperatingData[Lang]}>
+      <View className="flex-1">
+        <View className="my-3 gap-4 px-4">
+          <DatePickerInput
+            title={OperatingSystemLang.Date[Lang]}
+            setDate={(selectedDate) => setDate(selectedDate)}
+          />
 
-          <View className="flex flex-row-reverse justify-between bg-[#E4E7EC] px-8 pt-3">
-            <TouchableOpacity onPress={() => setCurrentView(1)}>
-              <Text
-                className={`pb-2 font-tmedium text-base ${
-                  currentView === 1
-                    ? 'border-b-2 border-[#133E54] text-[#133E54]'
-                    : 'text-slate-400'
-                }`}>
-                {OperatingSystemLang.ViewAssets[Lang]}
-              </Text>
-            </TouchableOpacity>
+          <Dropdown
+            data={TradeList}
+            initailOption={TradeList[0]?.key}
+            title={'اختر التصنيف'}
+            placeholder={OperatingSystemLang.select[Lang]}
+            onChange={(v) => setTradeID(v)}
+          />
 
-            <TouchableOpacity onPress={() => setCurrentView(2)}>
-              <Text
-                className={`pb-2 font-tmedium text-base ${
-                  currentView === 2
-                    ? 'border-b-2 border-[#133E54] text-[#133E54]'
-                    : 'text-slate-400'
-                }`}>
-                {OperatingSystemLang.DailyOperation[Lang]}
-              </Text>
-            </TouchableOpacity>
+          <Dropdown
+            data={SubLocation}
+            initailOption={SubLocationID || SubLocation[0]?.key}
+            title={OperatingSystemLang.Location[Lang]}
+            placeholder={OperatingSystemLang.select[Lang]}
+            onChange={(v) => setSubLocationID(v)}
+          />
+        </View>
 
-            <TouchableOpacity onPress={() => setCurrentView(3)}>
-              <Text
-                className={`pb-2 font-tmedium text-base ${
-                  currentView === 3
-                    ? 'border-b-2 border-[#133E54] text-[#133E54]'
-                    : 'text-slate-400'
-                }`}>
-                {OperatingSystemLang.HoursAssets[Lang]}
-              </Text>
-            </TouchableOpacity>
-          </View>
+        <View
+          className={`flex-1 ${Lang === 1 ? 'flex-row-reverse' : 'flex-row'} flex-wrap items-center justify-center gap-4`}>
+          <SmallButton
+            title={OperatingSystemLang.hourlyOperation[Lang]}
+            handlePress={() => {
+              router.navigate({
+                pathname: 'HourlyOperation',
+                params: {
+                  TradeID,
+                  subLocationID,
+                  date,
+                },
+              });
+            }}
+          />
 
-          {currentView === 1 && (
-            <View style={[styles.assetsGrid, { height: screenHeight - 125 }]}>
+          <SmallButton
+            title={OperatingSystemLang.dailyOpertaion[Lang]}
+            handlePress={() => {
+              router.navigate({
+                pathname: 'OperationDailyData',
+                params: {
+                  TradeID,
+                  subLocationID,
+                  date,
+                },
+              });
+            }}
+          />
+
+          <SmallButton
+            title={OperatingSystemLang.operationHours[Lang]}
+            handlePress={() => {
+              router.navigate({
+                pathname: 'OperationHours',
+                params: {
+                  TradeID,
+                  subLocationID,
+                  date,
+                },
+              });
+            }}
+          />
+        </View>
+
+        {/* {currentView === 1 && (
+            <View>
               <MainGrid
                 tableHead={[
                   {
@@ -576,23 +573,10 @@ const OperatingData = ({ route }) => {
                 StaticWidth={true}
               />
             </View>
-          )}
-        </View>
-      </MainLayout>
-    </>
+          )} */}
+      </View>
+    </MainLayout>
   );
 };
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  dropdownContainer: {
-    marginHorizontal: 16,
-    marginVertical: 24,
-  },
-  assetsGrid: {
-    marginVertical: 16,
-  },
-});
 
 export default OperatingData;

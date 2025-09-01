@@ -364,5 +364,19 @@ const OperatingSystemLang = {
     1: 'التكلفة الكلية',
     2: ' Total Cost ',
   },
+  hourlyOperation: {
+    1: 'بيانات تشغيل الاصول',
+    2: 'Asset operation data',
+  },
+
+  dailyOpertaion: {
+    1: 'بيانات التشغيل اليوميه',
+    2: 'Daily opeartion data',
+  },
+
+  operationHours: {
+    1: 'ساعات التشغيل',
+    2: 'opertaion hours',
+  },
 };
 export default OperatingSystemLang;
