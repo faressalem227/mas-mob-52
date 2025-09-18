@@ -39,12 +39,14 @@ const DatePickerInput = ({ setDate, title, defaultDate, birthday = false }) => {
   };
 
   useEffect(() => {
-    const date = defaultDate ? new Date(defaultDate) : new Date();
-    setSelectedDate(date);
+    if (defaultDate) {
+      const date = new Date(defaultDate);
+      setSelectedDate(date);
 
-    const cairoTime = moment(date).tz('Africa/Cairo').format('YYYY-MM-DD HH:mm:ss');
-    setDate?.(cairoTime);
-  }, [defaultDate]);
+      const cairoTime = moment(date).tz('Africa/Cairo').format('YYYY-MM-DD HH:mm:ss');
+      setDate?.(cairoTime);
+    }
+  }, []); // 👈 run only once
 
   return (
     <View style={styles.container}>

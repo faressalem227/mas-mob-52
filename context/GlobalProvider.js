@@ -2,8 +2,7 @@ import React, { createContext, useContext, useState, useEffect, useCallback, use
 import * as SecureStore from 'expo-secure-store';
 import api from '../utilities/api';
 import { HandleDropdownFormat } from '../utilities/useDropDownData';
-import { lang } from '../constants/Lang/components/CustomMenu';
-
+import Toast from 'react-native-toast-message';
 const GlobalContext = createContext();
 
 export const useGlobalContext = () => useContext(GlobalContext);
@@ -19,13 +18,13 @@ const GlobalProvider = ({ children }) => {
   const [SystemID, setSystemID] = useState();
   const [Lang, setLang] = useState(1);
   const [Rtl, setRtl] = useState(true);
-  const [company,setCompany]=useState(user?.company)
+  const [company, setCompany] = useState(user?.company);
   const [isMounted, setIsMounted] = useState(false); // Ensure company is derived from user state
   const fetchDepartmentTypeData = useCallback(async () => {
     try {
       setLoading(true);
       console.log(user?.company, '1111111');
-      setCompany(user?.company)
+      setCompany(user?.company);
       const response = await api.get(
         `/table?sp=api_admin_Departments_Type_List&CompanyID=${company}&LangID=${Lang}&UserName=${user?.username}&SystemID=4`
       );
@@ -36,7 +35,11 @@ const GlobalProvider = ({ children }) => {
         HandleDropdownFormat(response.data.data, 'DepartmentTypeID', 'DepartmentTypeName')
       );
     } catch (err) {
-      console.error('Error fetching dropdown data:', err);
+      Toast.show({
+        type: 'error',
+        text1: 'Error fetching dropdown data',
+      });
+      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -45,15 +48,18 @@ const GlobalProvider = ({ children }) => {
   const fetchDropdownData = useCallback(async () => {
     try {
       setLoading(true);
-      console.log(user?.username,'kk');
-      
+      console.log(user?.username, 'kk');
+
       const response = await api.get(
         `/table?sp=api_admin_Department_List&CompanyID=${1}&LangID=${Lang}&UserName=${user?.username}&SystemID=4&DepartmentTypeID=${DepartmentTypeID}`
       );
       setDepartmentData(HandleDropdownFormat(response.data.data, 'DepartmentID', 'DepartmentName'));
       //CompanyID.Current = response.data.data[0]?.CompanyID
     } catch (err) {
-      console.error('Error fetching dropdown data:', err);
+      Toast.show({
+        type: 'error',
+        text1: 'Error fetching dropdown data',
+      });
     } finally {
       setLoading(false);
     }
@@ -78,7 +84,7 @@ const GlobalProvider = ({ children }) => {
           DepartmentID: UserDepartmentID,
           UserDepartmentName: UserDepartmentName,
           SystemID: UserSystemID,
-          company :company // Ensure this is updated
+          company: company, // Ensure this is updated
         });
         setSystemID(UserSystemID); // Set state for SystemID
       } else {
@@ -128,7 +134,7 @@ const GlobalProvider = ({ children }) => {
         DepartmentID: user.UserDepartmentID,
         SystemID: user.SystemID, // Ensure this is set
         UserDepartmentName: user.UserDepartmentName,
-        company :company
+        company: company,
       });
       setSystemID(user.SystemID); // Set state for SystemID
       setIsLogged(true);
@@ -264,7 +270,7 @@ const GlobalProvider = ({ children }) => {
         setDepartmentTypeID,
         Lang,
         Rtl,
-        company:user?.company,
+        company: user?.company,
         setLang,
         setRtl,
       }}>

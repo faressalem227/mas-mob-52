@@ -243,23 +243,23 @@ const RenderRows = ({
           onLongPress={() => handleDoubleClick(dataRow, index)}
           onPress={() => handleRowPress(dataRow, index)}>
           <Row
-            style={[
-              !isNested && {
+            style={{
+              ...(!isNested && {
                 backgroundColor: index % 2 === 0 ? '#ffffff' : '#f9f9f9',
                 padding: 8,
-              },
-              isNested &&
+              }),
+              ...(isNested &&
                 dataRow.children?.length > 0 && {
                   backgroundColor: '#f9f9f9',
                   paddingVertical: 8,
-                },
-              isSelected && { backgroundColor: '#227099' },
-              highlight?.col &&
+                }),
+              ...(isSelected && { backgroundColor: '#227099' }),
+              ...(highlight?.col &&
                 dataRow[highlight.col] == highlight.value && {
                   backgroundColor: highlight.bgcolor,
-                },
-              { flexDirection: Rtl ? 'row-reverse' : 'row' },
-            ]}
+                }),
+              flexDirection: Rtl ? 'row-reverse' : 'row',
+            }}
             widthArr={widthArr}
             data={
               Array.isArray(filteredTableHead)
@@ -1154,7 +1154,10 @@ const DraftGrid = ({
                       className={`flex font-tbold text-base`}
                       data={state.tableHead} // Visible headers
                       widthArr={widthArr} // Dynamic widths
-                      style={[styles.head, { flexDirection: Rtl ? 'row-reverse' : 'row' }]}
+                      style={{
+                        ...styles.head,
+                        flexDirection: Rtl ? 'row-reverse' : 'row',
+                      }}
                       textStyle={styles.headerText}
                     />
                   </View>

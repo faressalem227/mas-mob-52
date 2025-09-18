@@ -12,9 +12,6 @@ import Toast from 'react-native-toast-message';
 const WorkOrderClose = () => {
   const { user, Lang, Rtl } = useGlobalContext(); // Get the current language from context
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [workorderData, setWorkorderData] = useState({});
-  const [selectedEvaluation, setSelectedEvaluation] = useState(null);
   const [closeObj, setCloseObj] = useState(null);
 
   const {
@@ -53,12 +50,10 @@ const WorkOrderClose = () => {
       const response = await api.get(
         `table?sp=api_ms_WorkorderInfoClose&DepartmentID=${DepartmentID}&WorkorderID=${WorkorderID}&LangID=${Lang}&UserName=${user.username}`
       );
-      setCloseObj(response.data.data[0]);
-
-      console.log('res', response.data);
+      // setCloseObj(response.data.data[0]);
+      console.log('res', response.data.data[0]);
     } catch (error) {
       console.error(error);
-    } finally {
     }
   };
 
@@ -115,7 +110,7 @@ const WorkOrderClose = () => {
     getCloseData();
   }, []);
 
-  console.log(closeObj);
+  // console.log('close', closeObj);
 
   return (
     <MainLayout title={WorkOrderCloseLang.PageTitle[Lang]}>
@@ -139,7 +134,7 @@ const WorkOrderClose = () => {
             data={EvalList}
             onChange={(val) => handleChangeCancelData('WorkorderEvaluationID', val)}
             placeholder={WorkOrderCloseLang.SelectEvaluation[Lang]}
-            initailOption={closeObj?.WorkorderEvaluationID}
+            initailOption={closeObj?.WorkorderEvaluationID || ''}
           />
 
           <DatePickerInput

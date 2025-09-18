@@ -42,26 +42,30 @@ function UnitMaintenance() {
           textStyles={'w-52'}
           handlePress={() => router.navigate('/UnitMaintenanceAssetHome')}
         />
+
         <SmallButton
           title={HomeLang.employeeSystem[Lang]}
           icon={icons.persones}
           textStyles={'w-52'}
-          handlePress={() => router.navigate('/EmployeesSystem')}
+          handlePress={() => router.navigate('/UnitEmployeesHome')}
         />
+
         <SmallButton
           title={HomeLang.operatingSystem[Lang]}
           icon={icons.MechanicTime}
           handlePress={() => router.navigate('/OperationsHome')}
         />
+
         <SmallButton
           title={HomeLang.scada[Lang]}
           icon={icons.Vector}
           handlePress={() => router.navigate('/ScadaHome')}
         />
+
         <SmallButton
           title={HomeLang.maintenanceSystem[Lang]}
           icon={icons.Setting}
-          handlePress={() => router.navigate('UnitMaintenanceHome')}
+          handlePress={() => router.navigate('/UnitMaintenanceHome')}
         />
       </View>
     </MainLayout>

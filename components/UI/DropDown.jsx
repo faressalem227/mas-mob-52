@@ -12,7 +12,7 @@ const DropdownComponent = ({
   data = [],
   title,
   initailOption,
-  defaultOption = '',
+  defaultOption,
   value,
   label,
   placeholder,
@@ -40,15 +40,16 @@ const DropdownComponent = ({
   const fontSize = windowWidth < 800 ? wp('4%') : wp('2.5%');
 
   useEffect(() => {
-    if (initailOption || defaultOption) {
-      onChange(
-        (defaultOption?.key && parseInt(defaultOption?.key)) ||
-          (initailOption && parseInt(initailOption))
-      );
-      setValue(
-        (defaultOption?.key && parseInt(defaultOption?.key)) ||
-          (initailOption && parseInt(initailOption))
-      );
+    if (!initailOption && !defaultOption) return;
+
+    const newVal =
+      (defaultOption?.key && parseInt(defaultOption?.key)) ||
+      (initailOption && parseInt(initailOption));
+
+    // ✅ Only update if different
+    if (newVal && newVal !== value) {
+      onChange(newVal);
+      setValue(newVal);
     }
   }, [initailOption, data]);
 
