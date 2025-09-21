@@ -4,6 +4,11 @@ import { useGlobalContext } from '../../../../context/GlobalProvider';
 import { useDropDown } from '../../../../hooks/useDropDownData';
 
 const UnitEmployeesDataLang = {
+  EmployeesData: {
+    1: 'بيانات الموظفين',
+    2: 'Employees Data',
+  },
+
   StaffID: {
     1: 'StaffID', // no captions in your config
     2: 'StaffID',
@@ -88,18 +93,22 @@ const UnitEmployeesDataLang = {
     1: 'الحالة الوظيفية',
     2: 'Job Status',
   },
+
   ServiceStatusName: {
     1: 'الحالة الوظيفية',
     2: 'Job Status',
   },
+
   UEducationID: {
     1: 'المؤهل',
     2: 'Education',
   },
+
   UContractTypeID: {
     1: 'نوع التعاقد',
     2: 'Contract Type',
   },
+
   USixtyDate: {
     1: ' تاريخ التقاعد',
     2: ' Retail Date',
@@ -245,7 +254,7 @@ const UnitEmployeesData = () => {
     'DepartmentName'
   );
   return (
-    <MainLayout>
+    <MainLayout title={UnitEmployeesDataLang.EmployeesData[Lang]}>
       <View className="flex-1">
         <MainGrid
           pk="StaffID"
@@ -526,7 +535,7 @@ const UnitEmployeesData = () => {
             },
           ]}
           routeTo={{
-            path: '/UnitEmployeesDataDetails',
+            path: '/UnitEmployeesDetails',
             hasParams: true,
           }}
         />
