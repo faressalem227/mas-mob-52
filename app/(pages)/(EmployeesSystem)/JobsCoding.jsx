@@ -31,23 +31,19 @@ const JobCoding = ({ title, hasLeftComponent = false, onDrawerPress }) => {
             UpdBody={{ DepartmentID: DepartmentID }}
             InsBody={{ DepartmentID: DepartmentID }}
             TrxDependency={[]}
-            dynamicCode={{
-              tbName: 'ms_MaintenanceJobs',
-              codeCol: 'DefinitionCode',
-            }}
             tableHead={[
               {
                 key: 'DefinitionID',
                 label: InvintorySystemSettingLang.Code[Lang],
                 type: 'number',
-                input: 'false',
+                input: false,
                 visible: 'false',
               },
               {
                 key: 'DefinitionCode',
                 label: InvintorySystemSettingLang.Code[Lang],
                 type: 'number',
-                input: false,
+                input: true,
                 visible: 'true',
                 width: 80,
               },

@@ -32,10 +32,7 @@ const DegreeCoding = ({ title, hasLeftComponent = false, onDrawerPress }) => {
             UpdBody={{ DepartmentID: DepartmentID }}
             InsBody={{ DepartmentID: DepartmentID }}
             TrxDependency={[]}
-            dynamicCode={{
-              tbName: 'ms_MaintenanceDegree',
-              codeCol: 'DefinitionCode',
-            }}
+
             tableHead={[
               {
                 key: 'DefinitionID',
@@ -48,6 +45,7 @@ const DegreeCoding = ({ title, hasLeftComponent = false, onDrawerPress }) => {
               {
                 key: 'DefinitionCode',
                 label: InvintorySystemSettingLang.Code[Lang],
+                input: 'true',
                 type: 'number',
                 visible: 'true',
                 width: 90,

@@ -44,7 +44,7 @@ const EmployeesDetailes = () => {
         <ScrollComponent parentContainerStyle={'min-h-[95vh]'}>
           <InfoDetailes details={detailsData} />
           <View
-            className={`m-auto mt-3 flex gap-3 ${Rtl ? 'flex-row-reverse' : 'flex-row'} flex-wrap items-center justify-center px-4`}>
+            className={`m-auto mt-3 mb-7 flex gap-3 ${Rtl ? 'flex-row-reverse' : 'flex-row'} flex-wrap items-center justify-center px-4`}>
             <SmallButton
               style={styles.smlBtn}
               title={EmployeesText.EmployeeAsset[Lang]}

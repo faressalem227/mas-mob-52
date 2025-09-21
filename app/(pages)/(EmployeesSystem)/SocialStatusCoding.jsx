@@ -32,24 +32,21 @@ const SocialStatusCoding = ({ title, hasLeftComponent = false, onDrawerPress }) 
             UpdBody={{ DepartmentID: DepartmentID }}
             InsBody={{ DepartmentID: DepartmentID }}
             TrxDependency={[]}
-            dynamicCode={{
-              tbName: 'ms_MaintenanceMaritalStatus',
-              codeCol: 'DefinitionCode',
-            }}
+
             tableHead={[
               {
                 key: 'DefinitionID',
                 label: InvintorySystemSettingLang.Code[Lang],
                 type: 'number',
                 input: 'false',
-                visible: 'true',
+                visible: 'false',
                 width: 90,
               },
               {
                 key: 'DefinitionCode',
                 label: InvintorySystemSettingLang.Code[Lang],
                 type: 'number',
-                input: false,
+                input: true,
                 visible: true,
                 width: 90,
               },

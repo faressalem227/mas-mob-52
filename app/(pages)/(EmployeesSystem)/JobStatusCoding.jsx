@@ -19,10 +19,6 @@ const JobStatusCoding = ({ title, hasLeftComponent = false, onDrawerPress }) => 
             spIns={'api_ms_MaintenanceWorkStatus_Ins'}
             spUpd={'api_ms_MaintenanceWorkStatus_Upd'}
             spDel={'api_ms_MaintenanceWorkStatus_Del'}
-            dynamicCode={{
-              tbName: 'ms_MaintenanceWorkStatus',
-              codeCol: 'JobStatusCode',
-            }}
             TrxParam={[
               { name: 'DepartmentID', value: DepartmentID },
               { name: 'CompanyID', value: company },
@@ -48,6 +44,8 @@ const JobStatusCoding = ({ title, hasLeftComponent = false, onDrawerPress }) => 
                 key: 'DefinitionCode',
                 label: InvintorySystemSettingLang.Code[Lang],
                 type: 'number',
+                input: 'true',
+
                 visible: 'true',
                 width: 90,
               },
