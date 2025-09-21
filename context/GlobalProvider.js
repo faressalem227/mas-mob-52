@@ -20,7 +20,10 @@ const GlobalProvider = ({ children }) => {
   const [Rtl, setRtl] = useState(true);
   const [company, setCompany] = useState(user?.company);
   const [isMounted, setIsMounted] = useState(false); // Ensure company is derived from user state
+
   const fetchDepartmentTypeData = useCallback(async () => {
+    if (!company) return;
+
     try {
       setLoading(true);
       console.log(user?.company, '1111111');
@@ -37,7 +40,7 @@ const GlobalProvider = ({ children }) => {
     } catch (err) {
       Toast.show({
         type: 'error',
-        text1: 'Error fetching dropdown data',
+        text1: 'Error fetching DepartmentType data',
       });
       console.error(err);
     } finally {
@@ -58,7 +61,7 @@ const GlobalProvider = ({ children }) => {
     } catch (err) {
       Toast.show({
         type: 'error',
-        text1: 'Error fetching dropdown data',
+        text1: 'Error fetching Department data',
       });
     } finally {
       setLoading(false);
@@ -229,7 +232,7 @@ const GlobalProvider = ({ children }) => {
 
   useEffect(() => {
     if (user?.username) fetchDepartmentTypeData();
-  }, [user, Lang]);
+  }, [user, Lang, company]);
 
   useEffect(() => {
     if (user?.username) fetchDropdownData();
