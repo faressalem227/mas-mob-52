@@ -22,14 +22,12 @@ const GlobalProvider = ({ children }) => {
   const [isMounted, setIsMounted] = useState(false); // Ensure company is derived from user state
 
   const fetchDepartmentTypeData = useCallback(async () => {
-    if (!company) return;
-
     try {
       setLoading(true);
       console.log(user?.company, '1111111');
       setCompany(user?.company);
       const response = await api.get(
-        `/table?sp=api_admin_Departments_Type_List&CompanyID=${company}&LangID=${Lang}&UserName=${user?.username}&SystemID=4`
+        `/table?sp=api_admin_Departments_Type_List&CompanyID=${user?.company}&LangID=${Lang}&UserName=${user?.username}&SystemID=4`
       );
 
       console.log('executing');
@@ -245,6 +243,7 @@ const GlobalProvider = ({ children }) => {
   // console.log('context departmentTyoedata', departmentTypeData);
   // console.log('context departmentdata', departmentData);
 
+  console.log(user?.company);
   if (!isMounted) return null;
 
   return (
