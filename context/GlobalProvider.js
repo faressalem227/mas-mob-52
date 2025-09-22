@@ -230,7 +230,7 @@ const GlobalProvider = ({ children }) => {
 
   useEffect(() => {
     if (user?.username) fetchDepartmentTypeData();
-  }, [user, Lang, company]);
+  }, [user, Lang]);
 
   useEffect(() => {
     if (user?.username) fetchDropdownData();

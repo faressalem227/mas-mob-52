@@ -25,7 +25,7 @@ const DatePickerInput = ({ setDate, title, defaultDate, birthday = false }) => {
 
   const fontSize = windowWidth < 800 ? wp('4%') : wp('2.5%');
 
-  const handleDateChange = (event, date) => {
+  const handleDateChange = (date) => {
     if (Platform.OS === 'android') {
       setShowDatePicker(false); // Auto-close picker on Android
     }

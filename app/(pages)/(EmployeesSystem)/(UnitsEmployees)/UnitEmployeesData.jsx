@@ -314,7 +314,7 @@ const UnitEmployeesData = () => {
             },
             {
               key: 'GenderID',
-              type: 'dropDown',
+              type: 'dropdown',
               options: gender,
               input: true,
               visible: false,
@@ -378,7 +378,7 @@ const UnitEmployeesData = () => {
             },
             {
               key: 'UMaritalStatusID',
-              type: 'dropDown',
+              type: 'dropdown',
               options: MaritalStatus,
               input: true,
               visible: true,
@@ -389,7 +389,7 @@ const UnitEmployeesData = () => {
             },
             {
               key: 'UDegreeID',
-              type: 'dropDown',
+              type: 'dropdown',
               options: sds_degree_list,
               input: true,
               hidden: false,
@@ -409,7 +409,7 @@ const UnitEmployeesData = () => {
             },
             {
               key: 'SubDepartmentID',
-              type: 'dropDown',
+              type: 'dropdown',
               options: subDepartment,
               input: true,
               visible: true,
@@ -428,7 +428,7 @@ const UnitEmployeesData = () => {
             },
             {
               key: 'UJobID',
-              type: 'dropDown',
+              type: 'dropdown',
               input: true,
               visible: true,
               required: false,
@@ -478,7 +478,7 @@ const UnitEmployeesData = () => {
             },
             {
               key: 'UServiceStatusID',
-              type: 'dropDown',
+              type: 'dropdown',
               input: true,
               visible: false,
               required: false,
@@ -497,7 +497,7 @@ const UnitEmployeesData = () => {
             },
             {
               key: 'UEducationID',
-              type: 'dropDown',
+              type: 'dropdown',
               options: Education,
               input: true,
               visible: true,
@@ -507,7 +507,7 @@ const UnitEmployeesData = () => {
             },
             {
               key: 'UContractTypeID',
-              type: 'dropDown',
+              type: 'dropdown',
               input: true,
               visible: true,
               required: false,

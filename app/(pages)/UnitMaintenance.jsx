@@ -40,7 +40,7 @@ function UnitMaintenance() {
           title={HomeLang.assetManagement[Lang]}
           icon={icons.manage}
           textStyles={'w-52'}
-          handlePress={() => router.navigate('/UnitMaintenanceAssetHome')}
+          handlePress={() => router.navigate('/UnitsAssetsHome')}
         />
 
         <SmallButton

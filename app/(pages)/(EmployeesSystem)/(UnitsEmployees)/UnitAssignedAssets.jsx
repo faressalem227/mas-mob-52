@@ -66,7 +66,7 @@ const UnitAssignedAssetsLang = {
 };
 
 const UnitAssignedAssets = () => {
-  const { company, user, Lang, DepartmentID, DepartmentTypeID } = useGlobalContext();
+  const { user, Lang, DepartmentID } = useGlobalContext();
 
   const { StaffID } = useLocalSearchParams();
 
@@ -74,10 +74,11 @@ const UnitAssignedAssets = () => {
     <MainLayout title={UnitAssignedAssetsLang.AssignedAssets[Lang]}>
       <View className="flex-1">
         <MainGrid
+          pk={'AssetID'}
           hasIns={false}
           hasUpd={false}
           hasDel={false}
-          spTrx={'ms_Employees_Sheet_Assets1'}
+          spTrx={'api_ms_Employees_Sheet_Assets1'}
           TrxParam={[
             { name: 'DepartmentID', value: DepartmentID },
             { name: 'StaffID', value: StaffID },
@@ -86,106 +87,106 @@ const UnitAssignedAssets = () => {
           ]}
           tableHead={[
             {
-              keyName: 'AssetID',
+              key: 'AssetID',
               type: 'number',
-              Input: false,
-              hidden: true,
-              isRequired: false,
+              input: false,
+              visible: false,
+              required: false,
               width: null,
               label: UnitAssignedAssetsLang.AssetID[Lang],
             },
             {
-              keyName: 'SubLocationID',
+              key: 'SubLocationID',
               type: 'number',
-              Input: false,
-              hidden: true,
-              isRequired: false,
+              input: false,
+              visible: false,
+              required: false,
               width: null,
               label: UnitAssignedAssetsLang.SubLocationID[Lang],
             },
             {
-              keyName: 'AssetCode',
+              key: 'AssetCode',
               type: 'text',
-              Input: true,
-              hidden: false,
-              isRequired: true,
+              input: true,
+              visible: true,
+              required: true,
               width: 100,
               label: UnitAssignedAssetsLang.AssetCode[Lang],
             },
             {
-              keyName: 'AssetName',
+              key: 'AssetName',
               type: 'text',
-              Input: true,
-              hidden: false,
-              isRequired: true,
+              input: true,
+              visible: true,
+              required: true,
               width: 250,
               label: UnitAssignedAssetsLang.AssetName[Lang],
             },
             {
-              keyName: 'SubLocationCode',
+              key: 'SubLocationCode',
               type: 'text',
-              Input: true,
-              hidden: false,
-              isRequired: false,
+              input: true,
+              visible: true,
+              required: false,
               width: 100,
               label: UnitAssignedAssetsLang.SubLocationCode[Lang],
             },
             {
-              keyName: 'SubLocationName',
+              key: 'SubLocationName',
               type: 'text',
-              Input: true,
-              hidden: false,
-              isRequired: false,
+              input: true,
+              visible: true,
+              required: false,
               width: 250,
               label: UnitAssignedAssetsLang.SubLocationName[Lang],
             },
             {
-              keyName: 'AssetClassName',
+              key: 'AssetClassName',
               type: 'text',
-              Input: true,
-              hidden: false,
-              isRequired: false,
+              input: true,
+              visible: true,
+              required: false,
               width: 150,
               label: UnitAssignedAssetsLang.AssetClassName[Lang],
             },
             {
-              keyName: 'AssetStatusName',
+              key: 'AssetStatusName',
               type: 'text',
-              Input: true,
-              hidden: false,
-              isRequired: false,
+              input: true,
+              visible: true,
+              required: false,
               width: 120,
               label: UnitAssignedAssetsLang.AssetStatusName[Lang],
             },
             {
-              keyName: 'ModelName',
+              key: 'ModelName',
               type: 'text',
-              Input: true,
-              hidden: false,
-              isRequired: false,
+              input: true,
+              visible: true,
+              required: false,
               width: 140,
               label: UnitAssignedAssetsLang.ModelName[Lang],
             },
             {
-              keyName: 'OriginalCost',
+              key: 'OriginalCost',
               type: 'number',
-              Input: true,
-              hidden: false,
-              isRequired: false,
+              input: true,
+              visible: true,
+              required: false,
               width: 110,
               label: UnitAssignedAssetsLang.OriginalCost[Lang],
             },
             {
-              keyName: 'OperationDate',
+              key: 'OperationDate',
               type: 'date',
-              Input: true,
-              hidden: false,
-              isRequired: false,
+              input: true,
+              visible: true,
+              required: false,
               width: 150,
-              format: handleDateFormat,
               label: UnitAssignedAssetsLang.OperationDate[Lang],
             },
           ]}
+          mixedWidth
         />
       </View>
     </MainLayout>

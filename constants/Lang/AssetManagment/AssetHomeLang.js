@@ -237,9 +237,10 @@ const AssetHomeLang = {
   },
   // Location button
   Locations: {
-    1: ' المواقع',
-    2: 'Locations',
+    1: 'بيانات المواقع',
+    2: 'Locations Data',
   },
+
   Instructions: {
     1: ' تعليمات و ملاحظات',
     2: 'Instructions and Nots',
@@ -486,8 +487,8 @@ const AssetHomeLang = {
     2: 'Unit',
   },
   Value: {
-      1: " القيمة",
-      2: "Value"
+    1: ' القيمة',
+    2: 'Value',
   },
   // // Technical Evaluation
   // TechnicalEvaluation: {

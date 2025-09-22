@@ -71,7 +71,7 @@ const UnitEmployeesDetailsLang = {
 };
 
 const UnitEmployeesDetails = () => {
-  const { company, user, Lang, DepartmentID, DepartmentTypeID } = useGlobalContext();
+  const { Lang } = useGlobalContext();
 
   const data = useLocalSearchParams();
   const router = useRouter();
@@ -100,6 +100,9 @@ const UnitEmployeesDetails = () => {
             handlePress={() =>
               router.navigate({
                 pathname: '/UnitAssignedAssets',
+                params: {
+                  StaffID: data.StaffID,
+                },
               })
             }
           />
@@ -109,6 +112,9 @@ const UnitEmployeesDetails = () => {
             handlePress={() =>
               router.navigate({
                 pathname: '/UnitAssignedWorkorders',
+                params: {
+                  StaffID: data.StaffID,
+                },
               })
             }
           />
