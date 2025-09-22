@@ -158,7 +158,7 @@ const WorkOrders = () => {
           StaticWidth
           pk={'WorkorderID'}
           parentKey={'WorkorderParentID'}
-          spTrx={'api_ms_WorkOrders_List_Central'}
+          spTrx={'api_ms_WorkOrders_List'}
           spIns={'api_ms_WorkOrders_Ins'}
           spUpd={'api_ms_Workorders_Upd'}
           spDel={'api_ms_WorkOrders_Del'}
@@ -267,6 +267,13 @@ const WorkOrders = () => {
               options: CustomSchedule,
             },
             {
+              key: 'ScheduleCode',
+              label: WorkOrdersLang.ScheduleCode[Lang],
+              type: 'number',
+              visible: true,
+              width: 120,
+            },
+            {
               key: 'ScheduleName',
               label: WorkOrdersLang.ScheduleName[Lang],
               visible: true,
@@ -297,12 +304,16 @@ const WorkOrders = () => {
               options: employeeData,
               type: 'dropdown',
               input: true,
+              width: 270,
+
             },
             {
               key: 'AssignedEmployeeName',
               label: WorkOrdersLang.EmployeeID[Lang],
               visible: true,
-              width: 150,
+              width: 270,
+              visible: true,
+
             },
             {
               key: 'ContractorID',
@@ -324,13 +335,13 @@ const WorkOrders = () => {
               visible: 'true',
               width: 200,
             },
-            {
-              key: 'TargetTypeName',
-              label: WorkOrdersLang.Tareget[Lang],
-              type: 'text',
-              visible: true,
-              width: 170,
-            },
+            // {
+            //   key: 'TargetTypeName',
+            //   label: WorkOrdersLang.Tareget[Lang],
+            //   type: 'text',
+            //   visible: true,
+            //   width: 170,
+            // },
             {
               key: 'WorksDone',
               label: WorkOrdersLang.worksDone[Lang],
@@ -364,13 +375,7 @@ const WorkOrders = () => {
               visible: 'true',
               width: 200,
             },
-            {
-              key: 'ScheduleCode',
-              label: WorkOrdersLang.ScheduleCode[Lang],
-              type: 'number',
-              visible: true,
-              width: 120,
-            },
+
             // {
             //   key: "ScheduleName",
             //   arCaption: "اسم الجدولة",

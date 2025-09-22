@@ -20,7 +20,7 @@ const SchedulePreventiveMaintenance = () => {
 
   const { data: PeriodList } = useDropDown(
     'api_ms_Periods_List',
-    { LocationID: DepartmentID, langID: Lang },
+    { LocationID: DepartmentID, LangID: Lang },
     'PeriodID',
     'PeriodName'
   );
@@ -39,7 +39,7 @@ const SchedulePreventiveMaintenance = () => {
 
   const { data: ProcedureType } = useDropDown(
     'api_ms_Procedures_Types_List',
-    {},
+ { DepartmentID: DepartmentID, CompanyID: company , LangID: Lang  },
     'ProcedureTypeID',
     'ProcedureTypeName'
   );

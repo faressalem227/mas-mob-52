@@ -154,15 +154,19 @@ const Pm = () => {
         TrxParam={[
           { name: 'CompanyID', value: company },
           { name: 'DepartmentID', value: DepartmentID },
-          { name: 'TradeID', value: TradeID },
-          { name: 'ProcedureTypeID', value: ProcedureTypeID },
           { name: 'DateFrom', value: DateFrom },
           { name: 'DateTo', value: DateTo },
           { name: 'UserName', value: user.username },
           { name: 'LangID', value: Lang },
+          { name: 'TradeID', value: TradeID },
           { name: 'IsSm', value: IsSm },
-        ]}
-        TrxDependency={[TradeID, ProcedureTypeID, DateFrom, DateTo]}
+          { name: 'ProcedureTypeID', value: ProcedureTypeID },
+
+        ]
+}
+        
+        
+        TrxDependency={[company,DepartmentID,TradeID, ProcedureTypeID, DateFrom, DateTo]}
         StaticWidth
         tableHead={[
           {

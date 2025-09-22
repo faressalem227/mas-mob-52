@@ -29,7 +29,7 @@ const Contracting = () => {
     <MainLayout title={WorkOrderDetailsLang.contracting[Lang]}>
       <View
         className={`mt-20 flex-1 gap-4 ${Rtl ? 'flex-row-reverse' : 'flex-row'} flex-wrap items-center justify-center`}>
-        <SmallButton
+        {/* <SmallButton
           title={WorkOrderDetailsLang.settings[Lang]}
           handlePress={() => {
             router.navigate({
@@ -49,7 +49,7 @@ const Contracting = () => {
               },
             });
           }}
-        />
+        /> */}
 
         <SmallButton
           title={WorkOrderDetailsLang.Labors[Lang]}
