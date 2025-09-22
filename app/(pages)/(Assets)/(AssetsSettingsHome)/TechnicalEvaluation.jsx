@@ -6,6 +6,7 @@ import MainGrid from '../../../../components/grid/MainGrid';
 import { useGlobalContext } from '../../../../context/GlobalProvider';
 import { useDropDown } from '../../../../hooks/useDropDownData';
 import AssetHomeLang from '../../../../constants/Lang/AssetManagment/AssetHomeLang';
+import DraftGrid from '../../../../components/grid/DraftGrid';
 const TechnicalEvaluation = ({ route }) => {
   const { DepartmentID, Lang, company, user } = useGlobalContext();
   const [TradeID, setTradeID] = useState(null);
@@ -24,12 +25,12 @@ const TechnicalEvaluation = ({ route }) => {
     'TradeName'
   );
 
-  const { data: AssetClassList } = useDropDown(
-      'api_ms_AssetClass_Trx_Trad',
-      { TradeID: TradeID,CompanyID: company},
-      'AssetClassID',
-      'AssetClassName'
-    );
+  // const { data: AssetClassList } = useDropDown(
+  //     'api_ms_AssetClass_Trx_Trad',
+  //     { TradeID: TradeID,CompanyID: company},
+  //     'AssetClassID',
+  //     'AssetClassName'
+  //   );
   return (
     <MainLayout title={AssetHomeLang.TechnicalEvaluation[Lang]} className="">
       <View className="flex flex-col bg-white">
@@ -38,70 +39,85 @@ const TechnicalEvaluation = ({ route }) => {
             <Dropdown
               label={AssetHomeLang.trade[Lang]}
               data={TradeList}
-              initailOption={16}
+              initailOption={TradeList[0]?.key}
               value={TradeID}
               onChange={(e) => setTradeID(e)}
             />
-            <Dropdown
+            {/* <Dropdown
               label={AssetHomeLang.Classification[Lang]}
               data={AssetClassList}
               defaultOption={AssetClassList[0]}
               initailOption={AssetClassList[0]?.Key}
               value={AssetClass}
               onChange={(e) => setAssetClass(e)}
-            />
+            /> */}
           </View>
-          <MainGrid
-            pk={'ConditionAnswerID'}
-            spTrx={'api_am_condition_questions_Trx'}
-            spIns={'api_am_Condition_Questions_Ins'}
-            spUpd={'api_am_Condition_Questions_Upd'}
-            spDel={'api_am_Condition_Questions_Del'}
+          <DraftGrid
+            pk={'AssetClassID'}
+            parentKey={'AssetClassParentID'}
+            isNested={true}
+            spTrx={'api_ms_AssetClass_Trx_spec'}
+            spIns={'api_ms_AssetClass_Ins'}
+            spUpd={'api_ms_AssetClass_Upd'}
+            spDel={'api_ms_AssetClass_Del'}
             TrxParam={[
-              { name: 'AssetClassID', value: AssetClass },
+              { name: 'DepartmentID', value: DepartmentID },
               { name: 'CompanyID', value: company },
+              { name: 'UserName', value: user.username },
+              { name: 'LangID', value: Lang },
+              { name: 'TradeID', value: TradeID },
+              // { name: 'TradeID', value: TradeID },
             ]}
             DelParam={[
               {
                 rowData: true,
-                name: 'ConditionQuestionID',
-                value: 'ConditionQuestionID',
+                name: 'AssetClassID',
+                value: 'AssetClassID',
               },
-              { name: 'LocationID', value: DepartmentID },
             ]}
-            UpdBody={{ LocationID: DepartmentID, AssetClassID: AssetClass }}
-            InsBody={{ LocationID: DepartmentID, AssetClassID: AssetClass }}
-            TrxDependency={[AssetClass]}
+            UpdBody={{
+              DepartmentID: DepartmentID,
+              UserName: user.username,
+              LangID: Lang,
+              TradeID: TradeID,
+              CompanyID: company,
+            }}
+            InsBody={{
+              DepartmentID,
+              UserName: user.username,
+              LangID: Lang,
+              CompanyID: company,
+              TradeID: TradeID,
+              AssetClassID: AssetClass,
+            }}
+            TrxDependency={[TradeID]}
             tableHead={[
               {
-                key: 'ConditionQuestionID',
+                key: 'AssetClassID',
               },
+              // {
+              //   key: 'AttributeCode',
+              //   label: AssetHomeLang.Code[Lang],
+              //   type: 'number',
+              //   input: true,
+              //   visible: true,
+              // },
               {
-                key: 'QuestionNo',
-                label: AssetHomeLang.Sequence[Lang],
-                type: 'number',
+                key: 'AssetClassName',
+                label: AssetHomeLang.ClassificationName[Lang],
                 input: true,
                 visible: true,
               },
-              {
-                key: 'Question',
-                label: AssetHomeLang.evalItem[Lang],
-                input: true,
-                visible: true,
-              },
-              {
-                key: 'Weight',
-                label: AssetHomeLang.Weight[Lang],
-                type: 'number',
-                input: true,
-                visible: true,
-              },
+              // {
+              //   key: 'Unit',
+              //   label: AssetHomeLang.Unit[Lang],
+              //   input: true,
+              //   visible: true,
+              // },
             ]}
-            StaticWidth
             routeTo={{
-              path: '/TechnicalEvaluationDetails',
+              path: '/TechnicalEvaluationQuestions',
               hasParams: true,
-              params: {},
             }}
           />
         </View>

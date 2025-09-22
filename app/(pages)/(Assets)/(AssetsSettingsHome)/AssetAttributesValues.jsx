@@ -3,50 +3,57 @@ import { useLocalSearchParams } from 'expo-router';
 import AssetHomeLang from '../../../../constants/Lang/AssetManagment/AssetHomeLang';
 import { useGlobalContext } from '../../../../context/GlobalProvider';
 const AssetAttributesValues = () => {
-  const { AttributeID } = useLocalSearchParams();
+  const { AssetClassID } = useLocalSearchParams();
   const { Lang } = useGlobalContext();
 
-  console.log(AttributeID);
+  console.log('AssetClassID', AssetClassID);
 
   return (
     <MainLayout title={AssetHomeLang.AttributeValues[Lang]}>
       <MainGrid
-        pk={'ValueID'}
-        spTrx={'api_ms_asset_attributes_values_Trx'}
-        spIns={'api_ms_asset_attributes_values_Ins'}
-        spUpd={'api_ms_asset_attributes_values_Upd'}
-        spDel={'api_ms_asset_attributes_values_Del'}
-        TrxParam={[{ name: 'AttributeID', value: AttributeID }]}
+        pk={'AttributeID'}
+        spTrx={'api_ms_AssetAttributesList_Trx'}
+        spIns={'api_ms_AssetAttributesList_Ins'}
+        spUpd={'api_ms_AssetAttributesList_Upd'}
+        spDel={'api_ms_AssetAttributesList_Del'}
+        TrxParam={[{ name: 'AssetClassID', value: AssetClassID }]}
         DelParam={[
           {
             rowData: true,
-            name: 'ValueID',
-            value: 'ValueID',
+            name: 'AttributeID',
+            value: 'AttributeID',
           },
         ]}
         InsBody={{
-          AttributeID,
+          AssetClassID,
         }}
         UpdBody={{}}
         StaticWidth
         tableHead={[
           {
-            key: 'ValueID',
+            key: 'AttributeID',
           },
           {
-            key: 'ValueCode',
-            label: AssetHomeLang.valueCode[Lang],
+            key: 'AttributeCode',
+            label: AssetHomeLang.Code[Lang],
             type: 'number',
             input: true,
             visible: true,
-            width: 150,
+            width: 100,
           },
           {
-            key: 'ValueName',
-            label: AssetHomeLang.valueName[Lang],
+            key: 'AttributeName',
+            label: AssetHomeLang.AttributeName[Lang],
             input: true,
             visible: true,
             width: 150,
+          },
+          {
+            key: 'Unit',
+            label: AssetHomeLang.Unit[Lang],
+            input: true,
+            visible: true,
+            width: 100,
           },
         ]}
       />

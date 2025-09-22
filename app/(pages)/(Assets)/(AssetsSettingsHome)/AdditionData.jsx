@@ -17,8 +17,8 @@ const AdditionData = () => {
       UserName: user.username,
       LangID: Lang,
     },
-    'value',
-    'label'
+    'TradeID',
+    'TradeName'
   );
 
   const { data: sds_DataType } = useDropDown(
@@ -38,7 +38,7 @@ const AdditionData = () => {
             placeholder={AssetHomeLang.trade[Lang]}
             onChange={(val) => setTradeID(val)}
             data={sds_Trade}
-            initailOption={16}
+            initailOption={sds_Trade[0]?.key}
           />
         </View>
         <View style={{ height: screenHeight }}>

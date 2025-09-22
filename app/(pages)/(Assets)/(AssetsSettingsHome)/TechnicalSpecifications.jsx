@@ -5,6 +5,7 @@ import MainGrid from '../../../../components/grid/MainGrid';
 import { useGlobalContext } from '../../../../context/GlobalProvider';
 import { useDropDown } from '../../../../hooks/useDropDownData';
 import AssetHomeLang from '../../../../constants/Lang/AssetManagment/AssetHomeLang';
+import DraftGrid from '../../../../components/grid/DraftGrid';
 const TechnicalSpecifications = ({ route }) => {
   const { DepartmentID, Lang, company, user } = useGlobalContext();
   const [TradeID, setTradeID] = useState(null);
@@ -23,14 +24,15 @@ const TechnicalSpecifications = ({ route }) => {
     'TradeName'
   );
 
-  const { data: AssetClassList } = useDropDown(
-    'api_ms_AssetClass_Trx_Trad',
-    { TradeID: TradeID,CompanyID: company},
-    'AssetClassID',
-    'AssetClassName'
-  );
+  // const { data: AssetClassList } = useDropDown(
+  //   'api_ms_AssetClass_Trx_Trad',
+  //   { TradeID: TradeID,CompanyID: company},
+  //   'AssetClassID',
+  //   'AssetClassName'
+  // );
+  console.log(company);
 
-  console.log(AssetClassList);
+  // console.log(AssetClassList);
   return (
     <MainLayout title={AssetHomeLang.TechnicalSpecifications[Lang]} className="">
       <View className="mt-5 flex flex-1 flex-col bg-white">
@@ -38,45 +40,46 @@ const TechnicalSpecifications = ({ route }) => {
           <Dropdown
             label={AssetHomeLang.trade[Lang]}
             data={TradeList}
-            initailOption={16}
+            initailOption={TradeList[0]?.key}
             value={TradeID}
             onChange={(e) => setTradeID(e)}
           />
-          <Dropdown
+          {/* <Dropdown
             label={AssetHomeLang.Classification[Lang]}
             data={AssetClassList}
-            defaultOption={AssetClassList[0]}
             initailOption={AssetClassList[0]?.Key}
             value={AssetClass}
             onChange={(e) => setAssetClass(e)}
-          />
+          /> */}
         </View>
-        <MainGrid
-          pk={'AttributeID'}
-          spTrx={'api_ms_AssetAttributesList_Trx'}
-          spIns={'api_ms_AssetAttributesList_Ins'}
-          spUpd={'api_ms_AssetAttributesList_Upd'}
-          spDel={'api_ms_AssetAttributesList_Del'}
+        <DraftGrid
+          pk={'AssetClassID'}
+          parentKey={'AssetClassParentID'}
+          isNested={true}
+          spTrx={'api_ms_AssetClass_Trx_spec'}
+          spIns={'api_ms_AssetClass_Ins'}
+          spUpd={'api_ms_AssetClass_Upd'}
+          spDel={'api_ms_AssetClass_Del'}
           TrxParam={[
             { name: 'DepartmentID', value: DepartmentID },
             { name: 'CompanyID', value: company },
             { name: 'UserName', value: user.username },
             { name: 'LangID', value: Lang },
-            { name: 'AssetClassID', value: AssetClass },
-           // { name: 'TradeID', value: TradeID },
-
+            { name: 'TradeID', value: TradeID },
+            // { name: 'TradeID', value: TradeID },
           ]}
           DelParam={[
             {
               rowData: true,
-              name: 'AttributeID',
-              value: 'AttributeID',
+              name: 'AssetClassID',
+              value: 'AssetClassID',
             },
           ]}
           UpdBody={{
             DepartmentID: DepartmentID,
             UserName: user.username,
             LangID: Lang,
+            TradeID: TradeID,
             CompanyID: company,
           }}
           InsBody={{
@@ -84,37 +87,37 @@ const TechnicalSpecifications = ({ route }) => {
             UserName: user.username,
             LangID: Lang,
             CompanyID: company,
+            TradeID: TradeID,
             AssetClassID: AssetClass,
           }}
-          TrxDependency={[AssetClass]}
+          TrxDependency={[TradeID]}
           tableHead={[
             {
-              key: 'AttributeID',
+              key: 'AssetClassID',
             },
+            // {
+            //   key: 'AttributeCode',
+            //   label: AssetHomeLang.Code[Lang],
+            //   type: 'number',
+            //   input: true,
+            //   visible: true,
+            // },
             {
-              key: 'AttributeCode',
-              label: AssetHomeLang.Code[Lang],
-              type: 'number',
+              key: 'AssetClassName',
+              label: AssetHomeLang.ClassificationName[Lang],
               input: true,
               visible: true,
             },
-            {
-              key: 'AttributeName',
-              label: AssetHomeLang.Feature[Lang],
-              input: true,
-              visible: true,
-            },
-            {
-              key: 'Unit',
-              label: AssetHomeLang.Unit[Lang],
-              input: true,
-              visible: true,
-            },
+            // {
+            //   key: 'Unit',
+            //   label: AssetHomeLang.Unit[Lang],
+            //   input: true,
+            //   visible: true,
+            // },
           ]}
           routeTo={{
             path: '/AssetAttributesValues',
             hasParams: true,
-            params: {},
           }}
         />
       </View>
