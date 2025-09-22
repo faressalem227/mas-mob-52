@@ -11,10 +11,10 @@ const EmploymentsCoding = () => {
       <View className="flex-1">
         <MainGrid
           pk={'JobID'}
-          spTrx={'api_ms_Jobs_Trx'}
-          spIns={'api_ms_Jobs_Ins'}
-          spUpd={'api_ms_Jobs_Upd'}
-          spDel={'api_ms_Jobs_Del'}
+          spTrx={'ms_DepartmentJobs_trx'}
+          spIns={'ms_DepartmentJobs_ins'}
+          spUpd={'ms_DepartmentJobs__Upd'}
+          spDel={'ms_DepartmentJobs_Del'}
           dynamicCode={{
             tbName: 'ms_Jobs',
             codeCol: 'JobCode',

@@ -28,8 +28,8 @@ const AssetsClassification = () => {
           <Dropdown
             placeholder={AssetHomeLang.ClassificationName[Lang]}
             label={AssetHomeLang.ClassificationName[Lang]}
-            initailOption={16}
             data={TradeList}
+            initailOption={TradeList[0]?.key}
             onChange={(e) => {
               setTradeID(e);
             }}
@@ -102,8 +102,16 @@ const AssetsClassification = () => {
                 type: 'dropdown',
                 options: TradeList,
                 input: 'true',
-                visible: 'true',
+                visible: false,
                 width: 150,
+              },
+              {
+                key: 'TradeName',
+                label: AssetHomeLang.TradeName[Lang],
+                type: 'text',
+                Input: false,
+                visible: true,
+                width: 250,
               },
               {
                 key: 'DepreciationRate',

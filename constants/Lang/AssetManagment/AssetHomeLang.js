@@ -11,7 +11,18 @@ const AssetHomeLang = {
     1: 'كود الحاله',
     2: 'Status Code',
   },
-
+  ManufacturersModels: {
+    1: 'نموذج الاصل',
+    2: 'Manufacturers Models',
+  },
+  ModelName: {
+    1: 'اسم الموديل',
+    2: 'Model Name',
+  },
+  TradeName: {
+    1: 'نوع الموقع',
+    2: 'Trade',
+  },
   SubDepartments: {
     1: ' الإدارات الفرعية',
     2: 'Sub Departments ',
@@ -70,6 +81,11 @@ const AssetHomeLang = {
   Manufacturer: {
     1: ' المصنع',
     2: ' Manufacturer',
+  },
+
+  AttributeName: {
+    1: 'الخاصية',
+    2: ' AttributeName',
   },
   // Asset Classification لButton
   AssetClassification: {
@@ -504,6 +520,7 @@ const AssetHomeLang = {
     1: 'الأصناف المخصصة للأصول',
     2: 'Asset Classes',
   },
+
   AttributeID: {
     1: 'المواصفة الفنيه',
     2: 'Attribute ',

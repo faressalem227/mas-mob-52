@@ -30,6 +30,7 @@ const TechnicalReport = () => {
   const { Lang, user } = useGlobalContext();
 
   const [loading, setLoading] = useState(false);
+  const [scheduleID, setscheduleID] = useState(false);
 
   const [worksDone, setWorksDone] = useState(WorksDone || '');
   const [modalVisible, setModalVisible] = useState(false);
@@ -66,9 +67,9 @@ const TechnicalReport = () => {
     }
   };
 
-  const { data: Schedule } = useDropDown(
-    'api_ms_Schedule_ListForWo',
-    { DepartmentID, UserName: user.username, LangID: Lang },
+  const { data: ScheduleList } = useDropDown(
+    'api_ms_Schedule_ListForWostatic',
+    { WorkorderID},
     'ScheduleID',
     'ScheduleName'
   );
@@ -83,19 +84,33 @@ const TechnicalReport = () => {
             <DatePickerInput
               title={WorkOrders.PlannedStartDate[Lang]}
               defaultDate={PlannedStartDate || null}
+              disabled={true}
             />
 
             <DatePickerInput
               title={WorkOrders.PlannedEndDate[Lang]}
               defaultDate={PlannedEndDate || null}
+              disabled={true}
             />
 
-            <Dropdown
+            {/* <Dropdown
               title={WorkOrders.ScheduleID[Lang]}
               placeholder={WorkOrders.ScheduleID[Lang]}
-              data={Schedule}
-              initialOption={ScheduleID}
-            />
+              data={ScheduleList}
+              defaultDate={ScheduleID}
+              // disabled={true}
+            /> */}
+
+
+                <Dropdown
+              title={WorkOrders.ScheduleID[Lang]}
+              onChange={(val) => setscheduleID(val)}
+              value={scheduleID}
+              data={ScheduleList || []}
+              initailOption={ScheduleList[0]?.key}
+              disabled={true}
+               />
+            
 
             <TextArea
               label={WorkOrders.TechnicalReport[Lang]}

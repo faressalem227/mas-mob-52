@@ -11,7 +11,7 @@ const AssetStatus = ({ route }) => {
   const screenHeight = Dimensions.get('window').height; // Get screen height dynamically
   return (
     <MainLayout title={AssetHomeLang.AssetCondition[Lang]} className="">
-      <View className="flex h-[100vh] flex-col bg-white">
+      <View className="flex h-[100vh] flex-col bg-white p-3">
         <View style={[styles.assetsGrid, { height: screenHeight }]}>
           <MainGrid
             hasCrud={false}

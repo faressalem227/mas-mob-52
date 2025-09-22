@@ -59,7 +59,7 @@ const Employees = ({ title, hasLeftComponent = false, onDrawerPress }) => {
 
   const { data: TypeList, loading: TypeListLoader } = useDropDown(
     'api_py_definitions_List',
-    { LangID: Lang, TableID: 16, CompanyID: company },
+    { LangID: Lang, TableID: 16, CompanyID: 1, UserName: user.username },
     'DefinitionID',
     'DefinitionName'
   );
@@ -79,6 +79,8 @@ const Employees = ({ title, hasLeftComponent = false, onDrawerPress }) => {
   );
 
   console.log('user', user.username);
+  console.log(TypeList, 'TypeList');
+  console.log(company);
 
   return (
     <View style={styles.container}>

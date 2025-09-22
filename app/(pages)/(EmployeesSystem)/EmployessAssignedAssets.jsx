@@ -8,6 +8,8 @@ const EmployessAssignedAssets = () => {
   const { Lang, DepartmentID, user } = useGlobalContext();
 
   const { StaffID } = useLocalSearchParams();
+  console.log(StaffID, 'StaffID');
+  console.log(DepartmentID, 'department');
 
   return (
     <MainLayout title={EmployeesText.EmployeeAsset[Lang]}>

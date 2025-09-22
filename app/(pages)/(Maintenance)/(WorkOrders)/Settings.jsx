@@ -6,19 +6,23 @@ import settingsLang from '../../../../constants/Lang/Maintenance/WorkOrders/sett
 const Settings = () => {
   const { WorkorderID } = useLocalSearchParams();
   const { DepartmentID, Lang, user } = useGlobalContext();
-
   return (
     <MainLayout title={settingsLang.settings[Lang]}>
       <MainGrid
         pk={'WorkorderID'}
-        spTrx={'api_ms_Workorders_Tab_Trx'}
+        spTrx={'ms_Workorders_Tab_Trx'}
         spUpd={'ms_Workorders_Tab_Upd'}
         TrxParam={[
-          { name: 'WorkorderID', value: WorkorderID },
           { name: 'DepartmentID ', value: DepartmentID },
-          { name: 'LangID', value: Lang },
+          { name: 'WorkorderID', value: WorkorderID },
           { name: 'UserName', value: user.username },
+          { name: 'LangID', value: Lang },
         ]}
+         UpdBody={{ DepartmentID, WorkorderID, LangID: Lang, UserName: user.username }}
+         TrxDependency={[DepartmentID, WorkorderID]}
+
+        hasIns={false}
+        hasDel={false}
         tableHead={[
           { key: 'WorkOrderID' },
           {
@@ -27,7 +31,7 @@ const Settings = () => {
             type: 'checkbox',
             input: true,
             visible: true,
-            width: 150,
+            width: 300,
           },
           {
             key: 'Contractors',
@@ -35,7 +39,7 @@ const Settings = () => {
             type: 'checkbox',
             input: true,
             visible: true,
-            width: 190,
+            width: 300,
           },
           {
             key: 'ContractEstimate',
@@ -43,7 +47,7 @@ const Settings = () => {
             type: 'checkbox',
             input: true,
             visible: true,
-            width: 190,
+            width: 300,
           },
           {
             key: 'WorkorderTasks',
@@ -51,7 +55,7 @@ const Settings = () => {
             type: 'checkbox',
             input: true,
             visible: true,
-            width: 180,
+            width: 300,
           },
           {
             key: 'FollowUP',
@@ -59,7 +63,7 @@ const Settings = () => {
             type: 'checkbox',
             input: true,
             visible: true,
-            width: 180,
+            width: 300,
           },
           {
             key: 'Permission',

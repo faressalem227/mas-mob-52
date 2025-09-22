@@ -226,7 +226,7 @@ const WorkOrderDetails = () => {
               />
             )}
 
-            {WorkorderTypeName === 'Preventive Maintenance' && (
+            {WorkorderTypeID == 1 && (
               <SmallButton
                 title={WorkOrderDetailsLang.RegularMaintenance[Lang]}
                 handlePress={() => {

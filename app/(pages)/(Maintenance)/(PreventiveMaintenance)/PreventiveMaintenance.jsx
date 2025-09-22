@@ -25,13 +25,13 @@ const PreventiveMaintenance = () => {
   );
   const { data: PeriodList } = useDropDown(
     'api_ms_Periods_List',
-    { LocationID: DepartmentID, langID: Lang },
+    { LocationID: DepartmentID, LangID: Lang },
     'PeriodID',
     'PeriodName'
   );
   const { data: ProceduresTypeList } = useDropDown(
     'api_ms_Procedures_Types_List',
-    { DepartmentID: DepartmentID, CompanyID: company },
+    { DepartmentID: DepartmentID, CompanyID: company , LangID: Lang  },
     'ProcedureTypeID',
     'ProcedureTypeName'
   );
@@ -183,15 +183,15 @@ const PreventiveMaintenance = () => {
               visible: true,
               width: 300,
             },
-            {
-              key: 'SafetyName',
-              label: PreventiveMaintenanceLang.Safety[Lang],
-              type: 'text',
-              lines: 6,
-              input: true,
-              visible: true,
-              width: 200,
-            },
+            // {
+            //   key: 'SafetyName',
+            //   label: PreventiveMaintenanceLang.Safety[Lang],
+            //   type: 'text',
+            //   lines: 6,
+            //   input: true,
+            //   visible: true,
+            //   width: 200,
+            // },
             {
               key: 'Tools',
               label: PreventiveMaintenanceLang.Tools[Lang],

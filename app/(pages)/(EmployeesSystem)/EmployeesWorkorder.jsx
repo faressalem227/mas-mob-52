@@ -95,7 +95,7 @@ const EmployeesWorkorder = () => {
             },
             {
               key: 'Safety',
-              label: EmployeesText.RequiredExecuteDate[Lang],
+              label: EmployeesText.Safety[Lang],
               input: true,
               visible: true,
               width: 250,

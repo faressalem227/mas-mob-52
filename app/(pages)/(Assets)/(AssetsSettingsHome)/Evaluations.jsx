@@ -24,6 +24,8 @@ const Evaluations = ({ route }) => {
                 label: AssetHomeLang.Code[Lang],
                 type: 'number',
                 visible: 'true',
+                input: 'true',
+
                 width: 80,
               },
               {

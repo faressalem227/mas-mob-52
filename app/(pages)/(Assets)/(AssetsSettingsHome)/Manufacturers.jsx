@@ -62,6 +62,11 @@ const Manufacturers = ({ route }) => {
             },
           ]}
           mixedWidth
+          routeTo={{
+            path: 'ManufacturersModel',
+            hasParams: true,
+            params: {},
+          }}
         />
       </View>
     </MainLayout>

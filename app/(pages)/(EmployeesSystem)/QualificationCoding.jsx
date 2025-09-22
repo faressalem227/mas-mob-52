@@ -28,7 +28,7 @@ const QualificationCoding = ({ title, hasLeftComponent = false, onDrawerPress })
                 key: 'DefinitionCode',
                 label: InvintorySystemSettingLang.Code[Lang],
                 type: 'number',
-                input: false,
+                input: true,
                 visible: 'true',
                 width: 80,
               },
@@ -46,10 +46,6 @@ const QualificationCoding = ({ title, hasLeftComponent = false, onDrawerPress })
                 type: 'text',
               },
             ]}
-            dynamicCode={{
-              tbName: 'ms_MaintenanceSocial',
-              codeCol: 'DefinitionCode',
-            }}
             mixedWidth={true}
             pk={'DefinitionID'}
             spTrx={'api_ms_MaintenanceSocial_Trx'}

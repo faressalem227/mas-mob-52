@@ -21,14 +21,16 @@ const EmploymentTypeCoding = ({ title, hasLeftComponent = false, onDrawerPress }
                 label: InvintorySystemSettingLang.Code[Lang],
                 type: 'number',
                 input: 'false',
-                visible: 'true',
+                visible: 'false',
                 width: 90,
               },
               {
                 key: 'DefinitionCode',
                 label: InvintorySystemSettingLang.Code[Lang],
                 type: 'number',
-                visible: 'false',
+                input: 'true',
+                visible: 'true',
+
                 width: 90,
               },
               {
@@ -48,10 +50,6 @@ const EmploymentTypeCoding = ({ title, hasLeftComponent = false, onDrawerPress }
             ]}
             mixedWidth={true}
             pk={'DefinitionID'}
-            dynamicCode={{
-              tbName: 'ms_MaintenanceContracttype',
-              codeCol: 'DefinitionCode',
-            }}
             spTrx={'api_ms_MaintenanceContracttype_Trx'}
             spIns={'api_ms_MaintenanceContracttype_Ins'}
             spUpd={'api_ms_MaintenanceContracttype_Upd'}

@@ -15,7 +15,8 @@ import moment from 'moment-timezone';
 import { useGlobalContext } from '../../context/GlobalProvider';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
-const DatePickerInput = ({ setDate, title, defaultDate, birthday = false }) => {
+  const DatePickerInput = ({ setDate, title, defaultDate, birthday = false, disabled = false }) => {
+
   const { Rtl } = useGlobalContext();
   const [selectedDate, setSelectedDate] = useState(
     defaultDate ? new Date(defaultDate) : new Date()
@@ -61,15 +62,17 @@ const DatePickerInput = ({ setDate, title, defaultDate, birthday = false }) => {
       <SizedBox height={8} />
 
       <TouchableOpacity
+      disabled={disabled} 
         onPress={() => setShowDatePicker(true)}
         className={`flex-row-reverse items-center justify-between ${!Rtl && 'flex-row'}`}
         style={styles.inputContainer}>
         <TextInput
-          style={[styles.input, !Rtl && { textAlign: 'right' }]}
+          style={[styles.input, !Rtl && { textAlign: 'right' } ]}
           value={moment(selectedDate).format('YYYY-MM-DD')}
           editable={false}
           placeholder="أدخل التاريخ"
           placeholderTextColor="#aaa"
+
         />
         <Image
           source={Calender}

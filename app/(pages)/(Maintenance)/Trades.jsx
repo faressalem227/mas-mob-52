@@ -42,7 +42,7 @@ const Trades = () => {
               label: `${BusinessClassificationLang.TradeCode[Lang]}`,
               type: 'number',
               input: 'false',
-              visible: 'true',
+              visible: 'false',
               width: 80,
             },
             {

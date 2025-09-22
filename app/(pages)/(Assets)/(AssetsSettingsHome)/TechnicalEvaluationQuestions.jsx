@@ -5,74 +5,80 @@ import MainGrid from '../../../../components/grid/MainGrid';
 import { useGlobalContext } from '../../../../context/GlobalProvider';
 import TechnicalEvaluationDetailsLang from '../../../../constants/Lang/AssetManagment/TechnicalEvaluationDetailsLang'; // Import the language file
 import InfoDetailes from '../../../../components/UI/InfoDetailes';
-const TechnicalEvaluationDetails = ({ route }) => {
+const TechnicalEvaluationQuestions = ({ route }) => {
   const { DepartmentID, company, Lang } = useGlobalContext(); // Get the current language from context
   const screenHeight = Dimensions.get('window').height; // Get screen height dynamically
-  const { ConditionQuestionID, QuestionNo, Question, Weight } = useLocalSearchParams();
+  const { AssetClassID } = useLocalSearchParams();
+  console.log(AssetClassID, 'assetclass');
 
-  const detailsData = [
-    { label: TechnicalEvaluationDetailsLang.QuestionNo[Lang], value: QuestionNo },
-    { label: TechnicalEvaluationDetailsLang.Question[Lang], value: Question },
-    { label: TechnicalEvaluationDetailsLang.Weight[Lang], value: Weight },
-  ];
+  // const detailsData = [
+  //   { label: TechnicalEvaluationDetailsLang.QuestionNo[Lang], value: QuestionNo },
+  //   { label: TechnicalEvaluationDetailsLang.Question[Lang], value: Question },
+  //   { label: TechnicalEvaluationDetailsLang.Weight[Lang], value: Weight },
+  // ];
   return (
     <MainLayout title={TechnicalEvaluationDetailsLang.PageTitle[Lang]} className="">
-      <View className="flex  flex-col bg-white">
-        <InfoDetailes details={detailsData} />
+      <View className="flex  flex-col bg-white p-3">
+        {/* <InfoDetailes details={detailsData} /> */}
         <View style={[styles.assetsGrid, { height: screenHeight }]}>
           <MainGrid
-            pk={'ConditionAnswerID'}
-            spTrx={'api_am_Condition_Answers_Trx'}
-            spIns={'api_am_Condition_Answers_Ins'}
-            spUpd={'api_am_Condition_Answers_Upd'}
-            spDel={'api_am_Condition_Answers_Del'}
-            dynamicCode={{
-              tbName: 'am_Condition_Answers',
-              codeCol: 'AnswerNo',
-            }}
+            pk={'ConditionQuestionID'}
+            spTrx={'api_am_condition_questions_Trx'}
+            spIns={'api_am_condition_questions_Ins'}
+            spUpd={'api_am_condition_questions_Upd'}
+            spDel={'api_am_condition_questions_Del'}
+            // dynamicCode={{
+            //   tbName: 'am_Condition_Answers',
+            //   codeCol: 'AnswerNo',
+            // }}
             TrxParam={[
-              { name: 'ConditionQuestionID', value: ConditionQuestionID },
+              { name: 'AssetClassID', value: AssetClassID },
               { name: 'CompanyID', value: company },
             ]}
             DelParam={[
               {
                 rowData: true,
-                name: 'ConditionAnswerID',
-                value: 'ConditionAnswerID',
+                name: 'ConditionQuestionID',
+                value: 'ConditionQuestionID',
               },
               { name: 'LocationID', value: DepartmentID },
             ]}
             UpdBody={{ LocationID: DepartmentID }}
-            InsBody={{ LocationID: DepartmentID, ConditionQuestionID: ConditionQuestionID }}
-            TrxDependency={[ConditionQuestionID]}
+            InsBody={{ CompanyID: company, AssetClassID: AssetClassID }}
+            TrxDependency={[AssetClassID]}
             tableHead={[
               {
                 key: 'ConditionAnswerID',
               },
               {
-                key: 'AnswerNo',
+                key: 'QuestionNo',
                 label: TechnicalEvaluationDetailsLang.QuestionNo[Lang],
+                input: 'true',
                 type: 'number',
                 visible: 'true',
                 width: 80,
               },
               {
-                key: 'Answer',
-                label: TechnicalEvaluationDetailsLang.Answer[Lang],
+                key: 'Question',
+                label: TechnicalEvaluationDetailsLang.Question[Lang],
                 type: ' ',
                 input: 'true',
                 visible: 'true',
                 width: 250,
               },
               {
-                key: 'AnswerValue',
-                label: TechnicalEvaluationDetailsLang.AnswerValue[Lang],
+                key: 'Weight',
+                label: TechnicalEvaluationDetailsLang.Weight[Lang],
                 type: 'number',
                 input: 'true',
                 visible: 'true',
                 width: 100,
               },
             ]}
+            routeTo={{
+              path: '/TechnicalEvaluationAnswers',
+              hasParams: true,
+            }}
           />
         </View>
       </View>
@@ -93,4 +99,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TechnicalEvaluationDetails;
+export default TechnicalEvaluationQuestions;
