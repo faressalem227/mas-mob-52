@@ -28,7 +28,7 @@ const HealthAndSafety = () => {
             title={HealthAndSafetyLang.Trade[Lang]}
             data={TradeList}
             value={selectedTrade}
-            initailOption={16}
+            initailOption={TradeList[0]?.key}
             onChange={(v) => {
               setSelectedTrade(v);
             }}
@@ -102,7 +102,7 @@ const HealthAndSafety = () => {
               lines: 50,
               input: true,
               visible: true,
-              width: 200,
+              width: 250,
             },
             {
               key: 'SafetyInstructions',
@@ -118,7 +118,7 @@ const HealthAndSafety = () => {
               lines: 4,
               input: true,
               visible: true,
-              width: 200,
+              width: 400,
             },
             {
               key: 'CountDocuments',

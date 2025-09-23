@@ -38,13 +38,13 @@ const FollowStates = () => {
                 input: 'true',
                 visible: 'true',
               },
-              {
-                key: 'StateNameEn',
-                label: `${ImportanceLang.FollowStatesEn[Lang]}`,
-                type: '',
-                input: 'true',
-                visible: 'true',
-              },
+              // {
+              //   key: 'StateNameEn',
+              //   label: `${ImportanceLang.FollowStatesEn[Lang]}`,
+              //   type: '',
+              //   input: 'true',
+              //   visible: 'true',
+              // },
             ]}
             mixedWidth={true}
             pk={'StateID'}

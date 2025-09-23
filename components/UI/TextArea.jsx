@@ -26,7 +26,9 @@ const TextArea = ({
   return (
     <View className="gap-3">
       {label && (
-        <Text style={{ fontSize }} className="text-right font-tmedium text-base text-dark">
+        <Text
+          style={{ fontSize, textAlign: Rtl ? 'right' : 'left' }}
+          className="font-tmedium text-base text-dark">
           {label}
         </Text>
       )}

@@ -26,7 +26,7 @@ const PreventiveMaintenance = {
     2: 'Procedure Name',
   },
   PriorityName: {
-    1: 'درجة الاهمية',
+    1: 'الاولوية ',
     2: 'Priority',
   },
   Period: {
