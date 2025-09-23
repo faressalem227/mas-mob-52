@@ -11,7 +11,7 @@ const FollowStates = () => {
 
   return (
     <MainLayout title={ImportanceLang.FollowStates[Lang]} className="">
-      <View className="flex h-[100vh] flex-col bg-white py-4">
+      <View className="flex h-[100vh] flex-col bg-white py-4 m-2">
         <View style={[styles.ImportanceGrid, { height: screenHeight }]}>
           <MainGrid
             tableHead={[

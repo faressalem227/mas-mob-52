@@ -8,7 +8,7 @@ const FailersCodingCause = {
         2: "Failure Cause Code",
       },
       FailureCauseName: {
-        1: "اسم العطل",
+        1: "سبب العطل",
         2: "Failure Cause Name",
       },
   };

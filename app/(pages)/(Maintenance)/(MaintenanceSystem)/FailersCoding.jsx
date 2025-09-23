@@ -12,7 +12,7 @@ const FailersCoding = () => {
 
   return (
     <MainLayout title={FailersCodingLang.pageTitle[Lang]} className="">
-      <View className="flex h-[100vh] flex-col bg-white py-4 ">
+      <View className="mx-2 flex h-[100vh] flex-col bg-white py-4 ">
         <View style={[styles.FailersCodingGrid, { height: screenHeight }]} className="mb-4">
           <MainGrid
             tableHead={[
@@ -29,7 +29,7 @@ const FailersCoding = () => {
                 label: `${FailersCodingLang.FailureCode[Lang]}`,
                 type: 'number',
                 width: 100,
-                input: 'false',
+                input: 'true',
                 visible: 'true',
               },
               {
@@ -38,6 +38,15 @@ const FailersCoding = () => {
                 type: 'text',
                 input: 'true',
                 visible: 'true',
+                width: 300,
+              },
+              {
+                key: 'Troubleshooting',
+                label: `${FailersCodingLang.Troubleshooting[Lang]}`,
+                type: 'text',
+                input: 'true',
+                visible: 'true',
+                width: 300,
               },
             ]}
             mixedWidth={true}
@@ -53,25 +62,25 @@ const FailersCoding = () => {
             TrxParam={[
               { name: 'DepartmentID', value: DepartmentID },
               { name: 'CompanyID', value: company },
-              { name: 'UserName', value: user },
+              { name: 'UserName', value: user.username },
               { name: 'LangID', value: Lang },
             ]}
             DelParam={[
               { rowData: true, name: 'FailureID', value: 'FailureID' },
               { name: 'DepartmentID', value: DepartmentID },
               { name: 'CompanyID', value: company },
-              { name: 'UserName', value: user },
+              { name: 'UserName', value: user.username },
               { name: 'LangID', value: Lang },
             ]}
             UpdBody={{
               DepartmentID: DepartmentID,
-              UserName: user,
+              UserName: user.username,
               LangID: Lang,
               CompanyID: company,
             }}
             InsBody={{
               DepartmentID: DepartmentID,
-              UserName: user,
+              UserName: user.username,
               LangID: Lang,
               CompanyID: company,
             }}
