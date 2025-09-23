@@ -8,16 +8,7 @@ import { useDropDown } from '../../../../hooks/useDropDownData';
 import ReportBugsLang from '../../../../constants/Lang/Maintenance/ReportBugs';
 
 const AssetsWorkOrder = () => {
-  const {
-    AssetID,
-    SubLocationID,
-    LocationID,
-    AssetCode,
-    AssetName,
-    AssetClassName,
-    AssetStatusName,
-    ...restParams
-  } = useLocalSearchParams();
+  const { AssetID, SubLocationID, LocationID } = useLocalSearchParams();
 
   const { Lang, DepartmentID, user } = useGlobalContext();
 
@@ -46,6 +37,18 @@ const AssetsWorkOrder = () => {
         </View>
 
         <MainGrid
+          pk={'WorkorderCode'}
+          spTrx={'api_ms_Asset_WorkOrders'}
+          TrxParam={[
+            { name: 'DepartmentID', value: DepartmentID },
+            { name: 'AssetID', value: AssetID },
+            { name: 'YearID', value: YearID },
+            { name: 'LangID', value: Lang },
+            { name: 'UserName', value: user.username },
+          ]}
+          TrxDependency={[YearID]}
+          hasCrud={false}
+          mixedWidth
           tableHead={[
             {
               key: 'WorkorderCode',
@@ -198,24 +201,6 @@ const AssetsWorkOrder = () => {
               width: 200,
             },
           ]}
-          //pk={"WorkorderAssetID"}
-          spTrx={'api_ms_Asset_WorkOrders'}
-          TrxParam={[
-            { name: 'DepartmentID', value: DepartmentID },
-            { name: 'AssetID', value: AssetID },
-            { name: 'YearID', value: YearID },
-          ]}
-          TrxDependency={[YearID]}
-          hasCrud={false}
-          StaticWidth={true}
-          routeTo={{
-            path: '/WorkOrderDetails',
-            hasParams: true,
-            params: {
-              LocationID: LocationID,
-              SubLocationID: SubLocationID,
-            },
-          }}
         />
       </View>
     </MainLayout>

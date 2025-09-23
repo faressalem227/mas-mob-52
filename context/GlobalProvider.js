@@ -44,7 +44,7 @@ const GlobalProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  }, [company, Lang, user]);
+  }, [Lang, user]);
 
   const fetchDropdownData = useCallback(async () => {
     try {
@@ -243,7 +243,7 @@ const GlobalProvider = ({ children }) => {
   // console.log('context departmentTyoedata', departmentTypeData);
   // console.log('context departmentdata', departmentData);
 
-  console.log( "company", user?.company);
+  console.log('company', user?.company);
   if (!isMounted) return null;
 
   return (

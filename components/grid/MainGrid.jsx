@@ -681,7 +681,9 @@ const MainGrid = ({
                                 ]}
                                 numberOfLines={3}>
                                 {col.type === 'date' && item
-                                  ? item?.split('T')[0]
+                                  ? item?.includes('T')
+                                    ? item?.split('T')[0]
+                                    : item
                                   : col.type === 'price'
                                     ? priceFormatter(item)
                                     : item}

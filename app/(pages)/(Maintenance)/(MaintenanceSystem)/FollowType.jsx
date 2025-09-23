@@ -39,14 +39,14 @@ const FollowType = () => {
                 visible: 'true',
                 width: 200,
               },
-              {
-                key: 'FollowupTypeNameEn',
-                label: `${ImportanceLang.FollowTypesEn[Lang]}`,
-                type: '',
-                input: 'true',
-                visible: 'true',
-                width: 200,
-              },
+              // {
+              //   key: 'FollowupTypeNameEn',
+              //   label: `${ImportanceLang.FollowTypesEn[Lang]}`,
+              //   type: '',
+              //   input: 'true',
+              //   visible: 'true',
+              //   width: 200,
+              // },
             ]}
             mixedWidth={true}
             pk={'FollowupTypeID'}

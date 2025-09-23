@@ -70,7 +70,7 @@ const PreventiveMaintenanceServices = () => {
 
   return (
     <MainLayout title={PreventiveMaintenanceServicesLang.PageTitle[Lang]} className="">
-      <View className="flex-1">
+      <View className="flex-1 p-2">
         <InfoDetailes details={detailsData} />
         <MainGrid
           handleDropDownChange={(e, v) => {
@@ -127,27 +127,27 @@ const PreventiveMaintenanceServices = () => {
               type: 'dropdown',
               options: Group,
               input: true,
-              width: 100,
+              width: 200,
             },
             {
               key: 'GroupName',
               label: PreventiveMaintenanceServicesLang.TableHeaders.Group[Lang],
               visible: true,
-              width: 150,
+              width: 200,
             },
             {
               key: 'ItemID',
-              label: PreventiveMaintenanceServicesLang.TableHeaders.Item[Lang],
+              label: PreventiveMaintenanceServicesLang.TableHeaders.service[Lang],
               type: 'dropdown',
               options: Items,
               input: 'true',
-              width: 100,
+              width: 200,
             },
             {
               key: 'ItemName',
-              label: PreventiveMaintenanceServicesLang.TableHeaders.Item[Lang],
+              label: PreventiveMaintenanceServicesLang.TableHeaders.service[Lang],
               visible: 'true',
-              width: 100,
+              width: 250,
             },
             {
               key: 'UnitID',

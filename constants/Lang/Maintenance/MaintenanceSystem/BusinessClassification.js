@@ -15,6 +15,14 @@ const BusinessClassification = {
     1: 'تصنيف العمل',
     2: 'Work Classification',
   },
+  TradeNameEn: {
+    1: 'نوع الموقع إنجليزي ',
+    2: 'Trade EN',
+  },
+  TradeNameAr: {
+    1: 'نوع الموقع عربي ',
+    2: 'Trade AR',
+  },
   Contracting: {
     1: 'اعمال مقاولات',
     2: 'Contracting Work',

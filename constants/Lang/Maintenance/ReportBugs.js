@@ -4,16 +4,23 @@ const ReportBugs = {
     2: 'Failure reports',
   },
 
+  DepartmentName: {
+    1: ' اسم المحطة',
+    2: 'Department Name',
+  },
+
   CenteralReportFailure: {
     1: 'الابلاغ عن الاعطال المركزية',
     2: 'Centeral Failure reports',
   },
-
   ReportDetails: {
     1: 'تفاصيل البلاغ',
     2: 'Report Details',
   },
-
+  WorkorderCode: {
+    1: 'رقم امر الشغل',
+    2: 'Workorder Code',
+  },
   Assets: {
     1: 'الاصول',
     2: 'Assets',
@@ -56,9 +63,17 @@ const ReportBugs = {
     1: 'اسم المبلغ',
     2: 'Reported By',
   },
-  EmployeeName: {
-    1: 'اسم المبلغ',
-    2: 'Employee Name',
+  CancelledByEmployee: {
+    1: 'الالغاء بواسطة',
+    2: 'Cancelled By',
+  },
+  CancelledDate: {
+    1: 'تاريخ الالغاء',
+    2: ' Cancel Date',
+  },
+  CancelReason: {
+    1: 'سبب الالغاء',
+    2: 'Cancel Reason',
   },
   FailureDate: {
     1: 'تاريخ العطل',
@@ -149,7 +164,7 @@ const ReportBugs = {
   },
   CancelledDate: {
     1: `تاريخ الالغاء`,
-    2: 'Cancelled Date',
+    2: 'Cancel Date',
   },
 
   CancelledBy: {

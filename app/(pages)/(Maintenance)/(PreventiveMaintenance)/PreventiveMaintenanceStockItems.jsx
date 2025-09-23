@@ -96,6 +96,7 @@ const PreventiveMaintenanceStockItems = () => {
             { name: 'IsServices', value: 0 },
             { name: 'LangID', value: Lang },
           ]}
+          mixedWidth
           DelParam={[
             {
               rowData: true,
@@ -125,7 +126,7 @@ const PreventiveMaintenanceStockItems = () => {
               type: 'text',
               input: 'false',
               visible: 'true',
-              width: 100,
+              width: 150,
             },
             {
               key: 'GroupID',
@@ -134,7 +135,15 @@ const PreventiveMaintenanceStockItems = () => {
               options: Group,
               input: 'true',
               visible: 'false',
-              width: 100,
+              width: 200,
+            },
+            {
+              key: 'GroupName',
+              label: PreventiveMaintenanceStockItemsLang.TableHeaders.Group[Lang],
+              type: 'text',
+              input: false,
+              visible: true,
+              width: 150,
             },
             {
               key: 'ItemID',
@@ -143,14 +152,14 @@ const PreventiveMaintenanceStockItems = () => {
               options: Items,
               input: 'true',
               visible: 'false',
-              width: 100,
+              width: 200,
             },
             {
               key: 'ItemName',
               label: PreventiveMaintenanceStockItemsLang.TableHeaders.Item[Lang],
               input: 'false',
               visible: 'true',
-              width: 100,
+              width: 200,
             },
             {
               key: 'UnitID',
@@ -159,30 +168,31 @@ const PreventiveMaintenanceStockItems = () => {
               options: UnitList,
               input: 'true',
               visible: 'false',
-              width: 100,
+              width: 120,
+            },
+
+            {
+              key: 'UnitName',
+              label: PreventiveMaintenanceStockItemsLang.TableHeaders.Unit[Lang],
+              type: 'text',
+              input: 'false',
+              visible: 'true',
+              width: 150,
             },
             {
               key: 'Quantity',
               label: PreventiveMaintenanceStockItemsLang.TableHeaders.Quantity[Lang],
               type: 'number',
-              input: 'true',
-              visible: 'true',
-              width: 100,
-            },
-            {
-              key: 'UnitName',
-              label: PreventiveMaintenanceStockItemsLang.TableHeaders.Unit[Lang],
-              type: '',
-              input: 'false',
-              visible: 'true',
-              width: 100,
+              input: true,
+              visible: true,
+              Width: 200,
             },
             {
               key: 'UnitCost',
               label: PreventiveMaintenanceStockItemsLang.TableHeaders.UnitCost[Lang],
               type: 'number',
               visible: 'true',
-              width: 100,
+              width: 150,
             },
             {
               key: 'TotalCost',

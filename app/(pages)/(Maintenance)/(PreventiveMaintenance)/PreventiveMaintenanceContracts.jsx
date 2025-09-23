@@ -41,7 +41,7 @@ const PreventiveMaintenanceContracts = () => {
 
   return (
     <MainLayout title={PreventiveMaintenanceContractsLang.pageTitle[Lang]} className="">
-      <View className="flex-1">
+      <View className="flex-1 p-3">
         <InfoDetailes details={detailsData} />
         <MainGrid
           pk={'ProcedureContractorID'}
@@ -49,6 +49,7 @@ const PreventiveMaintenanceContracts = () => {
           spIns={'api_ms_Procedures_Contractors_Ins'}
           spUpd={'api_ms_Procedures_Contractors_Upd'}
           spDel={'api_ms_Procedures_Contractors_Del'}
+          mixedWidth
           TrxParam={[
             { name: 'DepartmentID', value: DepartmentID },
             { name: 'ProcedureID', value: ProcedureID },
@@ -77,6 +78,7 @@ const PreventiveMaintenanceContracts = () => {
               key: 'ContractorName',
               label: PreventiveMaintenanceContractsLang.Contractor[Lang],
               visible: 'true',
+              width: 150,
             },
             {
               key: 'WorkCost',
@@ -84,12 +86,14 @@ const PreventiveMaintenanceContracts = () => {
               type: 'number',
               input: true,
               visible: true,
+              width: 100,
             },
             {
               key: 'WorkRequired',
               label: PreventiveMaintenanceContractsLang.WorkRequired[Lang],
               input: true,
               visible: true,
+              width: 200,
             },
           ]}
         />

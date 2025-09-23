@@ -1,18 +1,24 @@
-import { View } from 'react-native';
+import { TouchableOpacity, View, Text, ScrollView } from 'react-native';
 import { useGlobalContext } from '../../../../context/GlobalProvider';
 import { useLocalSearchParams } from 'expo-router';
 import PreventiveMaintenanceTasksLang from '../../../../constants/Lang/Maintenance/PreventiveMaintenanceHome/PreventiveMaintenance/PreventiveMaintenanceTasksLang';
 import PreventiveMaintenanceDetailsLang from '../../../../constants/Lang/Maintenance/PreventiveMaintenanceHome/PreventiveMaintenanceDetails';
-import { MainGrid, MainLayout, InfoDetailes } from '../../../../components';
+import { MainGrid, MainLayout, InfoDetailes, Dropdown } from '../../../../components';
+import { useEffect, useState } from 'react';
+import Toast from 'react-native-toast-message';
+import api from '../../../../utilities/api';
+import { useDropDown } from '../../../../hooks/useDropDownData';
 
 const PreventiveMaintenanceTasks = () => {
-  const { Lang, DepartmentID } = useGlobalContext();
+  const { Lang, DepartmentID, Rtl, company, user } = useGlobalContext();
   const {
     ProcedureID,
     ProcedureCode,
     ProcedureName,
+    PeriodID,
     PeriodName,
     EstimatedLaborHours,
+    TradeID,
     TradeName,
     PriorityName,
     ProcedureTypeName,
@@ -30,11 +36,91 @@ const PreventiveMaintenanceTasks = () => {
     },
     { label: PreventiveMaintenanceDetailsLang.ProcedureType[Lang], value: ProcedureTypeName },
   ];
+  console.log(TradeID, 'TradeID');
+  console.log(PeriodID, 'PeriodID');
+  console.log(company, 'company');
+
+  const { data: sds_SMPList } = useDropDown(
+    'api_ms_SMPList',
+    {
+      UserName: user.username,
+      LangID: Lang,
+      PeriodID: PeriodID,
+      TradeID: TradeID,
+      CompanyID: company,
+    },
+    'ProcedureID',
+    'ProcedureName'
+  );
+  const [isLoading, setIsLoading] = useState(false);
+  const [SMPID, setSMPID] = useState(false);
+  const [IsSMPTasks, setIsSMPTasks] = useState(false);
+  const [counter, setCounter] = useState(false);
+
+  const CopySMTask = async () => {
+    setIsLoading(true);
+    try {
+      const response = await api.get(
+        `/table?sp=api_ms_Procedures_Tasks_Copy&SMPID=${SMPID}&ProcedureID=${ProcedureID}`
+      );
+      setCounter((prev) => prev + 1);
+      Toast.show({
+        type: 'success',
+        text1: PreventiveMaintenanceTasksLang.CopyConfirm[Lang],
+      });
+    } catch (error) {
+      console.error(error.response?.data || error.message);
+      Toast.show({
+        type: 'error',
+        text1: PreventiveMaintenanceTasksLang.CopyFailed[Lang],
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  console.log(SMPID, 'SMPID');
 
   return (
     <MainLayout title={PreventiveMaintenanceTasksLang.PageTitle[Lang]} className="">
-      <View className="flex h-[100vh] flex-col bg-white py-4">
+      <ScrollView className="flex flex-col bg-white py-4">
         <InfoDetailes details={detailsData} />
+
+        <View className="my-4 gap-4 px-4">
+          <Dropdown
+            placeholder={PreventiveMaintenanceTasksLang.SMP[Lang]}
+            title={PreventiveMaintenanceTasksLang.SMP[Lang]}
+            data={sds_SMPList}
+            initailOption={sds_SMPList[0]?.key}
+            onChange={(val) => {
+              console.log('Dropdown selected:', val);
+              setSMPID(val);
+            }}
+            value={SMPID}
+          />
+
+          {/* Button */}
+          <View>
+            <TouchableOpacity
+              className="rounded-lg bg-green-600 p-3 text-center"
+              onPress={() => {
+                if (!SMPID) {
+                  Toast.show({
+                    type: 'error',
+                    text1: PreventiveMaintenanceTasksLang.SelectSMP[Lang],
+                  });
+                } else {
+                  setIsSMPTasks(true);
+                  CopySMTask();
+                }
+              }}>
+              <Text className="text-center text-white">
+                {`${PreventiveMaintenanceTasksLang.CopySMPTasks[Lang]}${isLoading ? '...' : ''}`}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
         <View className="flex-1">
           <MainGrid
             tableHead={[
@@ -74,6 +160,7 @@ const PreventiveMaintenanceTasks = () => {
             TrxParam={[
               { name: 'DepartmentID', value: DepartmentID },
               { name: 'ProcedureID', value: ProcedureID },
+              { name: 'SMPID', value: SMPID },
             ]}
             DelParam={[
               {
@@ -84,10 +171,10 @@ const PreventiveMaintenanceTasks = () => {
             ]}
             UpdBody={{ DepartmentID: DepartmentID, ProcedureID: ProcedureID }}
             InsBody={{ DepartmentID: DepartmentID, ProcedureID: ProcedureID }}
-            TrxDependency={[ProcedureID, DepartmentID]}
+            TrxDependency={[ProcedureID, counter, , JSON.stringify(SMPID)]}
           />
         </View>
-      </View>
+      </ScrollView>
     </MainLayout>
   );
 };

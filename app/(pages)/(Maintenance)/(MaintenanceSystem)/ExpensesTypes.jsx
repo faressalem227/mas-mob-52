@@ -11,7 +11,7 @@ const ExpensesTypes = () => {
 
   return (
     <MainLayout title={ImportanceLang.ExpensesTypes[Lang]} className="">
-      <View className="flex h-[100vh] flex-col bg-white py-4">
+      <View className="flex h-[100vh] flex-col bg-white py-4 m-2">
         <View style={[styles.ImportanceGrid, { height: screenHeight }]}>
           <MainGrid
             tableHead={[
@@ -52,25 +52,25 @@ const ExpensesTypes = () => {
             TrxParam={[
               { name: 'DepartmentID', value: DepartmentID },
               { name: 'CompanyID', value: company },
-              { name: 'UserName', value: user },
+              { name: 'UserName', value: user.username },
               { name: 'LangID', value: Lang },
             ]}
             DelParam={[
               { rowData: true, name: 'ExpenseTypeID', value: 'ExpenseTypeID' },
               { name: 'DepartmentID', value: DepartmentID },
               { name: 'CompanyID', value: company },
-              { name: 'UserName', value: user },
+              { name: 'UserName', value: user.username },
               { name: 'LangID', value: Lang },
             ]}
             UpdBody={{
               DepartmentID: DepartmentID,
-              UserName: user,
+              UserName: user.username,
               LangID: Lang,
               CompanyID: company,
             }}
             InsBody={{
               DepartmentID: DepartmentID,
-              UserName: user,
+              UserName: user.username,
               LangID: Lang,
               CompanyID: company,
             }}

@@ -19,12 +19,16 @@ const PreventiveMaintenanceServicesLang = {
       2: 'Section',
     },
     Group: {
-      1: 'المجموعة',
+      1: 'التصنيف',
       2: 'Group',
     },
     Item: {
       1: 'الصنف',
       2: 'Item',
+    },
+    service: {
+      1: 'الخدمة',
+      2: 'service',
     },
     Unit: {
       1: 'الوحدة',

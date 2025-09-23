@@ -407,8 +407,8 @@ const AssetHomeLang = {
 
   //
   Meters: {
-    1: 'العدادات',
-    2: 'Meters ',
+    1: 'قراءه العداد',
+    2: 'Meter Reading',
   },
   MeterNumber: {
     1: 'رقم العداد',

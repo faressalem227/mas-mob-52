@@ -15,6 +15,7 @@ const PreventiveMaintenanceDetails = ({ route }) => {
     ProcedureCode,
     ProcedureName,
     PeriodName,
+    PeriodID,
     TradeID,
     EstimatedLaborHours,
     TradeName,
@@ -65,24 +66,22 @@ const PreventiveMaintenanceDetails = ({ route }) => {
                 });
               }}
             />
-
             <SmallButton
-              title={PreventiveMaintenanceDetailsLang.ProcedurerequiredTasks[Lang]}
+              title={PreventiveMaintenanceDetailsLang.PreventiveMaintenanceTasks[Lang]}
               handlePress={() => {
                 router.navigate({
-                  pathname: 'ProcedureRequiredTasks',
+                  pathname: 'PreventiveMaintenanceTasks',
                   params: {
                     ProcedureID,
                     ProcedureCode,
                     ProcedureName,
+                    PeriodID,
                     PeriodName,
                     TradeID,
                     EstimatedLaborHours,
                     TradeName,
                     PriorityName,
                     ProcedureTypeName,
-                    SafetyID,
-                    Tasks,
                   },
                 });
               }}
@@ -109,10 +108,10 @@ const PreventiveMaintenanceDetails = ({ route }) => {
               }}
             />
             <SmallButton
-              title={PreventiveMaintenanceDetailsLang.PreventiveMaintenanceTasks[Lang]}
+              title={PreventiveMaintenanceDetailsLang.PreventiveMaintenanceStockItems[Lang]}
               handlePress={() => {
                 router.navigate({
-                  pathname: 'PreventiveMaintenanceTasks',
+                  pathname: 'PreventiveMaintenanceStockItems',
                   params: {
                     ProcedureID,
                     ProcedureCode,
@@ -127,6 +126,28 @@ const PreventiveMaintenanceDetails = ({ route }) => {
                 });
               }}
             />
+            {/* <SmallButton
+              title={PreventiveMaintenanceDetailsLang.ProcedurerequiredTasks[Lang]}
+              handlePress={() => {
+                router.navigate({
+                  pathname: 'ProcedureRequiredTasks',
+                  params: {
+                    ProcedureID,
+                    ProcedureCode,
+                    ProcedureName,
+                    PeriodName,
+                    TradeID,
+                    EstimatedLaborHours,
+                    TradeName,
+                    PriorityName,
+                    ProcedureTypeName,
+                    SafetyID,
+                    Tasks,
+                  },
+                });
+              }}
+            /> */}
+
             <SmallButton
               title={PreventiveMaintenanceDetailsLang.PreventiveMaintenanceServices[Lang]}
               handlePress={() => {
@@ -146,25 +167,7 @@ const PreventiveMaintenanceDetails = ({ route }) => {
                 });
               }}
             />
-            <SmallButton
-              title={PreventiveMaintenanceDetailsLang.PreventiveMaintenanceStockItems[Lang]}
-              handlePress={() => {
-                router.navigate({
-                  pathname: 'PreventiveMaintenanceStockItems',
-                  params: {
-                    ProcedureID,
-                    ProcedureCode,
-                    ProcedureName,
-                    PeriodName,
-                    TradeID,
-                    EstimatedLaborHours,
-                    TradeName,
-                    PriorityName,
-                    ProcedureTypeName,
-                  },
-                });
-              }}
-            />
+
             <SmallButton
               title={PreventiveMaintenanceDetailsLang.PreventiveMaintenanceContracts[Lang]}
               handlePress={() => {
