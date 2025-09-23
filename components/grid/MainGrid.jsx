@@ -780,6 +780,12 @@ const MainGrid = ({
                             paddingVertical: wp('2%'),
                           }}
                           renderItem={({ item }) => {
+                            const type =
+                              typeof item.type === 'function' ? item?.type(rowData) : item?.type;
+                            const options =
+                              typeof item.options === 'function'
+                                ? item?.options(rowData)
+                                : item?.options;
                             return (
                               <>
                                 {item?.input && item?.input !== 'false' && (
@@ -797,16 +803,17 @@ const MainGrid = ({
                                       <RenderInput
                                         inputkey={item.key}
                                         label={item.label}
-                                        type={item.type}
+                                        type={type}
                                         value={rowData[item.key]}
                                         onChange={item.onChange}
-                                        options={item.options}
+                                        options={options}
                                         lines={item.lines}
                                         setRowData={setRowData}
                                         handleDropdownChange={handleDropDownChange}
                                         dynamicCode={dynamicCode}
                                         code={code}
                                         input={item.input}
+                                        preventDefault={item.preventDefault}
                                       />
                                       {errors[item.key] && (
                                         <Text

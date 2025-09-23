@@ -15,39 +15,60 @@ import moment from 'moment-timezone';
 import { useGlobalContext } from '../../context/GlobalProvider';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
-  const DatePickerInput = ({ setDate, title, defaultDate, birthday = false, disabled = false }) => {
+const normalizeDate = (val) => {
+  if (!val) return null;
+  const d = new Date(val);
+  return isNaN(d.getTime()) ? null : d;
+};
 
+const DatePickerInput = ({
+  setDate,
+  title,
+  defaultDate,
+  birthday = false,
+  disabled = false,
+  preventDefault = false, // 👈 NEW PROP
+}) => {
   const { Rtl } = useGlobalContext();
-  const [selectedDate, setSelectedDate] = useState(
-    defaultDate ? new Date(defaultDate) : new Date()
-  );
+
+  const [selectedDate, setSelectedDate] = useState(normalizeDate(defaultDate) || new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [windowWidth] = useState(Dimensions.get('window').width);
 
   const fontSize = windowWidth < 800 ? wp('4%') : wp('2.5%');
 
-  const handleDateChange = (date) => {
+  const handleDateChange = (_, date) => {
     if (Platform.OS === 'android') {
       setShowDatePicker(false); // Auto-close picker on Android
     }
-    if (date) {
-      setSelectedDate(date);
 
-      // Convert to Cairo timezone
-      const cairoTime = moment(date).tz('Africa/Cairo').format('YYYY-MM-DD HH:mm:ss');
+    if (date) {
+      const normalized = normalizeDate(date);
+      if (!normalized && preventDefault) {
+      }
+      setSelectedDate(normalized);
+
+      // Convert to Cairo timezone before sending up
+      const cairoTime = moment(normalized).tz('Africa/Cairo').format('YYYY-MM-DD HH:mm:ss');
       setDate?.(cairoTime);
     }
   };
 
   useEffect(() => {
-    if (defaultDate) {
-      const date = new Date(defaultDate);
-      setSelectedDate(date);
-
-      const cairoTime = moment(date).tz('Africa/Cairo').format('YYYY-MM-DD HH:mm:ss');
+    const normalized = normalizeDate(defaultDate);
+    if (normalized) {
+      setSelectedDate(normalized);
+      const cairoTime = moment(normalized).tz('Africa/Cairo').format('YYYY-MM-DD HH:mm:ss');
       setDate?.(cairoTime);
+    } else if (!preventDefault) {
+      const now = new Date();
+      setSelectedDate(now);
+      const cairoTime = moment(now).tz('Africa/Cairo').format('YYYY-MM-DD HH:mm:ss');
+      setDate?.(cairoTime);
+    } else {
+      setSelectedDate(null);
     }
-  }, []); // 👈 run only once
+  }, [defaultDate, preventDefault]);
 
   return (
     <View style={styles.container}>
@@ -62,17 +83,16 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
       <SizedBox height={8} />
 
       <TouchableOpacity
-      disabled={disabled} 
+        disabled={disabled}
         onPress={() => setShowDatePicker(true)}
         className={`flex-row-reverse items-center justify-between ${!Rtl && 'flex-row'}`}
         style={styles.inputContainer}>
         <TextInput
-          style={[styles.input, !Rtl && { textAlign: 'right' } ]}
+          style={[styles.input, !Rtl && { textAlign: 'right' }]}
           value={moment(selectedDate).format('YYYY-MM-DD')}
           editable={false}
           placeholder="أدخل التاريخ"
           placeholderTextColor="#aaa"
-
         />
         <Image
           source={Calender}

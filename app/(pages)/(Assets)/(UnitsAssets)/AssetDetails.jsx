@@ -66,6 +66,16 @@ const AssetsLang = {
     1: 'نسخ الاصل',
     2: 'Asset copy',
   },
+
+  BasicData: {
+    1: 'البيانت الاساسيه',
+    2: 'Basic Data',
+  },
+
+  WarrantyData: {
+    1: 'بيانات الضمان',
+    2: 'Warranty Data',
+  },
 };
 
 const AssetDetails = () => {
@@ -80,6 +90,7 @@ const AssetDetails = () => {
     AssetStatusName,
     AssetImportance,
     TradeID,
+    ManufacturerID,
     ...restParams
   } = useLocalSearchParams();
 
@@ -99,7 +110,22 @@ const AssetDetails = () => {
     <MainLayout title={AssetHomeLang.AssetDetailes[Lang]} className="">
       <InfoDetailes details={infoData} />
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <View className="flex-1 flex-row-reverse flex-wrap items-center justify-center gap-3">
+        <View
+          className={`flex-1 ${Rtl ? 'flex-row-reverse' : 'flex-row'} flex-wrap items-center justify-center gap-3`}>
+          <SmallButton
+            title={AssetsLang.BasicData[Lang]}
+            handlePress={() => {
+              router.navigate({
+                pathname: 'AssetBasic',
+                params: {
+                  AssetID,
+                  TradeID,
+                  ManufacturerID,
+                },
+              });
+            }}
+          />
+
           <SmallButton
             title={AssetHomeLang.TechnicalSpecifications[Lang]}
             handlePress={() => {
@@ -117,6 +143,7 @@ const AssetDetails = () => {
               });
             }}
           />
+
           <SmallButton
             title={AssetHomeLang.FinancialData[Lang]}
             handlePress={() => {
@@ -134,7 +161,8 @@ const AssetDetails = () => {
               });
             }}
           />
-          <SmallButton
+
+          {/* <SmallButton
             title={AssetHomeLang.OperatinData[Lang]}
             handlePress={() => {
               router.navigate({
@@ -150,26 +178,10 @@ const AssetDetails = () => {
                 },
               });
             }}
-          />
+          /> */}
+
           <SmallButton
-            title={AssetHomeLang.Meters[Lang]}
-            handlePress={() => {
-              router.navigate({
-                pathname: 'AssetCounters',
-                params: {
-                  SubLocationID: SubLocationID,
-                  LocationID: LocationID,
-                  AssetID: AssetID,
-                  AssetCode: AssetCode,
-                  AssetName: AssetName,
-                  AssetClassName: AssetClassName,
-                  AssetStatusName: AssetStatusName,
-                },
-              });
-            }}
-          />
-          <SmallButton
-            title="بيانات الضمان"
+            title={AssetsLang.WarrantyData[Lang]}
             handlePress={() => {
               router.navigate({
                 pathname: 'WarrantyInformation',
@@ -185,23 +197,7 @@ const AssetDetails = () => {
               });
             }}
           />
-          <SmallButton
-            title={AssetHomeLang.WorkOrders[Lang]}
-            handlePress={() => {
-              router.navigate({
-                pathname: 'AssetsWorkOrder',
-                params: {
-                  SubLocationID: SubLocationID,
-                  LocationID: LocationID,
-                  AssetID: AssetID,
-                  AssetCode: AssetCode,
-                  AssetName: AssetName,
-                  AssetClassName: AssetClassName,
-                  AssetStatusName: AssetStatusName,
-                },
-              });
-            }}
-          />
+
           <SmallButton
             title={AssetHomeLang.MaintenancePlan[Lang]}
             handlePress={() => {
@@ -219,6 +215,43 @@ const AssetDetails = () => {
               });
             }}
           />
+
+          <SmallButton
+            title={AssetHomeLang.Meters[Lang]}
+            handlePress={() => {
+              router.navigate({
+                pathname: 'AssetCounters',
+                params: {
+                  SubLocationID: SubLocationID,
+                  LocationID: LocationID,
+                  AssetID: AssetID,
+                  AssetCode: AssetCode,
+                  AssetName: AssetName,
+                  AssetClassName: AssetClassName,
+                  AssetStatusName: AssetStatusName,
+                },
+              });
+            }}
+          />
+
+          <SmallButton
+            title={AssetHomeLang.WorkOrders[Lang]}
+            handlePress={() => {
+              router.navigate({
+                pathname: 'AssetsWorkOrder',
+                params: {
+                  SubLocationID: SubLocationID,
+                  LocationID: LocationID,
+                  AssetID: AssetID,
+                  AssetCode: AssetCode,
+                  AssetName: AssetName,
+                  AssetClassName: AssetClassName,
+                  AssetStatusName: AssetStatusName,
+                },
+              });
+            }}
+          />
+
           <SmallButton
             title={AssetHomeLang.AssetCategories[Lang]}
             handlePress={() => {
