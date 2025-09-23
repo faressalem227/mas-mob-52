@@ -76,6 +76,36 @@ const AssetsLang = {
     1: 'بيانات الضمان',
     2: 'Warranty Data',
   },
+
+  MonthlyAssetMaintenance: {
+    1: 'بيانات الصيانه الشهريه',
+    2: 'Monthly Maintenance Data',
+  },
+
+  AssignedSpareParts: {
+    1: 'قطع الغيار المخصصه',
+    2: 'Assigned spare parts',
+  },
+
+  SparePartsTransactions: {
+    1: 'حركة قطع الغيار',
+    2: 'Spare Parts Transactions',
+  },
+
+  AssetEval: {
+    1: 'تقييم الحاله الفنيه',
+    2: 'Asset Evaluation',
+  },
+
+  UnitAssetRisk: {
+    1: 'حساب المخاطرة',
+    2: 'Asset Risk',
+  },
+
+  UnitAssetRisk: {
+    1: 'حساب المخاطرة',
+    2: 'Asset Risk',
+  },
 };
 
 const AssetDetails = () => {
@@ -91,6 +121,7 @@ const AssetDetails = () => {
     AssetImportance,
     TradeID,
     ManufacturerID,
+    AssetClassID,
     ...restParams
   } = useLocalSearchParams();
 
@@ -199,10 +230,10 @@ const AssetDetails = () => {
           />
 
           <SmallButton
-            title={AssetHomeLang.MaintenancePlan[Lang]}
+            title={AssetsLang.MonthlyAssetMaintenance[Lang]}
             handlePress={() => {
               router.navigate({
-                pathname: 'AssetMaintenance',
+                pathname: 'MonthlyAssetMaintenance',
                 params: {
                   SubLocationID: SubLocationID,
                   LocationID: LocationID,
@@ -217,18 +248,12 @@ const AssetDetails = () => {
           />
 
           <SmallButton
-            title={AssetHomeLang.Meters[Lang]}
+            title={AssetHomeLang.MaintenancePlan[Lang]}
             handlePress={() => {
               router.navigate({
-                pathname: 'AssetCounters',
+                pathname: 'AssetMaintenance',
                 params: {
-                  SubLocationID: SubLocationID,
-                  LocationID: LocationID,
-                  AssetID: AssetID,
-                  AssetCode: AssetCode,
-                  AssetName: AssetName,
-                  AssetClassName: AssetClassName,
-                  AssetStatusName: AssetStatusName,
+                  AssetID,
                 },
               });
             }}
@@ -253,57 +278,79 @@ const AssetDetails = () => {
           />
 
           <SmallButton
-            title={AssetHomeLang.AssetCategories[Lang]}
+            title={AssetHomeLang.Meters[Lang]}
             handlePress={() => {
               router.navigate({
-                pathname: 'AssetCategoriesDetails',
+                pathname: 'AssetCounters',
                 params: {
-                  SubLocationID: SubLocationID,
-                  SubLocationName: SubLocationName,
-                  LocationID: LocationID,
-                  AssetID: AssetID,
-                  AssetCode: AssetCode,
-                  AssetName: AssetName,
-                  AssetClassName: AssetClassName,
-                  AssetStatusName: AssetStatusName,
+                  AssetID,
                 },
               });
             }}
           />
+
+          <SmallButton
+            title={AssetsLang.AssignedSpareParts[Lang]}
+            handlePress={() => {
+              router.navigate({
+                pathname: 'AssetCategoriesDetails',
+                params: {
+                  AssetID,
+                },
+              });
+            }}
+          />
+
+          <SmallButton
+            title={AssetsLang.SparePartsTransactions[Lang]}
+            handlePress={() => {
+              router.navigate({
+                pathname: 'SparePartsTransactions',
+                params: {
+                  AssetID: AssetID,
+                },
+              });
+            }}
+          />
+
           <SmallButton
             title={AssetHomeLang.AssetImportance[Lang]}
             handlePress={() => {
               router.navigate({
                 pathname: 'AssetImportance',
                 params: {
-                  SubLocationID: SubLocationID,
-                  LocationID: LocationID,
-                  AssetID: AssetID,
-                  AssetCode: AssetCode,
-                  AssetName: AssetName,
-                  AssetClassName: AssetClassName,
-                  AssetStatusName: AssetStatusName,
+                  AssetID,
                 },
               });
             }}
           />
+
           <SmallButton
-            title={AssetHomeLang.SparePartsMovement[Lang]}
+            title={AssetsLang.AssetEval[Lang]}
             handlePress={() => {
               router.navigate({
-                pathname: 'SparePartsMovement',
+                pathname: 'UnitAssetEvaluation',
                 params: {
-                  SubLocationID: SubLocationID,
-                  LocationID: LocationID,
-                  AssetID: AssetID,
-                  AssetCode: AssetCode,
-                  AssetName: AssetName,
-                  AssetClassName: AssetClassName,
-                  AssetStatusName: AssetStatusName,
+                  AssetID,
+                  AssetClassID,
                 },
               });
             }}
           />
+
+          <SmallButton
+            title={AssetsLang.UnitAssetRisk[Lang]}
+            handlePress={() => {
+              router.navigate({
+                pathname: 'UnitAssetRisk',
+                params: {
+                  AssetID,
+                  AssetClassID,
+                },
+              });
+            }}
+          />
+
           {/* <SmallButton
                 title={AssetHomeLang.AdditionalData[Lang]}
                 handlePress={() => {

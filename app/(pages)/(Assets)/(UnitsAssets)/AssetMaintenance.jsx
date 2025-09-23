@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import { MainLayout, Dropdown } from '../../../../components';
 import { useLocalSearchParams } from 'expo-router';
 import MainGrid from '../../../../components/grid/MainGrid';
@@ -8,15 +8,7 @@ import ReportBugsLang from '../../../../constants/Lang/Maintenance/ReportBugs';
 import { useDropDown } from '../../../../hooks/useDropDownData';
 import { useState } from 'react';
 const AssetMaintenance = () => {
-  const {
-    AssetID,
-    SubLocationID,
-    LocationID,
-    AssetCode,
-    AssetName,
-    AssetClassName,
-    AssetStatusName,
-  } = useLocalSearchParams();
+  const { AssetID } = useLocalSearchParams();
 
   const { Lang, DepartmentID, user } = useGlobalContext();
   const [YearID, setYearID] = useState(new Date().getFullYear());
@@ -40,7 +32,7 @@ const AssetMaintenance = () => {
             placeholder={ReportBugsLang.YearChoose[Lang]}
             label={ReportBugsLang.Year[Lang]}
             data={YearList}
-            initailOption={YearList[5]?.key}
+            initailOption={new Date().getFullYear()}
             onChange={(e) => {
               setYearID(e);
             }}
@@ -48,7 +40,7 @@ const AssetMaintenance = () => {
         </View>
         <MainGrid
           spTrx={'api_ms_Assets_plan'}
-          StaticWidth={true}
+          mixedWidth
           TrxDependency={[YearID]}
           TrxParam={[
             { name: 'AssetID', value: AssetID },
@@ -146,23 +138,9 @@ const AssetMaintenance = () => {
             },
           ]}
         />
-        {/* <AssetMaintenanceGrid LocationID={LocationID} AssetID={AssetID} /> */}
       </View>
     </MainLayout>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  dropdownContainer: {
-    marginHorizontal: 16,
-    marginVertical: 8,
-  },
-  assetsGrid: {
-    marginVertical: 8,
-  },
-});
 
 export default AssetMaintenance;
