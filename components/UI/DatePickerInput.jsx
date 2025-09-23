@@ -21,7 +21,14 @@ const normalizeDate = (val) => {
   return isNaN(d.getTime()) ? null : d;
 };
 
-const DatePickerInput = ({ setDate, title, defaultDate, birthday = false, disabled = false }) => {
+const DatePickerInput = ({
+  setDate,
+  title,
+  defaultDate,
+  birthday = false,
+  disabled = false,
+  preventDefault = false, // 👈 NEW PROP
+}) => {
   const { Rtl } = useGlobalContext();
 
   const [selectedDate, setSelectedDate] = useState(normalizeDate(defaultDate) || new Date());
@@ -36,7 +43,9 @@ const DatePickerInput = ({ setDate, title, defaultDate, birthday = false, disabl
     }
 
     if (date) {
-      const normalized = normalizeDate(date) || new Date();
+      const normalized = normalizeDate(date);
+      if (!normalized && preventDefault) {
+      }
       setSelectedDate(normalized);
 
       // Convert to Cairo timezone before sending up
@@ -46,13 +55,20 @@ const DatePickerInput = ({ setDate, title, defaultDate, birthday = false, disabl
   };
 
   useEffect(() => {
-    const normalized = normalizeDate(defaultDate) || new Date();
-
-    setSelectedDate(normalized);
-
-    const cairoTime = moment(normalized).tz('Africa/Cairo').format('YYYY-MM-DD HH:mm:ss');
-    setDate?.(cairoTime);
-  }, [defaultDate]);
+    const normalized = normalizeDate(defaultDate);
+    if (normalized) {
+      setSelectedDate(normalized);
+      const cairoTime = moment(normalized).tz('Africa/Cairo').format('YYYY-MM-DD HH:mm:ss');
+      setDate?.(cairoTime);
+    } else if (!preventDefault) {
+      const now = new Date();
+      setSelectedDate(now);
+      const cairoTime = moment(now).tz('Africa/Cairo').format('YYYY-MM-DD HH:mm:ss');
+      setDate?.(cairoTime);
+    } else {
+      setSelectedDate(null);
+    }
+  }, [defaultDate, preventDefault]);
 
   return (
     <View style={styles.container}>

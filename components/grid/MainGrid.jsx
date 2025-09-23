@@ -813,6 +813,7 @@ const MainGrid = ({
                                         dynamicCode={dynamicCode}
                                         code={code}
                                         input={item.input}
+                                        preventDefault={item.preventDefault}
                                       />
                                       {errors[item.key] && (
                                         <Text

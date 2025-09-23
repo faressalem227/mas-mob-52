@@ -20,6 +20,7 @@ export const RenderInput = ({
   dynamicCode,
   code,
   input,
+  preventDefault,
 }) => {
   const { Rtl } = useGlobalContext();
   const windowWidth = Dimensions.get('window').width;
@@ -89,6 +90,7 @@ export const RenderInput = ({
         <DatePickerInput
           defaultDate={value}
           setDate={(selectedDate) => handleInputChange(inputkey, selectedDate)}
+          preventDefault={preventDefault}
         />
       );
 
