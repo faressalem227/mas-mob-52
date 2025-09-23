@@ -10,8 +10,8 @@ const HealthAndSafetyDetails = {
   },
 
   SafetyName: {
-    1: 'اسم مهام الامان',
-    2: 'Safety Task Name',
+    1: 'اسم المهمة ',
+    2: 'Task Name',
   },
 
   SafetyInstructions: {
@@ -20,8 +20,8 @@ const HealthAndSafetyDetails = {
   },
 
   SafetyTools: {
-    1: 'مهامات السلامه و الصحة المهنية',
-    2: 'Safety and Health Tasks',
+    1: 'أدوات المهمة',
+    2: 'Safety Tools',
   },
 
   save: {

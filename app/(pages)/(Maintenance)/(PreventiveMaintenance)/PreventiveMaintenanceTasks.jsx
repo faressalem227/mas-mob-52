@@ -1,18 +1,25 @@
-import { View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { useGlobalContext } from '../../../../context/GlobalProvider';
 import { useLocalSearchParams } from 'expo-router';
 import PreventiveMaintenanceTasksLang from '../../../../constants/Lang/Maintenance/PreventiveMaintenanceHome/PreventiveMaintenance/PreventiveMaintenanceTasksLang';
 import PreventiveMaintenanceDetailsLang from '../../../../constants/Lang/Maintenance/PreventiveMaintenanceHome/PreventiveMaintenanceDetails';
 import { MainGrid, MainLayout, InfoDetailes } from '../../../../components';
+import { useState } from 'react';
+import Toast from 'react-native-toast-message';
+import api from '../../../../utilities/api';
+import { Dropdown } from 'react-native-element-dropdown';
+import { useDropDown } from '../../../../hooks/useDropDownData';
 
 const PreventiveMaintenanceTasks = () => {
-  const { Lang, DepartmentID } = useGlobalContext();
+  const { Lang, DepartmentID, Rtl, company, user } = useGlobalContext();
   const {
     ProcedureID,
     ProcedureCode,
     ProcedureName,
+    PeriodID,
     PeriodName,
     EstimatedLaborHours,
+    TradeID,
     TradeName,
     PriorityName,
     ProcedureTypeName,
@@ -30,11 +37,98 @@ const PreventiveMaintenanceTasks = () => {
     },
     { label: PreventiveMaintenanceDetailsLang.ProcedureType[Lang], value: ProcedureTypeName },
   ];
+  const { data: sds_SMPList } = useDropDown(
+    'ms_SMPList',
+    {
+      UserName: user.username,
+      LangID: Lang,
+      PeriodID: PeriodID,
+      TradeID: TradeID,
+      CompanyID: company,
+    },
+    'ProcedureID',
+    'ProcedureName'
+  );
+  const [isLoading, setIsLoading] = useState(false);
+  const [SMPID, setSMPID] = useState(false);
+  const createWorkorder = async () => {
+    setIsLoading(true);
+    try {
+      const response = await api.get('table/', {
+        sp: 'api_ms_Procedures_Tasks_Copy',
+        //  DepartmentID: departmentValue?.value,
+        SMPID: SMPID,
+        ProcedureID: ProcedureID,
+      });
+      Toast.show({
+        type: 'success',
+        text1: 'success',
+      });
+    } catch (error) {
+      console.error(error);
+      Toast.show({
+        type: 'error',
+        text1: 'error',
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <MainLayout title={PreventiveMaintenanceTasksLang.PageTitle[Lang]} className="">
       <View className="flex h-[100vh] flex-col bg-white py-4">
         <InfoDetailes details={detailsData} />
+        <View className={`my-6 px-4 ${Rtl ? 'flex-row-reverse' : 'flex-row'} items-center gap-3`}>
+          <Dropdown
+            placeholder={pagesText.SMP[languageValue]}
+            title={PreventiveMaintenanceLang.ProcedureType[Lang]}
+            data={sds_SMPList}
+            initailOption={ProceduresTypeList[0]?.key}
+            onChange={(val) => {
+              setSMPID(val);
+            }}
+            // defaultValue={16}
+          />
+          <TouchableOpacity
+            className={`rounded-lg 
+                bg-green-500
+             p-3 duration-300`}
+            onPress={createWorkorder}>
+            <Text className="text-white">{`${ReportBugsLang.createWorkorder[Lang]}${loading ? '...' : ''}`}</Text>
+          </TouchableOpacity>
+        </View>
+        {/* <div className="mb-4 flex flex-row flex-wrap items-center gap-2">
+          <div className="min-w-[300px]">
+            <DropDown
+              placeHolder={pagesText.SMP[languageValue]}
+              options={sds_SMPList}
+              onChange={(val) => {
+                setSMPID(val);
+              }}
+              value={SMPID}
+              // defaultValue={16}
+            />
+          </div>
+          <div className="min-w-[300px]">
+            <TableButton
+              // theme={
+              //   tableCounter || activeRow?.SMPTasksCopied
+              //     ? "disabled"
+              //     : "add"
+              // }
+              onClick={() => {
+                if (!SMPID) {
+                  toast.error(pagesText.SelectSMP[languageValue]);
+                } else {
+                  setIsSMPTasks(true);
+                  getSMPTasks();
+                }
+              }}>
+              {pagesText.CopySMPTasks[languageValue]}
+            </TableButton>
+          </div>
+        </div> */}
         <View className="flex-1">
           <MainGrid
             tableHead={[

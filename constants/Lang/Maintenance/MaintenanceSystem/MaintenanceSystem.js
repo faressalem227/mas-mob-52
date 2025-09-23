@@ -4,12 +4,12 @@ const MaintenanceSystem = {
     2: 'Maintenance System Settings',
   },
   FailersCodingCause: {
-    1: 'تكويد اسباب الاعطال',
-    2: 'Coding Failers Cause',
+    1: 'اسباب الاعطال',
+    2: 'Failers Cause',
   },
   FailersCoding: {
-    1: 'تكويد الاعطال',
-    2: 'Coding Failers',
+    1: 'الاعطال',
+    2: 'Failers',
   },
   BusinessClassification: {
     1: 'تصنيف الاعمال',
@@ -80,7 +80,10 @@ const MaintenanceSystem = {
     1: 'التصنيف',
     2: 'Classification',
   },
-
+  AssetClassSp: {
+    1: '',
+    2: 'AssetClass',
+  },
   periodName: {
     1: 'الفترة',
     2: 'Period',

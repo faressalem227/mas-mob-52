@@ -6,6 +6,7 @@ import { useGlobalContext } from '../../../../context/GlobalProvider';
 import { useDropDown } from '../../../../hooks/useDropDownData';
 import { useEffect, useState } from 'react';
 import api from '../../../../utilities/api';
+import Toast from 'react-native-toast-message';
 
 const Safety = () => {
   const { Lang, DepartmentID, company, user } = useGlobalContext();
@@ -51,7 +52,10 @@ const Safety = () => {
       setIsLoading('');
     }
   };
-
+  const saved = {
+    1: 'تم الحفظ بنجاح',
+    2: 'Saved successfully',
+  };
   const handleSaveSafety = async () => {
     try {
       await api.post('table/', {
@@ -60,7 +64,10 @@ const Safety = () => {
         Safety: safety,
         ...selectedRecord,
       });
-
+      Toast.show({
+        type: 'success',
+        text1: saved[Lang],
+      });
       console.log('fares');
     } catch (error) {
       console.error(error);

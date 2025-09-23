@@ -27,7 +27,7 @@ const FailersCodingCause = () => {
                 key: 'FailureCauseCode',
                 label: `${FailersCodingCauseLang.FailureCauseCode[Lang]}`,
                 type: 'number',
-                input: 'false',
+                input: true,
                 visible: 'true',
                 width: 100,
               },
@@ -52,25 +52,25 @@ const FailersCodingCause = () => {
             TrxParam={[
               { name: 'DepartmentID', value: DepartmentID },
               { name: 'CompanyID', value: company },
-              { name: 'UserName', value: user },
+              { name: 'UserName', value: user.username },
               { name: 'LangID', value: Lang },
             ]}
             DelParam={[
               { rowData: true, name: 'FailureCauseID', value: 'FailureCauseID' },
               { name: 'DepartmentID', value: DepartmentID },
               { name: 'CompanyID', value: company },
-              { name: 'UserName', value: user },
+              { name: 'UserName', value: user.username },
               { name: 'LangID', value: Lang },
             ]}
             UpdBody={{
               DepartmentID: DepartmentID,
-              UserName: user,
+              UserName: user.username,
               LangID: Lang,
               CompanyID: company,
             }}
             InsBody={{
               DepartmentID: DepartmentID,
-              UserName: user,
+              UserName: user.username,
               LangID: Lang,
               CompanyID: company,
             }}

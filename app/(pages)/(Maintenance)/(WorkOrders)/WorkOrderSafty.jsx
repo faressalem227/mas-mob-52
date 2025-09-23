@@ -140,7 +140,6 @@ const WorkOrderSafty = () => {
               initailOption={parseInt(Safety.SafetyID)}
               data={safetyList || []}
             />
-
             <TextArea
               label={WorkOrderSaftyLang.SafetyTasks[Lang]}
               initialHeight={100}

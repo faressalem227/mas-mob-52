@@ -12,7 +12,7 @@ const SuspendedAssets = () => {
       <View className="flex-1">
         <MainGrid
           pk={'AssetID'}
-          spTrx={'api_ms_rpt_dashboard_status2'}
+          spTrx={'ms_rpt_dashboard_status2'}
           TrxParam={[
             { name: 'DepartmentID', value: DepartmentID },
             { name: 'CompanyID', value: company },
@@ -64,13 +64,13 @@ const SuspendedAssets = () => {
               visible: 'true',
               width: 150,
             },
-            {
-              key: 'AssetStopReason',
-              label: HealthAndSafetyLang.AssetStopReason[Lang],
-              type: 'number',
-              visible: 'true',
-              width: 200,
-            },
+            // {
+            //   key: 'AssetStopReason',
+            //   label: HealthAndSafetyLang.AssetStopReason[Lang],
+            //   type: 'number',
+            //   visible: 'true',
+            //   width: 200,
+            // },
           ]}
         />
       </View>

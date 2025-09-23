@@ -60,7 +60,7 @@ const MpProcedures = () => {
       <View className="my-5 gap-3 px-4">
         <Dropdown
           label={MaintenanceSystem.trade[Lang]}
-          initailOption={16}
+          initailOption={TradeList[0]?.key}
           data={TradeList}
           value={TradeID}
           onChange={(val) => setTradeID(val)}
@@ -68,7 +68,7 @@ const MpProcedures = () => {
 
         <Dropdown
           label={MaintenanceSystem.period[Lang]}
-          defaultOption={ProcedureTypeList[0]}
+          initailOption={ProcedureTypeList[0]?.key}
           data={ProcedureTypeList}
           value={ProcedureTypeID}
           onChange={(val) => setProcedureTypeID(val)}
@@ -127,7 +127,7 @@ const MpProcedures = () => {
           {
             key: 'ProcedureCode',
             label: MaintenanceSystem.procedureCode[Lang],
-            input: true,
+            input: false,
             visible: true,
             width: 120,
           },

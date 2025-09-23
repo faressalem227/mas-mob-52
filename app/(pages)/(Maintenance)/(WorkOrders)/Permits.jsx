@@ -136,7 +136,6 @@ const Permits = () => {
               input: "true",
               visible: "true",
               width: 100,
-              required:"false",
             },
           ]}
           pk={"PermitID"}

@@ -12,7 +12,7 @@ const SparePartsRequired = () => {
       <View className="flex-1">
         <MainGrid
           pk={'ItemID'}
-          spTrx={'api_ms_rpt_dashboard_status3'}
+          spTrx={'ms_rpt_dashboard_status3'}
           TrxParam={[
             { name: 'DepartmentID', value: DepartmentID },
             { name: 'CompanyID', value: company },

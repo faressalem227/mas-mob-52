@@ -125,22 +125,6 @@ const ReportAssets = () => {
             width: 200,
           },
           {
-            key: 'PlantStopped',
-            label: ReportBugsLang.PlantStopped[Lang],
-            type: 'checkbox',
-            input: 'true',
-            visible: 'true',
-            width: 100,
-          },
-          {
-            key: 'AssetStopped',
-            label: ReportBugsLang.AssetStopped[Lang],
-            type: 'checkbox',
-            input: 'true',
-            visible: 'true',
-            width: 140,
-          },
-          {
             key: 'ActionBeforeReport',
             label: ReportBugsLang.ActionBeforeReporting[Lang],
             type: 'text',
@@ -155,6 +139,22 @@ const ReportAssets = () => {
             input: 'true',
             visible: 'true',
             width: 250,
+          },
+                    {
+            key: 'PlantStopped',
+            label: ReportBugsLang.PlantStopped[Lang],
+            type: 'checkbox',
+            input: 'true',
+            visible: 'true',
+            width: 100,
+          },
+          {
+            key: 'AssetStopped',
+            label: ReportBugsLang.AssetStopped[Lang],
+            type: 'checkbox',
+            input: 'true',
+            visible: 'true',
+            width: 140,
           },
         ]}
       />

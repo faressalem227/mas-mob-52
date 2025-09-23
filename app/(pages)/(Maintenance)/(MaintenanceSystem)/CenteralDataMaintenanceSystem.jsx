@@ -21,16 +21,16 @@ function CenteralDataMaintenanceSystem() {
           className="flex flex-row-reverse flex-wrap items-center justify-center"
           style={{ gap: hp('1.5%') }}>
           <SmallButton
-            title={MaintenanceSystemLang.FailersCodingCause[Lang]}
-            handlePress={() => router.navigate('FailersCodingCause')}
-          />
-          <SmallButton
             title={MaintenanceSystemLang.FailersCoding[Lang]}
             handlePress={() => router.navigate('FailersCoding')}
           />
           <SmallButton
+            title={MaintenanceSystemLang.FailersCodingCause[Lang]}
+            handlePress={() => router.navigate('FailersCodingCause')}
+          />
+          <SmallButton
             title={MaintenanceSystemLang.BusinessClassification[Lang]}
-            handlePress={() => router.navigate('BusinessClassification')}
+            handlePress={() => router.navigate('DefTrade')}
           />
           <SmallButton
             title={MaintenanceSystemLang.PermitionsTypes[Lang]}
@@ -41,12 +41,12 @@ function CenteralDataMaintenanceSystem() {
             handlePress={() => router.navigate('ExpensesTypes')}
           />
           <SmallButton
-            title={MaintenanceSystemLang.FollowStates[Lang]}
-            handlePress={() => router.navigate('FollowStates')}
-          />
-          <SmallButton
             title={MaintenanceSystemLang.FollowTypes[Lang]}
             handlePress={() => router.navigate('FollowType')}
+          />
+          <SmallButton
+            title={MaintenanceSystemLang.FollowStates[Lang]}
+            handlePress={() => router.navigate('FollowStates')}
           />
           <SmallButton
             title={MaintenanceSystemLang.MpProcedures[Lang]}

@@ -6,16 +6,21 @@ import { useGlobalContext } from '../../../context/GlobalProvider';
 import { useState } from 'react';
 import api from '../../../utilities/api';
 import Toast from 'react-native-toast-message';
+import { ScrollView } from 'react-native';
+// import { lang } from '../../../constants/Lang/components/CustomMenu';
 const HealthAndSafetyDetails = () => {
-  const { SafetyCode, SafetyName, SafetyInstructions, SafetyTools, TradeID } =
+  const { SafetyCode, SafetyName, SafetyInstructions, SafetyTools, TradeID, SafetyID } =
     useLocalSearchParams();
   const { user, DepartmentID, Lang, company } = useGlobalContext();
   const [manipulatedRow, setManipulatedRow] = useState({
     SafetyName,
     SafetyInstructions,
     SafetyTools,
+    SafetyCode,
   });
   const [isLoading, setIsLoading] = useState(false);
+  console.log(SafetyID, 'SafetyID');
+  console.log(TradeID, 'TradeID');
 
   const handleSave = async () => {
     try {
@@ -25,12 +30,13 @@ const HealthAndSafetyDetails = () => {
         UserName: user.username,
         LangID: Lang,
         TradeID,
+        SafetyID,
         DepartmentID,
         ...manipulatedRow,
       });
       Toast.show({ type: 'success', text1: HealthAndSafetyDetailsLang.saveSuccess[Lang] });
     } catch (error) {
-      console.error(error);
+      console.error('API Error:', error.response?.data || error.message);
       Toast.show({ type: 'error', text1: HealthAndSafetyDetailsLang.saveFailed[Lang] });
     } finally {
       setIsLoading(false);
@@ -39,7 +45,7 @@ const HealthAndSafetyDetails = () => {
 
   return (
     <MainLayout title={HealthAndSafetyDetailsLang.pageTitle[Lang]}>
-      <View className="flex-1 gap-5 p-4">
+      <ScrollView className="flex-1 gap-5 p-4">
         <FormField title={HealthAndSafetyDetailsLang.SafetyCode[Lang]} value={SafetyCode} />
 
         <FormField
@@ -56,29 +62,35 @@ const HealthAndSafetyDetails = () => {
         <TextArea
           label={HealthAndSafetyDetailsLang.SafetyInstructions[Lang]}
           initialHeight={180}
-          value={manipulatedRow.SafetyInstructions}
-          onChange={(val) => ({
-            ...manipulatedRow,
-            SafetyInstructions: val,
-          })}
+          value={manipulatedRow.SafetyInstructions || ''}
+          onChange={(val) =>
+            setManipulatedRow({
+              ...manipulatedRow,
+              SafetyInstructions: val,
+            })
+          }
+          disabled={false}
         />
 
         <TextArea
           label={HealthAndSafetyDetailsLang.SafetyTools[Lang]}
+          disabled={false}
           initialHeight={200}
-          value={manipulatedRow.SafetyTools}
-          onChange={(val) => ({
-            ...manipulatedRow,
-            SafetyTools: val,
-          })}
+          value={manipulatedRow.SafetyTools || ''}
+          onChange={(val) =>
+            setManipulatedRow({
+              ...manipulatedRow,
+              SafetyTools: val,
+            })
+          }
         />
 
-        <View className="flex-row items-center justify-center">
-          <TouchableOpacity className="rounded-lg bg-primary p-3" onPress={handleSave}>
-            <Text className="text-white">{`${HealthAndSafetyDetailsLang.save}${isLoading ? '...' : ''}`}</Text>
+        <View className="mt-3 flex-row items-center justify-center">
+          <TouchableOpacity className="rounded-lg bg-primary p-4" onPress={handleSave}>
+            <Text className="text-white">{`${HealthAndSafetyDetailsLang.save[Lang]}${isLoading ? '...' : ''}`}</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
     </MainLayout>
   );
 };

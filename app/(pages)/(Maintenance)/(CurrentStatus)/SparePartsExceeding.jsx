@@ -12,7 +12,7 @@ const SparePartsExceeding = () => {
       <View className="flex-1">
         <MainGrid
           pk={'MaterialID'}
-          spTrx={'api_ms_rpt_dashboard_status5'}
+          spTrx={'ms_rpt_dashboard_status5'}
           TrxParam={[
             { name: 'DepartmentID', value: DepartmentID },
             { name: 'CompanyID', value: company },

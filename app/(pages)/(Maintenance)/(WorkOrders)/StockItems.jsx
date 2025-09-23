@@ -482,6 +482,13 @@ const StockItems = () => {
                 visible: true,
                 width: 110,
               },
+              {
+                key: 'Confirm Issue',
+                label: StockItemsLang.TableHeaders.ConfirmIssue[Lang],
+                type: 'checkbox',
+                visible: true,
+                width: 110,
+              },
             ]}
           />
         </View>

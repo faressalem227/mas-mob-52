@@ -13,7 +13,7 @@ const CenteralPreventiveMaintenance = () => {
 
   const { data: TradeList } = useDropDown(
     'api_ms_Trade_List_pm',
-    { DepartmentID: DepartmentID },
+    { DepartmentID: DepartmentID, CompanyID: company },
     'TradeID',
     'TradeName'
   );
@@ -26,16 +26,17 @@ const CenteralPreventiveMaintenance = () => {
   );
   const { data: PeriodList } = useDropDown(
     'api_ms_Periods_List',
-    { LocationID: DepartmentID, langID: Lang },
+    { LocationID: DepartmentID, LangID: Lang },
     'PeriodID',
     'PeriodName'
   );
   const { data: ProceduresTypeList } = useDropDown(
     'api_ms_Procedures_Types_List',
-    { DepartmentID: DepartmentID, CompanyID: company },
+    { DepartmentID: DepartmentID, CompanyID: company , LangID: Lang },
     'ProcedureTypeID',
     'ProcedureTypeName'
   );
+  console.log(DepartmentID, 'DepartmentID');
 
   return (
     <MainLayout title={PreventiveMaintenanceLang.CenteralpageTitle[Lang]}>
@@ -64,7 +65,7 @@ const CenteralPreventiveMaintenance = () => {
       <View className="flex-1">
         <MainGrid
           pk={'ProcedureID'}
-          spTrx={'api_ms_Procedures_Trx'}
+          spTrx={'api_ms_Procedures_Trx_Central'}
           spIns={'api_ms_Procedures_Ins'}
           spUpd={'api_ms_Procedures_Upd'}
           spDel={'api_ms_Procedures_Del'}
@@ -159,22 +160,22 @@ const CenteralPreventiveMaintenance = () => {
               visible: true,
               width: 100,
             },
-            {
-              key: 'AssetStopped',
-              label: PreventiveMaintenanceLang.AssetStopped[Lang],
-              type: 'checkbox',
-              input: true,
-              visible: true,
-              width: 100,
-            },
-            {
-              key: 'PlantStopped',
-              label: PreventiveMaintenanceLang.PlantStopped[Lang],
-              type: 'checkbox',
-              input: true,
-              visible: true,
-              width: 100,
-            },
+            // {
+            //   key: 'AssetStopped',
+            //   label: PreventiveMaintenanceLang.AssetStopped[Lang],
+            //   type: 'checkbox',
+            //   input: true,
+            //   visible: true,
+            //   width: 100,
+            // },
+            // {
+            //   key: 'PlantStopped',
+            //   label: PreventiveMaintenanceLang.PlantStopped[Lang],
+            //   type: 'checkbox',
+            //   input: true,
+            //   visible: true,
+            //   width: 100,
+            // },
             {
               key: 'Tasks',
               label: PreventiveMaintenanceLang.Tasks[Lang],
@@ -184,15 +185,15 @@ const CenteralPreventiveMaintenance = () => {
               visible: true,
               width: 300,
             },
-            {
-              key: 'SafetyName',
-              label: PreventiveMaintenanceLang.Safety[Lang],
-              type: 'text',
-              lines: 6,
-              input: true,
-              visible: true,
-              width: 200,
-            },
+            // {
+            //   key: 'SafetyName',
+            //   label: PreventiveMaintenanceLang.Safety[Lang],
+            //   type: 'text',
+            //   lines: 6,
+            //   input: true,
+            //   visible: true,
+            //   width: 200,
+            // },
             {
               key: 'Tools',
               label: PreventiveMaintenanceLang.Tools[Lang],

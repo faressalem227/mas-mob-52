@@ -11,7 +11,7 @@ const FollowStates = () => {
 
   return (
     <MainLayout title={ImportanceLang.FollowStates[Lang]} className="">
-      <View className="flex h-[100vh] flex-col bg-white py-4">
+      <View className="flex h-[100vh] flex-col bg-white py-4 m-2">
         <View style={[styles.ImportanceGrid, { height: screenHeight }]}>
           <MainGrid
             tableHead={[
@@ -38,13 +38,13 @@ const FollowStates = () => {
                 input: 'true',
                 visible: 'true',
               },
-              {
-                key: 'StateNameEn',
-                label: `${ImportanceLang.FollowStatesEn[Lang]}`,
-                type: '',
-                input: 'true',
-                visible: 'true',
-              },
+              // {
+              //   key: 'StateNameEn',
+              //   label: `${ImportanceLang.FollowStatesEn[Lang]}`,
+              //   type: '',
+              //   input: 'true',
+              //   visible: 'true',
+              // },
             ]}
             mixedWidth={true}
             pk={'StateID'}

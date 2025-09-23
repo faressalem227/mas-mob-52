@@ -52,25 +52,25 @@ const PermitionsTypes = () => {
             TrxParam={[
               { name: 'DepartmentID', value: DepartmentID },
               { name: 'CompanyID', value: company },
-              { name: 'UserName', value: user },
+              { name: 'UserName', value: user.username },
               { name: 'LangID', value: Lang },
             ]}
             DelParam={[
               { rowData: true, name: 'PermitTypeID', value: 'PermitTypeID' },
               { name: 'DepartmentID', value: DepartmentID },
               { name: 'CompanyID', value: company },
-              { name: 'UserName', value: user },
+              { name: 'UserName', value: user.username },
               { name: 'LangID', value: Lang },
             ]}
             UpdBody={{
               DepartmentID: DepartmentID,
-              UserName: user,
+              UserName: user.username,
               LangID: Lang,
               CompanyID: company,
             }}
             InsBody={{
               DepartmentID: DepartmentID,
-              UserName: user,
+              UserName: user.username,
               LangID: Lang,
               CompanyID: company,
             }}
