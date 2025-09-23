@@ -15,11 +15,11 @@ const PreventiveMaintenanceStockItemsLang = {
   },
   TableHeaders: {
     Category: {
-      1: 'التصنيف',
-      2: 'Category',
+      1: 'المخزن النوعي',
+      2: 'Section',
     },
     Group: {
-      1: 'المجموعة',
+      1: 'التصنيف',
       2: 'Group',
     },
     Item: {

@@ -60,7 +60,7 @@ const PreventiveMaintenanceDetails = {
     2: 'Health and safety procedures',
   },
   PreventiveMaintenanceLaborJobs: {
-    1: 'وظائف العمالة المخصصة للاجراء',
+    1: 'الوظائف / العمالة المخصصة للاجراء',
     2: 'Preventive Maintenance Labor Jobs',
   },
   PreventiveMaintenanceTasks: {

@@ -9,7 +9,7 @@ import api from '../../../../utilities/api';
 import Toast from 'react-native-toast-message';
 
 const CenetralReportFailure = () => {
-  const { user, Lang, DepartmentID, Rtl } = useGlobalContext();
+  const { user, Lang, DepartmentID, Rtl, company } = useGlobalContext();
   const [TradeID, setTradeID] = useState(null);
   const [YearID, setYearID] = useState(null);
   const [row, setRow] = useState(null);
@@ -20,11 +20,13 @@ const CenetralReportFailure = () => {
   const [counter, setCounter] = useState(0);
 
   const { data: ReportEmployeesList } = useDropDown(
-    'api_ms_Employees_ListForWo',
+    'api_py_Staff_List_CenterlalTeam',
     {
       DepartmentID,
       UserName: user.username,
       LangID: Lang,
+      CentralTeam: 1,
+      CompanyID: company,
     },
     'StaffID',
     'StaffName'
@@ -41,11 +43,12 @@ const CenetralReportFailure = () => {
   );
 
   const { data: tradeList } = useDropDown(
-    'api_ms_Trade_List_pm',
+    'api_ms_Trade_List',
     {
       DepartmentID,
       UserName: user.username,
       LangID: Lang,
+      CompanyID: company,
     },
     'TradeID',
     'TradeName'
@@ -86,7 +89,7 @@ const CenetralReportFailure = () => {
       console.error(error);
       Toast.show({
         type: 'error',
-        text1: ReportBugsLang.cancelFailure[Lang],
+        text1: error.response?.data?.message,
       });
     } finally {
       setCancelLoader(false);
@@ -105,13 +108,16 @@ const CenetralReportFailure = () => {
     setLoading(true);
 
     try {
-      await api.post('table/', {
-        sp: 'api_ms_sp_cm_GenerateWorkorder',
-        DepartmentID,
-        UserName: user.username,
-        LangID: Lang,
-        FailureReportID: row.FailureReportID,
-      });
+      const response = await api.post(
+        `/table?sp=api_ms_sp_cm_GenerateWorkorder_central&DepartmentID=${DepartmentID}&FailureReportID=${row?.FailureReportID}`
+      );
+      // await api.post('table/', {
+      //   sp: 'api_ms_sp_cm_GenerateWorkorder_central',
+      //   DepartmentID,
+      //   UserName: user.username,
+      //   LangID: Lang,
+      //   FailureReportID: row?.FailureReportID,
+      // });
       Toast.show({
         type: 'success',
         text1: ReportBugsLang.createSuccess[Lang],
@@ -120,7 +126,7 @@ const CenetralReportFailure = () => {
       console.error(error);
       Toast.show({
         type: 'error',
-        text1: ReportBugsLang.createFailure[Lang],
+        text1: error.response?.data?.message,
       });
     } finally {
       setLoading(false);
@@ -198,8 +204,15 @@ const CenetralReportFailure = () => {
             <TouchableOpacity
               className={`rounded-lg ${row && row?.FailureReportStatusID == 1 ? 'bg-red-500' : 'bg-slate-500'} p-3 duration-300`}
               onPress={() => {
-                if (row && row?.FailureReportStatusID == 1) {
-                  setShowModal(true);
+                if (row) {
+                  if (row?.FailureReportStatusID == 1) {
+                    setShowModal(true);
+                  } else {
+                    Toast.show({
+                      type: 'error',
+                      text1: ReportBugsLang.cancelFailure[Lang],
+                    });
+                  }
                 } else {
                   Toast.show({
                     type: 'error',
@@ -215,7 +228,7 @@ const CenetralReportFailure = () => {
             <MainGrid
               onRowPress={(row) => setRow(row)}
               pk={'FailureReportID'}
-              spTrx={'api_ms_FailureReports_Trx'}
+              spTrx={'api_ms_FailureReports_Trx_Central'}
               spIns={'api_ms_FailureReports_Ins'}
               spUpd={'api_ms_FailureReports_Upd'}
               spDel={'api_ms_FailureReports_Del'}
@@ -251,17 +264,24 @@ const CenetralReportFailure = () => {
               }}
               StaticWidth={true}
               hasSpecialButton={true}
-              dynamicCode={{
-                tbName: 'ms_FailureReports',
-                codeCol: 'FailureReportCode',
-              }}
+              // dynamicCode={{
+              //   tbName: 'ms_FailureReports',
+              //   codeCol: 'FailureReportCode',
+              // }}
               tableHead={[
                 {
-                  key: 'FailureReportCode',
+                  key: 'DepartmentName',
+                  label: `${ReportBugsLang.DepartmentName[Lang]}`,
+                  type: 'text',
+                  visible: true,
+                  width: 200,
+                },
+                {
+                  key: 'FormattedFailureReportCode',
                   label: `${ReportBugsLang.FailureReportCode[Lang]}`,
                   type: 'number',
-                  input: 'true',
-                  visible: 'true',
+                  input: false,
+                  visible: true,
                   width: 100,
                 },
                 {
@@ -285,6 +305,7 @@ const CenetralReportFailure = () => {
                   input: 'true',
                   visible: 'true',
                   width: 130,
+                  require: true,
                 },
                 {
                   key: 'FailureDate',
@@ -293,6 +314,7 @@ const CenetralReportFailure = () => {
                   input: 'true',
                   visible: 'true',
                   width: 100,
+                  require: true,
                 },
                 {
                   key: 'ProblemDescription',
@@ -303,29 +325,38 @@ const CenetralReportFailure = () => {
                   width: 250,
                 },
                 {
-                  key: 'ReportedByEmployeeID',
-                  label: `${ReportBugsLang.ReportedByEmployeeID[Lang]}`,
-                  type: 'dropdown',
-                  options: ReportEmployeesList,
-                  input: 'true',
-                  visible: 'false',
-                  width: 150,
-                },
-                {
                   key: 'WorkorderCode',
-                  label: 'رقم امر الشغل',
+                  label: ReportBugsLang.WorkorderCode[Lang],
                   type: 'number',
                   input: 'false',
                   visible: 'true',
-                  width: 100,
+                  width: 150,
                 },
+
                 {
                   key: 'WorkorderStatusName',
                   label: 'حاله امر الشغل',
                   type: 'text',
                   input: 'false',
                   visible: 'true',
-                  width: 100,
+                  width: 150,
+                },
+                {
+                  key: 'ReportedByEmployeeID',
+                  label: `${ReportBugsLang.ReportedByEmployeeID[Lang]}`,
+                  type: 'dropdown',
+                  options: ReportEmployeesList,
+                  input: true,
+                  visible: false,
+                  width: 150,
+                },
+                {
+                  key: 'StaffName',
+                  label: `${ReportBugsLang.ReportedByEmployeeID[Lang]}`,
+                  type: 'text',
+                  input: false,
+                  visible: true,
+                  width: 150,
                 },
                 {
                   key: 'PriorityID',
@@ -336,22 +367,22 @@ const CenetralReportFailure = () => {
                   visible: 'false',
                   width: 100,
                 },
-                {
-                  key: 'FailureReportID',
-                  label: 'كود البلاغ',
-                  type: 'number',
-                  input: 'false',
-                  visible: 'false',
-                  width: 100,
-                },
-                {
-                  key: 'StaffName',
-                  label: `${ReportBugsLang.EmployeeName[Lang]}`,
-                  type: 'text',
-                  input: 'false',
-                  visible: 'true',
-                  width: 150,
-                },
+                // {
+                //   key: 'FailureReportID',
+                //   label: 'كود البلاغ',
+                //   type: 'number',
+                //   input: 'false',
+                //   visible: 'false',
+                //   width: 100,
+                // },
+                // {
+                //   key: 'StaffName',
+                //   label: `${ReportBugsLang.EmployeeName[Lang]}`,
+                //   type: 'text',
+                //   input: 'false',
+                //   visible: 'true',
+                //   width: 150,
+                // },
                 {
                   key: 'PriorityName',
                   label: `${ReportBugsLang.PriorityName[Lang]}`,
@@ -361,16 +392,24 @@ const CenetralReportFailure = () => {
                   width: 100,
                 },
                 {
-                  key: 'CancelledName',
-                  label: `الالغاء بواسطه`,
-                  type: 'text',
+                  key: 'CancelledByEmployeeID',
+                  label: `${ReportBugsLang.CancelledByEmployee[Lang]}`,
+                  type: 'dropDown',
                   input: 'false',
                   visible: 'true',
                   width: 100,
                 },
                 {
+                  key: 'CancelStaff',
+                  label: `${ReportBugsLang.CancelledByEmployee[Lang]}`,
+                  type: 'text',
+                  input: false,
+                  visible: true,
+                  width: 150,
+                },
+                {
                   key: 'CancelledDate',
-                  label: `تاريخ االغاء`,
+                  label: `${ReportBugsLang.CancelledDate[Lang]}`,
                   type: 'date',
                   input: 'false',
                   visible: 'true',
@@ -378,7 +417,7 @@ const CenetralReportFailure = () => {
                 },
                 {
                   key: 'CancelReason',
-                  label: `سبب الالغاء`,
+                  label: `${ReportBugsLang.CancelReason[Lang]}`,
                   type: 'text',
                   input: 'false',
                   visible: 'true',

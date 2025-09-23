@@ -1,6 +1,6 @@
 /* eslint-disable eqeqeq */
 import { useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { useDropDown } from '../../../../hooks/useDropDownData';
 import { useGlobalContext } from '../../../../context/GlobalProvider';
 import { useLocalSearchParams } from 'expo-router';
@@ -32,6 +32,7 @@ const ReportSafety = () => {
     SafetyTools: SafetyTools || '',
   });
   const [isLoading, setIsLoading] = useState(false);
+  console.log(SafetyID, 'SafetyID');
 
   const { data: safetyList, originalData: OriginalData } = useDropDown(
     'api_ms_Safety_ListForWo',
@@ -48,26 +49,43 @@ const ReportSafety = () => {
   const handleDropdownChange = (safety) => {
     console.log(safety);
 
-    if (safety && safety !== SafetyID) {
-      const currentRow = OriginalData.filter((rec) => rec.SafetyID == safety)[0];
-      console.log(currentRow);
+    if (!safety) {
+      return; // Don't do anything if no safety selected
+    }
 
-      SetSafety({
-        SafetyID: safety,
-        SafetyInstructions: currentRow.SafetyInstructions,
-        SafetyDetails: currentRow.SafetyDetail,
-        SafetyTools: currentRow.SafetyTools,
-      });
-    } else if (safety && safety == SafetyID) {
+    if (safety == SafetyID) {
+      console.log('=== DROPDOWN CHANGE DEBUG ===');
+      console.log('Selected safety:', safety);
+      console.log('Original SafetyID from params:', SafetyID);
+      console.log('Current Safety state before change:', Safety);
+      console.log('OriginalData:', OriginalData);
       SetSafety({
         SafetyID: SafetyID,
         SafetyInstructions,
         SafetyDetails,
         SafetyTools,
       });
+    } else {
+      // If selecting a different SafetyID, get data from dropdown
+      const currentRow = OriginalData.find((rec) => rec.SafetyID == safety);
+      console.log(currentRow);
+
+      if (currentRow) {
+        SetSafety({
+          SafetyID: safety,
+          SafetyInstructions: currentRow.SafetyInstructions || '',
+          SafetyDetails: currentRow.SafetyDetail || '', // Note the field name difference
+          SafetyTools: currentRow.SafetyTools || '',
+        });
+      } else {
+        // Fallback if no data found - keep existing data but update SafetyID
+        SetSafety((prev) => ({
+          ...prev,
+          SafetyID: safety,
+        }));
+      }
     }
   };
-
   const handleChangeSafetyID = async () => {
     if (FailureReportStatusID != 1) {
       return;
@@ -83,6 +101,10 @@ const ReportSafety = () => {
         SafetyTools: Safety.SafetyTools,
         FailureReportID,
       });
+      SetSafety((prev) => ({
+        ...prev,
+        SafetyID: prev.SafetyID, 
+      }));
 
       Toast.show({ type: 'success', text1: ReportBugsLang.saveSuccess[Lang] });
     } catch (error) {
@@ -99,10 +121,18 @@ const ReportSafety = () => {
     { label: ReportBugsLang.FailureReportDate[Lang], value: FailureReportDate },
     { label: ReportBugsLang.FailureReportDate[Lang], value: FailureDate },
   ];
+  // useEffect(() => {
+  //   if (SafetyID) {
+  //     SetSafety((prev) => ({
+  //       ...prev,
+  //       SafetyID: Number(SafetyID),
+  //     }));
+  //   }
+  // }, [SafetyID]);
 
   return (
     <MainLayout title={ReportBugsLang.Safety[Lang]}>
-      <View className="mt-3 flex-1 px-4">
+      <ScrollView className="mt-3 flex-1 px-4">
         <InfoDetailes details={detailsData} />
 
         <View className="my-4 flex-1 gap-4">
@@ -112,6 +142,7 @@ const ReportSafety = () => {
             value={Safety.SafetyID}
             onChange={(val) => handleDropdownChange(val)}
             disabled={FailureReportStatusID != 1}
+            initailOption={Safety.SafetyID} // Add this line
           />
 
           <TextArea
@@ -148,7 +179,7 @@ const ReportSafety = () => {
             </TouchableOpacity>
           </View>
         </View>
-      </View>
+      </ScrollView>
     </MainLayout>
   );
 };

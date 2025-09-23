@@ -15,6 +15,7 @@ const PreventiveMaintenanceDetails = ({ route }) => {
     ProcedureCode,
     ProcedureName,
     PeriodName,
+    PeriodID,
     TradeID,
     EstimatedLaborHours,
     TradeName,
@@ -74,6 +75,7 @@ const PreventiveMaintenanceDetails = ({ route }) => {
                     ProcedureID,
                     ProcedureCode,
                     ProcedureName,
+                    PeriodID,
                     PeriodName,
                     TradeID,
                     EstimatedLaborHours,
@@ -106,6 +108,25 @@ const PreventiveMaintenanceDetails = ({ route }) => {
               }}
             />
             <SmallButton
+              title={PreventiveMaintenanceDetailsLang.PreventiveMaintenanceStockItems[Lang]}
+              handlePress={() => {
+                router.navigate({
+                  pathname: 'PreventiveMaintenanceStockItems',
+                  params: {
+                    ProcedureID,
+                    ProcedureCode,
+                    ProcedureName,
+                    PeriodName,
+                    TradeID,
+                    EstimatedLaborHours,
+                    TradeName,
+                    PriorityName,
+                    ProcedureTypeName,
+                  },
+                });
+              }}
+            />
+            {/* <SmallButton
               title={PreventiveMaintenanceDetailsLang.ProcedurerequiredTasks[Lang]}
               handlePress={() => {
                 router.navigate({
@@ -125,7 +146,7 @@ const PreventiveMaintenanceDetails = ({ route }) => {
                   },
                 });
               }}
-            />
+            /> */}
 
             <SmallButton
               title={PreventiveMaintenanceDetailsLang.PreventiveMaintenanceServices[Lang]}
@@ -146,25 +167,7 @@ const PreventiveMaintenanceDetails = ({ route }) => {
                 });
               }}
             />
-            <SmallButton
-              title={PreventiveMaintenanceDetailsLang.PreventiveMaintenanceStockItems[Lang]}
-              handlePress={() => {
-                router.navigate({
-                  pathname: 'PreventiveMaintenanceStockItems',
-                  params: {
-                    ProcedureID,
-                    ProcedureCode,
-                    ProcedureName,
-                    PeriodName,
-                    TradeID,
-                    EstimatedLaborHours,
-                    TradeName,
-                    PriorityName,
-                    ProcedureTypeName,
-                  },
-                });
-              }}
-            />
+
             <SmallButton
               title={PreventiveMaintenanceDetailsLang.PreventiveMaintenanceContracts[Lang]}
               handlePress={() => {

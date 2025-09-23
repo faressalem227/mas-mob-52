@@ -1,13 +1,12 @@
-import { TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View, Text, ScrollView } from 'react-native';
 import { useGlobalContext } from '../../../../context/GlobalProvider';
 import { useLocalSearchParams } from 'expo-router';
 import PreventiveMaintenanceTasksLang from '../../../../constants/Lang/Maintenance/PreventiveMaintenanceHome/PreventiveMaintenance/PreventiveMaintenanceTasksLang';
 import PreventiveMaintenanceDetailsLang from '../../../../constants/Lang/Maintenance/PreventiveMaintenanceHome/PreventiveMaintenanceDetails';
-import { MainGrid, MainLayout, InfoDetailes } from '../../../../components';
-import { useState } from 'react';
+import { MainGrid, MainLayout, InfoDetailes, Dropdown } from '../../../../components';
+import { useEffect, useState } from 'react';
 import Toast from 'react-native-toast-message';
 import api from '../../../../utilities/api';
-import { Dropdown } from 'react-native-element-dropdown';
 import { useDropDown } from '../../../../hooks/useDropDownData';
 
 const PreventiveMaintenanceTasks = () => {
@@ -37,8 +36,12 @@ const PreventiveMaintenanceTasks = () => {
     },
     { label: PreventiveMaintenanceDetailsLang.ProcedureType[Lang], value: ProcedureTypeName },
   ];
+  console.log(TradeID, 'TradeID');
+  console.log(PeriodID, 'PeriodID');
+  console.log(company, 'company');
+
   const { data: sds_SMPList } = useDropDown(
-    'ms_SMPList',
+    'api_ms_SMPList',
     {
       UserName: user.username,
       LangID: Lang,
@@ -51,84 +54,73 @@ const PreventiveMaintenanceTasks = () => {
   );
   const [isLoading, setIsLoading] = useState(false);
   const [SMPID, setSMPID] = useState(false);
-  const createWorkorder = async () => {
+  const [IsSMPTasks, setIsSMPTasks] = useState(false);
+  const [counter, setCounter] = useState(false);
+
+  const CopySMTask = async () => {
     setIsLoading(true);
     try {
-      const response = await api.get('table/', {
-        sp: 'api_ms_Procedures_Tasks_Copy',
-        //  DepartmentID: departmentValue?.value,
-        SMPID: SMPID,
-        ProcedureID: ProcedureID,
-      });
+      const response = await api.get(
+        `/table?sp=api_ms_Procedures_Tasks_Copy&SMPID=${SMPID}&ProcedureID=${ProcedureID}`
+      );
+      setCounter((prev) => prev + 1);
       Toast.show({
         type: 'success',
-        text1: 'success',
+        text1: PreventiveMaintenanceTasksLang.CopyConfirm[Lang],
       });
     } catch (error) {
-      console.error(error);
+      console.error(error.response?.data || error.message);
       Toast.show({
         type: 'error',
-        text1: 'error',
+        text1: PreventiveMaintenanceTasksLang.CopyFailed[Lang],
       });
     } finally {
       setIsLoading(false);
     }
   };
 
+  console.log(SMPID, 'SMPID');
+
   return (
     <MainLayout title={PreventiveMaintenanceTasksLang.PageTitle[Lang]} className="">
-      <View className="flex h-[100vh] flex-col bg-white py-4">
+      <ScrollView className="flex flex-col bg-white py-4">
         <InfoDetailes details={detailsData} />
-        <View className={`my-6 px-4 ${Rtl ? 'flex-row-reverse' : 'flex-row'} items-center gap-3`}>
+
+        <View className="my-4 gap-4 px-4">
           <Dropdown
-            placeholder={pagesText.SMP[languageValue]}
-            title={PreventiveMaintenanceLang.ProcedureType[Lang]}
+            placeholder={PreventiveMaintenanceTasksLang.SMP[Lang]}
+            title={PreventiveMaintenanceTasksLang.SMP[Lang]}
             data={sds_SMPList}
-            initailOption={ProceduresTypeList[0]?.key}
+            initailOption={sds_SMPList[0]?.key}
             onChange={(val) => {
+              console.log('Dropdown selected:', val);
               setSMPID(val);
             }}
-            // defaultValue={16}
+            value={SMPID}
           />
-          <TouchableOpacity
-            className={`rounded-lg 
-                bg-green-500
-             p-3 duration-300`}
-            onPress={createWorkorder}>
-            <Text className="text-white">{`${ReportBugsLang.createWorkorder[Lang]}${loading ? '...' : ''}`}</Text>
-          </TouchableOpacity>
-        </View>
-        {/* <div className="mb-4 flex flex-row flex-wrap items-center gap-2">
-          <div className="min-w-[300px]">
-            <DropDown
-              placeHolder={pagesText.SMP[languageValue]}
-              options={sds_SMPList}
-              onChange={(val) => {
-                setSMPID(val);
-              }}
-              value={SMPID}
-              // defaultValue={16}
-            />
-          </div>
-          <div className="min-w-[300px]">
-            <TableButton
-              // theme={
-              //   tableCounter || activeRow?.SMPTasksCopied
-              //     ? "disabled"
-              //     : "add"
-              // }
-              onClick={() => {
+
+          {/* Button */}
+          <View>
+            <TouchableOpacity
+              className="rounded-lg bg-green-600 p-3 text-center"
+              onPress={() => {
                 if (!SMPID) {
-                  toast.error(pagesText.SelectSMP[languageValue]);
+                  Toast.show({
+                    type: 'error',
+                    text1: PreventiveMaintenanceTasksLang.SelectSMP[Lang],
+                  });
                 } else {
                   setIsSMPTasks(true);
-                  getSMPTasks();
+                  CopySMTask();
                 }
               }}>
-              {pagesText.CopySMPTasks[languageValue]}
-            </TableButton>
-          </div>
-        </div> */}
+              <Text className="text-center text-white">
+                {`${PreventiveMaintenanceTasksLang.CopySMPTasks[Lang]}${isLoading ? '...' : ''}`}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
         <View className="flex-1">
           <MainGrid
             tableHead={[
@@ -168,6 +160,7 @@ const PreventiveMaintenanceTasks = () => {
             TrxParam={[
               { name: 'DepartmentID', value: DepartmentID },
               { name: 'ProcedureID', value: ProcedureID },
+              { name: 'SMPID', value: SMPID },
             ]}
             DelParam={[
               {
@@ -178,10 +171,10 @@ const PreventiveMaintenanceTasks = () => {
             ]}
             UpdBody={{ DepartmentID: DepartmentID, ProcedureID: ProcedureID }}
             InsBody={{ DepartmentID: DepartmentID, ProcedureID: ProcedureID }}
-            TrxDependency={[ProcedureID, DepartmentID]}
+            TrxDependency={[ProcedureID, counter, , JSON.stringify(SMPID)]}
           />
         </View>
-      </View>
+      </ScrollView>
     </MainLayout>
   );
 };
