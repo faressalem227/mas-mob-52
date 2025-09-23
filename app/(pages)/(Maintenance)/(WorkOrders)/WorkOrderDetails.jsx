@@ -481,6 +481,28 @@ const WorkOrderDetails = () => {
                 });
               }}
             />
+                <SmallButton
+              title={WorkOrderDetailsLang.Approvals[Lang]}
+              handlePress={() => {
+                router.navigate({
+                  pathname: './Approvals',
+                  params: {
+                    TradeID,
+                    LocationID,
+                    WorkorderID,
+                    WorkorderCode,
+                    WorkorderName,
+                    WorkorderTypeID,
+                    WorkorderTypeName,
+                    WorkorderStatusName,
+                    WorkorderStatusID,
+                    ...restParams,
+                  },
+                });
+              }}
+            />
+
+
             <SmallButton
               title={WorkOrderDetailsLang.cost[Lang]}
               handlePress={() => {
