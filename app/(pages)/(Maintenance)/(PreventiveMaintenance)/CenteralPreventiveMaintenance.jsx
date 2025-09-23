@@ -26,13 +26,13 @@ const CenteralPreventiveMaintenance = () => {
   );
   const { data: PeriodList } = useDropDown(
     'api_ms_Periods_List',
-    { LocationID: DepartmentID, langID: Lang },
+    { LocationID: DepartmentID, LangID: Lang },
     'PeriodID',
     'PeriodName'
   );
   const { data: ProceduresTypeList } = useDropDown(
     'api_ms_Procedures_Types_List',
-    { DepartmentID: DepartmentID, CompanyID: company },
+    { DepartmentID: DepartmentID, CompanyID: company , LangID: Lang },
     'ProcedureTypeID',
     'ProcedureTypeName'
   );
@@ -64,7 +64,7 @@ const CenteralPreventiveMaintenance = () => {
       <View className="flex-1">
         <MainGrid
           pk={'ProcedureID'}
-          spTrx={'api_ms_Procedures_Trx'}
+          spTrx={'api_ms_Procedures_Trx_central'}
           spIns={'api_ms_Procedures_Ins'}
           spUpd={'api_ms_Procedures_Upd'}
           spDel={'api_ms_Procedures_Del'}

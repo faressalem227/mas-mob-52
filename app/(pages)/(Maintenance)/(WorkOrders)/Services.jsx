@@ -153,7 +153,7 @@ const Services = () => {
               label: ServicesLang.TableHeaders.Item[Lang],
               input: 'false',
               visible: 'true',
-              width: 100,
+              width: 250,
             },
             {
               key: 'UnitID',

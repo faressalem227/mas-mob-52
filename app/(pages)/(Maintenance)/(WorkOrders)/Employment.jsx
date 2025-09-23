@@ -201,7 +201,7 @@ const Employment = () => {
               width: 150,
             },
             {
-              key: 'AssetName',
+              key: 'AssetNameLabour',
               label: EmploymentLang.TableHeaders.AssetName[Lang],
               type: '',
               input: 'false',
