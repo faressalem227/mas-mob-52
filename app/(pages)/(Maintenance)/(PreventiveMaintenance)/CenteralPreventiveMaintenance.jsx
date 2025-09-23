@@ -26,13 +26,13 @@ const CenteralPreventiveMaintenance = () => {
   );
   const { data: PeriodList } = useDropDown(
     'api_ms_Periods_List',
-    { LocationID: DepartmentID, langID: Lang },
+    { LocationID: DepartmentID, LangID: Lang },
     'PeriodID',
     'PeriodName'
   );
   const { data: ProceduresTypeList } = useDropDown(
     'api_ms_Procedures_Types_List',
-    { DepartmentID: DepartmentID, CompanyID: company },
+    { DepartmentID: DepartmentID, CompanyID: company , LangID: Lang },
     'ProcedureTypeID',
     'ProcedureTypeName'
   );

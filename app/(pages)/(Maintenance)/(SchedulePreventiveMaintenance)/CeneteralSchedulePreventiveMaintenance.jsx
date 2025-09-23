@@ -75,7 +75,7 @@ const CeneteralSchedulePreventiveMaintenance = () => {
       <View className="flex-1">
         <MainGrid
           pk={'ScheduleID'}
-          spTrx={'api_ms_Schedule_Trx'}
+          spTrx={'api_ms_Schedule_Trx_Central'}
           spIns={'api_ms_Schedule_Ins'}
           spUpd={'api_ms_Schedule_Upd'}
           spDel={'api_ms_Schedule_Del'}
