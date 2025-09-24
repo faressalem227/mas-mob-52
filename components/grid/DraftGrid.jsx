@@ -926,7 +926,7 @@ const DraftGrid = ({
           );
         const Ins = insRoute ? insRoute : 'table';
         InsParam != [] ? (url = `/${Ins}?sp=${spIns}${params}`) : `/${Ins}?sp=${spIns}`;
-        console.log(rowData);
+        console.log('riwdata', rowData);
 
         const response = await api.post(url, {
           ...rowData,

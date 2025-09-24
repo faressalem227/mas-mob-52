@@ -52,49 +52,47 @@ const SpecificInventory = ({ title, hasLeftComponent = false, onDrawerPress }) =
                 },
                 {
                   key: 'SectionName',
-                  label: InvintorySystemSettingLang.InvintoryName[Lang],
+                  label: InvintorySystemSettingLang.InvintoryNameAr[Lang],
                   input: 'true',
                   visible: 'true',
                   width: 150,
-
                 },
                 {
                   key: 'SectionNameEn',
-                  label: "اسم المخزن بالانجليزي",
+                  label: InvintorySystemSettingLang.InvintoryNameEn[Lang],
                   input: 'true',
                   visible: 'true',
                   width: 150,
                 },
-                {
-                  key: 'EmployeeID',
-                  label: InvintorySystemSettingLang.Invintorykeeper[Lang],
-                  type: 'dropdown',
-                  options: Employees,
-                  input: 'true',
-                  visible: 'false',
-                },
+                // {
+                //   key: 'EmployeeID',
+                //   label: InvintorySystemSettingLang.Invintorykeeper[Lang],
+                //   type: 'dropdown',
+                //   options: Employees,
+                //   input: 'true',
+                //   visible: 'false',
+                // },
                 {
                   key: 'EmployeeName',
                   label: InvintorySystemSettingLang.Invintorykeeper[Lang],
                   input: 'false',
                   visible: 'true',
                   width: 150,
-
                 },
                 {
                   key: 'IsServices',
-                  label: "خدمات",
+                  label: 'خدمات',
                   type: 'checkbox',
                   input: 'true',
                   visible: 'true',
-                }
+                },
               ]}
               dynamicCode={{
                 tbName: 'Sc_Item_Section',
                 codeCol: 'SectionCode',
               }}
               StaticWidth={true}
-             // mixedWidth={true}
+              // mixedWidth={true}
               pk={'SectionID'}
               spTrx={'api_Sc_Item_Section_Trx'}
               spIns={'api_Sc_Item_Section_Ins'}

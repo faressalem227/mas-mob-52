@@ -34,7 +34,7 @@ const StoresPage = () => {
                 title={StoresBranchesLang.InventoryItemData[Lang]}
                 handlePress={() => router.navigate('/StockItems')}></MainButton>
             </View>
-            <View className="mb-6">
+            {/* <View className="mb-6">
               <MainButton
                 icon={icons.ArrowCircleLeft}
                 iconStyles={'w-8 h-8'}
@@ -49,7 +49,7 @@ const StoresPage = () => {
                 textStyles={'w-[55vw] p-2'}
                 title={StoresBranchesLang.InventoryReports[Lang]}
                 handlePress={() => router.navigate('/InventoryReports')}></MainButton>
-            </View>
+            </View> */}
           </View>
         </View>
       </>

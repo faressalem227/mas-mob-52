@@ -32,9 +32,13 @@ const InvintorySystemSettingLang = {
     1: 'المخازن النوعية',
     2: 'Specific Invintory',
   },
-  InvintoryName: {
-    1: 'اسم المخزن',
-    2: 'Srore Name',
+  InvintoryNameAr: {
+    1: ' اسم المخزن عربي',
+    2: 'Store Name Ar',
+  },
+  InvintoryNameEn: {
+    1: 'اسم المخزن انجليزي',
+    2: 'Store Name En',
   },
   InvintoryCode: {
     1: 'كود المخزن',
@@ -42,11 +46,11 @@ const InvintorySystemSettingLang = {
   },
   Invintorykeeper: {
     1: 'أمين المخزن',
-    2: 'Storekeeper',
+    2: 'Store keeper',
   },
   ItemsClassifications: {
-    1: 'تصنيفات الأصناف',
-    2: 'Items Classifications',
+    1: 'التصنيفات ',
+    2: ' Classifications',
   },
   ItemCode: {
     1: 'كود التصنيف',
@@ -59,11 +63,11 @@ const InvintorySystemSettingLang = {
   // Invintory operation button
   InvintoryOperations: {
     1: 'عمليات المخزن',
-    2: 'Invintory Operations',
+    2: 'Inventory Operations',
   },
   OperationName: {
     1: 'اسم العملية',
-    2: 'Oreration Name',
+    2: 'Operation Name',
   },
   OperationType: {
     1: 'نوع العملية',
@@ -84,7 +88,7 @@ const InvintorySystemSettingLang = {
   // invintory operation detailes
   InvintoryOperationsDetailes: {
     1: 'تفاصيل عمليات المخزن',
-    2: 'Invintory Operations Detailes',
+    2: 'Inventory Operations Detailes',
   },
   // Additional data button
   AdditionalData: {

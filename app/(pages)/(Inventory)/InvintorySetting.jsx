@@ -23,9 +23,18 @@ function InvintorySetting() {
             handlePress={() => router.navigate("/SpecificationDefinition")}
           /> */}
           <SmallButton
+            title={InvintorySettingLang.SpecificInvintory[Lang]}
+            handlePress={() => router.navigate('/SpecificInventory')}
+          />
+          <SmallButton
+            title={InvintorySettingLang.ItemsClassifications[Lang]}
+            handlePress={() => router.navigate('/Classification')}
+          />
+          <SmallButton
             title={InvintorySettingLang.DefinitionUnits[Lang]}
             handlePress={() => router.navigate('/UnitDefinition')}
           />
+
           {/* <SmallButton
             title={InvintorySettingLang.UnitType[Lang]}
             handlePress={() => router.navigate("/UnitTypeDefinition")}
@@ -42,14 +51,7 @@ function InvintorySetting() {
             title={InvintorySettingLang.ItemStatus[Lang]}
             handlePress={() => router.navigate("/ItemStatus")}
           /> */}
-          <SmallButton
-            title={InvintorySettingLang.SpecificInvintory[Lang]}
-            handlePress={() => router.navigate('/SpecificInventory')}
-          />
-          <SmallButton
-            title={InvintorySettingLang.ItemsClassifications[Lang]}
-            handlePress={() => router.navigate('/Classification')}
-          />
+
           {/* <SmallButton
             title={InvintorySettingLang.InvintoryOperations[Lang]}
             handlePress={() => router.navigate("/InvintoryOperations")}

@@ -88,7 +88,7 @@ const CenetralReportFailure = () => {
     } catch (error) {
       console.error(error);
       Toast.show({
-        type: 'error',
+        type: 'error', 
         text1: error.response?.data?.message,
       });
     } finally {
