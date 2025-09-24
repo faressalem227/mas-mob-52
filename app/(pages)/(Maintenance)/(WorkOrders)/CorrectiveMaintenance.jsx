@@ -49,6 +49,14 @@ const CorrectiveMaintenance = ({}) => {
     'FailureID',
     'FailureName'
   );
+    const { data: WorkshopWorkStatus } = useDropDown(
+    "ms_Workorder_WorkshopStatus",
+    {
+      WorkorderID: WorkorderID,
+    },
+    "WorkshopWork",
+    "WorkshopWork"
+  );
 
   const { data: failureCause } = useDropDown(
     'api_ms_FailureCause_ListForWo',
@@ -120,7 +128,46 @@ const CorrectiveMaintenance = ({}) => {
               input: 'true',
               visible: 'true',
               width: 140,
+            },            
+            {
+              key: 'WorkshopWork',
+              label: 'اعمال ورش',
+              type: 'checkbox',
+              input: 'true',
+              visible: 'true',
+              width: 140,
             },
+             {
+              key: 'WorkshopName',
+              label: 'اسم الورشة',
+              type: 'text',
+              input: 'true',
+             visible:'true',
+             // (WorkshopWorkStatus && WorkshopWorkStatus[0]?.value > 0),
+             // visible : WorkorderTypeID== 2 ? true : false,
+              width: 120,
+            },
+          {
+          key: 'WorkorderCode',
+          label:' أمر الشغل الورشة',
+          type: 'text',
+          input: 'false',
+          visible: 'true',
+          //(WorkshopWorkStatus && WorkshopWorkStatus[0]?.value > 0),
+
+         //visible : WorkorderTypeID== 2 ? true : false,
+          width: 90,
+        },
+        {
+          key: 'WorkshopWorkEnded',
+          label:' انتهت اعمال الورشة',
+          type: 'date',
+          input: 'false',
+          visible : 'true',
+          //WorkorderTypeID== 2 ? true : false,
+          isRequired: false,
+          width: 90,
+        },
             {
               key: 'FailureID',
               label: `${CorrectiveMaintenanceLang.FailureCode[Lang]}`,
@@ -198,7 +245,7 @@ const CorrectiveMaintenance = ({}) => {
             },
           ]}
           pk={'WorkorderAssetID'}
-          spTrx={'api_ms_Workorder_Assets_Failure_Trx'}
+          spTrx={'ms_Workorder_Assets_Failure_Trx'}
           spIns={'api_ms_Workorder_Assets_Failure_Ins'}
           spUpd={'api_ms_Workorder_Assets_Failure_Upd'}
           spDel={'api_ms_Workorder_Assets_Failure_Del'}
@@ -256,7 +303,7 @@ export default CorrectiveMaintenance;
 //   Text,
 //   StyleSheet,
 //   SafeAreaView,
-//   TextInput,
+//   Textinput,
 //   ActivityIndicator,
 //   Alert,
 //   ScrollView,
@@ -265,7 +312,7 @@ export default CorrectiveMaintenance;
 // import {
 //   MainLayout,
 //   MainButton,
-//   DatePickerInput,
+//   DatePickerinput,
 //   Dropdown,
 // } from "../../../../components";
 // import { useRouter, useLocalSearchParams, useFocusEffect } from "expo-router";
@@ -463,7 +510,7 @@ export default CorrectiveMaintenance;
 //           <ScrollView className="p-4 pb-36 mb-14 space-y-2">
 //             <View className="pb-4">
 //               <Text className="text-base font-tmedium font-medium my-2">
-//                 {CorrectiveMaintenanceLang.InputFields.FailureCode[Lang]}
+//                 {CorrectiveMaintenanceLang.inputFields.FailureCode[Lang]}
 //               </Text>
 //               <Dropdown
 //                 data={failureCode}
@@ -482,9 +529,9 @@ export default CorrectiveMaintenance;
 //             </View>
 //             <View className="my-4">
 //               <Text className="font-tmedium font-medium text-base my-3 px-1">
-//                 {CorrectiveMaintenanceLang.InputFields.FailureDescription[Lang]}
+//                 {CorrectiveMaintenanceLang.inputFields.FailureDescription[Lang]}
 //               </Text>
-//               <TextInput
+//               <Textinput
 //                 className="w-[100%] p-4 font-tmedium border-[#227099] border-[.5px] rounded-md"
 //                 placeholder={
 //                   CorrectiveMaintenanceLang.Placeholders
@@ -501,7 +548,7 @@ export default CorrectiveMaintenance;
 //             </View>
 //             <View className="pb-4">
 //               <Text className="text-base font-tmedium font-medium my-2">
-//                 {CorrectiveMaintenanceLang.InputFields.FailureCauseCode[Lang]}
+//                 {CorrectiveMaintenanceLang.inputFields.FailureCauseCode[Lang]}
 //               </Text>
 //               <Dropdown
 //                 data={failureCause}
@@ -523,12 +570,12 @@ export default CorrectiveMaintenance;
 //             <View className="my-4">
 //               <Text className="font-tmedium font-medium text-base my-3 px-1">
 //                 {
-//                   CorrectiveMaintenanceLang.InputFields.FailureCauseDescription[
+//                   CorrectiveMaintenanceLang.inputFields.FailureCauseDescription[
 //                     Lang
 //                   ]
 //                 }
 //               </Text>
-//               <TextInput
+//               <Textinput
 //                 className="w-[100%] p-4 font-tmedium border-[#227099] border-[.5px] rounded-md"
 //                 multiline
 //                 numberOfLines={4}
@@ -547,9 +594,9 @@ export default CorrectiveMaintenance;
 //             </View>
 //             <View className="my-4">
 //               <Text className="font-tmedium font-medium text-base my-3 px-1">
-//                 {CorrectiveMaintenanceLang.InputFields.WorksDone[Lang]}
+//                 {CorrectiveMaintenanceLang.inputFields.WorksDone[Lang]}
 //               </Text>
-//               <TextInput
+//               <Textinput
 //                 className="w-[100%] p-4 font-tmedium border-[#227099] border-[.5px] rounded-md"
 //                 multiline
 //                 numberOfLines={4}
@@ -567,9 +614,9 @@ export default CorrectiveMaintenance;
 //             </View>
 //             <View className="my-4">
 //               <Text className="font-tmedium font-medium text-base my-3 px-1">
-//                 {CorrectiveMaintenanceLang.InputFields.PreventionDone[Lang]}
+//                 {CorrectiveMaintenanceLang.inputFields.PreventionDone[Lang]}
 //               </Text>
-//               <TextInput
+//               <Textinput
 //                 className="w-[100%] p-4 font-tmedium border-[#227099] border-[.5px] rounded-md"
 //                 multiline
 //                 numberOfLines={4}

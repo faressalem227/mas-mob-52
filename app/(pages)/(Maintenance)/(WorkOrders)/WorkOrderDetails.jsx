@@ -122,8 +122,11 @@ const WorkOrderDetails = () => {
               />
             )}
 
-            {(WorkorderTypeID == 3 ||
-              (WorkorderTypeID == 4 && WorkorderTypeID == 1 && IsNetwork == 'true')) && (
+              {(WorkorderTypeID == 3 ||
+               WorkorderTypeID == 4 ||
+               (WorkorderTypeID === 1 && IsNetwork == 'true')) && (
+            // {(WorkorderTypeID == 3 ||
+            // (WorkorderTypeID == 4 || WorkorderTypeID == 1 && IsNetwork == 'true')) && (
               <SmallButton
                 title={WorkOrderDetailsLang.contractorAssets[Lang]}
                 handlePress={() => {
@@ -199,7 +202,7 @@ const WorkOrderDetails = () => {
               />
             )}
 
-            {WorkorderTypeName === 'Corrective Maintenance' && (
+            {WorkorderTypeID == 2 && (
               <SmallButton
                 title={WorkOrderDetailsLang.CorrectiveMaintenance[Lang]}
                 handlePress={() => {
@@ -481,6 +484,29 @@ const WorkOrderDetails = () => {
                 });
               }}
             />
+                <SmallButton
+              title={WorkOrderDetailsLang.Approvals[Lang]}
+              handlePress={() => {
+                router.navigate({
+                  pathname: './Approvals',
+                  params: {
+                    TradeID,
+                    LocationID,
+                    WorkorderID,
+                    FailureDescription,
+                    WorkorderCode,
+                    WorkorderName,
+                    WorkorderTypeID,
+                    WorkorderTypeName,
+                    WorkorderStatusName,
+                    preventCrud,
+                    ...restParams,
+                  },
+                });
+              }}
+            />
+
+
             <SmallButton
               title={WorkOrderDetailsLang.cost[Lang]}
               handlePress={() => {

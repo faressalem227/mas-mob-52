@@ -9,6 +9,7 @@ const ScheduleAsset = () => {
   const { Lang, DepartmentID } = useGlobalContext();
   const [SubLocationID, setSubLocationID] = useState(null);
   const [AssetID, setAssetID] = useState(null);
+  const [CurrentRow, SetCurrentRow] = useState(null);
 
   const {
     TradeID,
@@ -50,13 +51,13 @@ const ScheduleAsset = () => {
   );
 
   const { data: ProceduresList } = useDropDown(
-    'api_ms_Procedures_List_Class',
-    { DepartmentID, ScheduleID, AssetID },
+    'api_ms_Procedures_List',
+    { DepartmentID, ScheduleID, AssetID , IsSm: 1},
     'ProcedureID',
-    'FullProcedureName',
-    [AssetID]
+    'FullProcedureName'
   );
 
+  
   return (
     <MainLayout title={ScheduleAssetLang.pageTitle[Lang]} className="">
       <View className="flex-1">

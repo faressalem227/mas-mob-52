@@ -126,7 +126,11 @@ const WorkOrderDetails = {
     1: 'السلامة و الصحة المهنية',
     2: 'WorkOrder Safty',
   },
-  WorkOrderCancel: {
+  Approvals: {
+    1: 'الاعتمادات',
+    2: 'Approvals',
+  },
+    WorkOrderCancel: {
     1: 'إلغاء أمر الشغل',
     2: 'WorkOrder Cancel',
   },

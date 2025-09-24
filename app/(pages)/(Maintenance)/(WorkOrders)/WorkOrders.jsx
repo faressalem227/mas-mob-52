@@ -173,6 +173,7 @@ const WorkOrders = () => {
             { name: 'Canceled', value: WorkOrderCancel ? 1 : 0 },
             { name: 'Opened', value: WorkOrderOpen ? 1 : 0 },
             { name: 'Wait', value: WorkOrderWaiting ? 1 : 0 },
+            { name: 'WaitWorkshop', value: WaitWorkshop ? 1 : 0 },
             { name: 'IsSm', value: 0 },
           ]}
           DelParam={[
@@ -288,9 +289,10 @@ const WorkOrders = () => {
             {
               key: 'MainWorkorderID',
               label: WorkOrdersLang.mainWorkorder[Lang],
-              type: 'dropDown',
+              type: 'dropdown',
               options: WorkshopWorkodersList,
               width: 120,
+              input: true,
             },
             {
               key: 'MainWorkorderName',
@@ -305,7 +307,6 @@ const WorkOrders = () => {
               type: 'dropdown',
               input: true,
               width: 270,
-
             },
             {
               key: 'AssignedEmployeeName',
@@ -313,7 +314,6 @@ const WorkOrders = () => {
               visible: true,
               width: 270,
               visible: true,
-
             },
             {
               key: 'ContractorID',

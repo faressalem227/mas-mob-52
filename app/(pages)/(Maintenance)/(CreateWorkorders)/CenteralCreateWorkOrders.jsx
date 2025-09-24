@@ -17,7 +17,7 @@ const CreateWorkOrders = () => {
   const router = useRouter();
 
   const { data } = useDropDown(
-    'api_ms_Trade_List_pm',
+    'api_ms_Trade_List',
     {
       DepartmentID: DepartmentID,
       CompanyID: company,
@@ -57,7 +57,7 @@ const CreateWorkOrders = () => {
           <Dropdown
             placeholder={CreateWorkOrdersLang.TradeChoose[Lang]}
             title={CreateWorkOrdersLang.Trade[Lang]}
-            initailOption={16}
+          initailOption={data[0]?.key}
             data={data}
             onChange={(v) => {
               setTradeID(v);
@@ -77,7 +77,7 @@ const CreateWorkOrders = () => {
 
         <View
           className={`flex-1 px-4 ${Rtl ? 'flex-row-reverse' : 'flex-row'} items-center justify-center gap-4`}>
-          <SmallButton
+          {/* <SmallButton
             title={CreateWorkOrdersLang.preventiveMs[Lang]}
             handlePress={() =>
               router.navigate({
@@ -92,13 +92,13 @@ const CreateWorkOrders = () => {
                 },
               })
             }
-          />
+          /> */}
 
           <SmallButton
             title={CreateWorkOrdersLang.automaticMs[Lang]}
             handlePress={() =>
               router.navigate({
-                pathname: './AuM',
+                pathname: './CentralpmCreate',
                 params: {
                   DateTo,
                   DateFrom,

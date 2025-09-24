@@ -20,13 +20,13 @@ const CeneteralSchedulePreventiveMaintenance = () => {
 
   const { data: PeriodList } = useDropDown(
     'api_ms_Periods_List',
-    { LocationID: DepartmentID, langID: Lang },
+    { LocationID: DepartmentID, LangID: Lang },
     'PeriodID',
     'PeriodName'
   );
   const { data: employeeData } = useDropDown(
-    'api_ms_Employees_ListForWo',
-    { DepartmentID: DepartmentID },
+    'py_Staff_List_CenterlalTeam_t',
+    { DepartmentID: DepartmentID , IsSm: 1},
     'StaffID',
     'StaffName'
   );
@@ -39,7 +39,7 @@ const CeneteralSchedulePreventiveMaintenance = () => {
 
   const { data: ProcedureType } = useDropDown(
     'api_ms_Procedures_Types_List',
-    {},
+    { DepartmentID: DepartmentID, LangID: Lang },
     'ProcedureTypeID',
     'ProcedureTypeName'
   );
@@ -51,7 +51,7 @@ const CeneteralSchedulePreventiveMaintenance = () => {
           placeholder={SchedulePreventiveMaintenanceLang.TradeChoose[Lang]}
           title={SchedulePreventiveMaintenanceLang.Trade[Lang]}
           data={Trade}
-          initailOption={16}
+          initailOption={Trade[0]?.key}
           value={TradeID}
           onChange={(e) => {
             setTradeID(e);
