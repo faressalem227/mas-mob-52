@@ -236,7 +236,7 @@ const SchedulePreventiveMaintenance = () => {
               type: 'dropdown',
               input: 'false',
               visible: 'true',
-              width: 100,
+              width: 300,
             },
             {
               key: 'NoOfYears',

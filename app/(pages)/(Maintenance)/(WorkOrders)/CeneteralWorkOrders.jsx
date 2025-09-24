@@ -19,7 +19,7 @@ const CeneteralWorkOrders = () => {
   const [WaitWorkshop, setWaitWorkshop] = useState(false);
 
   const { data: TradeList } = useDropDown(
-    'ms_Trade_List_pm',
+    'ms_Trade_List',
     { DepartmentID: DepartmentID },
     'TradeID',
     'TradeName'
@@ -266,6 +266,14 @@ const CeneteralWorkOrders = () => {
               type: 'dropDown',
               options: CustomSchedule,
             },
+                   
+            {
+              key: 'ScheduleCode',
+              label: WorkOrdersLang.ScheduleCode[Lang],
+              type: 'number',
+              visible: true,
+              width: 120,
+            },
             {
               key: 'ScheduleName',
               label: WorkOrdersLang.ScheduleName[Lang],
@@ -324,13 +332,13 @@ const CeneteralWorkOrders = () => {
               visible: 'true',
               width: 200,
             },
-            {
-              key: 'TargetTypeName',
-              label: WorkOrdersLang.Tareget[Lang],
-              type: 'text',
-              visible: true,
-              width: 170,
-            },
+            // {
+            //   key: 'TargetTypeName',
+            //   label: WorkOrdersLang.Tareget[Lang],
+            //   type: 'text',
+            //   visible: true,
+            //   width: 170,
+            // },
             {
               key: 'WorksDone',
               label: WorkOrdersLang.worksDone[Lang],
@@ -363,13 +371,6 @@ const CeneteralWorkOrders = () => {
               type: 'date',
               visible: 'true',
               width: 200,
-            },
-            {
-              key: 'ScheduleCode',
-              label: WorkOrdersLang.ScheduleCode[Lang],
-              type: 'number',
-              visible: true,
-              width: 120,
             },
             // {
             //   key: "ScheduleName",

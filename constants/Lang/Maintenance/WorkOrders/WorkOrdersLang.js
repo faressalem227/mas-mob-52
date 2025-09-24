@@ -180,6 +180,12 @@ const WorkOrdersLang = {
     1: 'مستندات',
     2: 'Documents',
   },
+ WaitWorkshop:  {
+    1: 'انتظار اعمال ورش',
+    2: 'Waiting for workshop',
+  },
+  
+
 };
 
 export default WorkOrdersLang;

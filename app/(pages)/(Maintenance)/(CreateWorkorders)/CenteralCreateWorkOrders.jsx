@@ -17,7 +17,7 @@ const CreateWorkOrders = () => {
   const router = useRouter();
 
   const { data } = useDropDown(
-    'api_ms_Trade_List_pm',
+    'api_ms_Trade_List',
     {
       DepartmentID: DepartmentID,
       CompanyID: company,
