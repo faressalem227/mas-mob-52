@@ -37,6 +37,19 @@ function UnitMaintenance() {
         className="m-auto flex flex-row-reverse flex-wrap items-center justify-center py-3"
         style={{ gap: hp('1.5%') }}>
         <SmallButton
+          title={HomeLang.employeeSystem[Lang]}
+          icon={icons.persones}
+          textStyles={'w-52'}
+          handlePress={() => router.navigate('/UnitEmployeesHome')}
+        />
+
+        <SmallButton
+          title={HomeLang.invintorySystem[Lang]}
+          icon={icons.Storefront}
+          handlePress={() => router.navigate('/UnitInventoryHome')}
+        />
+
+        <SmallButton
           title={HomeLang.assetManagement[Lang]}
           icon={icons.manage}
           textStyles={'w-52'}
@@ -44,10 +57,9 @@ function UnitMaintenance() {
         />
 
         <SmallButton
-          title={HomeLang.employeeSystem[Lang]}
-          icon={icons.persones}
-          textStyles={'w-52'}
-          handlePress={() => router.navigate('/UnitEmployeesHome')}
+          title={HomeLang.maintenanceSystem[Lang]}
+          icon={icons.Setting}
+          handlePress={() => router.navigate('/UnitMaintenanceHome')}
         />
 
         <SmallButton
@@ -60,12 +72,6 @@ function UnitMaintenance() {
           title={HomeLang.scada[Lang]}
           icon={icons.Vector}
           handlePress={() => router.navigate('/ScadaHome')}
-        />
-
-        <SmallButton
-          title={HomeLang.maintenanceSystem[Lang]}
-          icon={icons.Setting}
-          handlePress={() => router.navigate('/UnitMaintenanceHome')}
         />
       </View>
     </MainLayout>

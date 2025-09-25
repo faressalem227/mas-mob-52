@@ -1,24 +1,20 @@
-import { useEffect } from "react";
-import { SplashScreen, Stack, useRouter, Slot } from "expo-router";
-import { useGlobalContext } from "../../../context/GlobalProvider";
-import { MainLayout } from "../../../components";
+import { useEffect } from 'react';
+import { SplashScreen, Stack, useRouter, Slot } from 'expo-router';
+import { useGlobalContext } from '../../../context/GlobalProvider';
+import { MainLayout } from '../../../components';
 
 SplashScreen.preventAutoHideAsync();
 
 const ProtectedRoute = () => {
-	const router = useRouter();
-	const { user, isLogged } = useGlobalContext();
+  const router = useRouter();
+  const { user, isLogged } = useGlobalContext();
 
-	useEffect(() => {
-		if (!user || !isLogged) {
-			router.replace("/");
-		}
-	}, [router, user, isLogged]);
-	return (
-		
-			<Slot />
-
-	);
+  useEffect(() => {
+    if (!user || !isLogged) {
+      router.replace('/');
+    }
+  }, [router, user, isLogged]);
+  return <Slot />;
 };
 
 export default ProtectedRoute;

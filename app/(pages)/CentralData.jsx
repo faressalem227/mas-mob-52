@@ -45,11 +45,13 @@ function CentralData() {
             textStyles={`w-[${wp(40)}]`}
             handlePress={() => router.navigate('/EmployeesSystem')}
           />
+
           <SmallButton
             title={HomeLang.invintorySystem[Lang]}
             icon={icons.Storefront}
             handlePress={() => router.navigate('/StoresBranches')}
           />
+
           <SmallButton
             title={HomeLang.assetManagement[Lang]}
             icon={icons.manage}
