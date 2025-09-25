@@ -124,7 +124,7 @@ const TechnicalAssets = () => {
             {
               key: 'Unit',
               type: 'unit',
-              input: true,
+              input: false,
               required: false,
               visible: true,
               width: 100,

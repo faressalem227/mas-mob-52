@@ -1,24 +1,89 @@
-import { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { MainLayout, Dropdown, MainGrid } from '../../../../components';
+import { useState, useEffect } from 'react';
+import {
+  View,
+  FlatList,
+  TouchableOpacity,
+  Text,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
+import { MainLayout, DatePickerInput, Dropdown, FormField } from '../../../../components';
 import { useLocalSearchParams } from 'expo-router';
-import { useDropDown } from '../../../../hooks/useDropDownData';
+import api from '../../../../utilities/api';
 import AssetHomeLang from '../../../../constants/Lang/AssetManagment/AssetHomeLang';
 import { useGlobalContext } from '../../../../context/GlobalProvider';
-import ReportBugsLang from '../../../../constants/Lang/Maintenance/ReportBugs';
-const TechnicalAssets = ({ route }) => {
-  const {
-    AssetID,
-    SubLocationID,
-    LocationID,
-    AssetCode,
-    AssetName,
-    AssetClassName,
-    AssetStatusName,
-    ...restParams
-  } = useLocalSearchParams();
+import { useDropDown } from '../../../../hooks/useDropDownData';
+import Toast from 'react-native-toast-message';
 
-  const { Lang, company, DepartmentID } = useGlobalContext();
+const RenderWarrantyInput = ({
+  item,
+  handleChange,
+  obj,
+  supplierData = [],
+  contractorData = [],
+  Lang,
+}) => {
+  const value = obj[item.KeyName] ?? item.Value;
+  const label = item.Label || item.label;
+  const selectSupplier = {
+    1: 'اختر مورد',
+    2: ' Select Supplier',
+  };
+  const selectContractor = {
+    1: 'اختر مقاول',
+    2: 'Select Contractor',
+  };
+  switch (item.DataType) {
+    case 'date':
+      return (
+        <DatePickerInput
+          title={label}
+          defaultDate={obj[item.KeyName] || item.Value}
+          setDate={(val) => handleChange(item.KeyName, val)}
+          preventDefault={true}
+        />
+      );
+
+    case 'dropDown':
+      // Determine which dropdown data to use based on KeyName
+      let dropdownData = [];
+      if (item.KeyName === 'SupplierID') {
+        dropdownData = supplierData;
+      } else if (item.KeyName === 'ContractorID') {
+        dropdownData = contractorData;
+      }
+
+      return (
+        <Dropdown
+          label={label}
+          value={obj[item.KeyName]}
+          initailOption={item?.Value}
+          onChange={(val) => handleChange(item.KeyName, val)}
+          data={dropdownData}
+          placeholder={
+            item.KeyName === 'ContractorID' ? selectContractor[Lang] : selectSupplier[Lang]
+          }
+        />
+      );
+
+    default:
+      return (
+        <FormField
+          title={label}
+          value={value}
+          handleChangeText={(val) => handleChange(item.KeyName, val)}
+        />
+      );
+  }
+};
+
+const WarrantyAssets = () => {
+  const { AssetID, DepartmentID } = useLocalSearchParams();
+  const { Lang, company } = useGlobalContext();
+
+  const [loading, setLoading] = useState(false);
+  const [WarrantyData, setWarrantyData] = useState([]);
+  const [warrantyObj, setWarrantyObj] = useState({});
 
   const { data: SupplierList, loading: SupplierLoader } = useDropDown(
     'Sc_Suppliers_List',
@@ -33,104 +98,170 @@ const TechnicalAssets = ({ route }) => {
     'ContractorID',
     'ContractorName'
   );
+  const updateWarrantyObj = (key, value) => {
+    setWarrantyObj((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
+
+  const fetchWarrantyAssets = async () => {
+    setLoading(true);
+    try {
+      const response = await api.get(
+        `/table?sp=api_ms_Assets_Warranty_Trx&AssetID=${AssetID}&DepartmentID=${DepartmentID}`
+      );
+      const data = response.data.data || [];
+
+      // Transform the data to match the expected format
+      const transformedData = [
+        {
+          KeyName: 'ContractorID',
+          Label: 'المقاول',
+          DataType: 'dropDown',
+          Value: data[0]?.ContractorID || '',
+        },
+        {
+          KeyName: 'SupplierID',
+          Label: 'المورد',
+          DataType: 'dropDown',
+          Value: data[0]?.SupplierID || '',
+        },
+        {
+          KeyName: 'WarrantyProvider',
+          Label: 'شركه الضمان',
+          DataType: 'text',
+          Value: data[0]?.WarrantyProvider || '',
+        },
+        {
+          KeyName: 'WarrantyContact',
+          Label: 'مسؤول الضمان',
+          DataType: 'text',
+          Value: data[0]?.WarrantyContact || '',
+        },
+        {
+          KeyName: 'WarrantyStartDate',
+          Label: 'تاريخ بدايه الضمان',
+          DataType: 'date',
+          Value: data[0]?.WarrantyStartDate || '',
+        },
+        {
+          KeyName: 'WarrantyEndDate',
+          Label: 'تاريخ نهايه الضمان',
+          DataType: 'date',
+          Value: data[0]?.WarrantyEndDate || '',
+        },
+      ];
+
+      setWarrantyData(transformedData);
+
+      // Initialize the warranty object with existing values
+      if (data[0]) {
+        setWarrantyObj({
+          ContractorID: data[0].ContractorID || '',
+          SupplierID: data[0].SupplierID || '',
+          WarrantyProvider: data[0].WarrantyProvider || '',
+          WarrantyContact: data[0].WarrantyContact || '',
+          WarrantyStartDate: data[0].WarrantyStartDate || '',
+          WarrantyEndDate: data[0].WarrantyEndDate || '',
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      Toast.show({
+        type: 'error',
+        text1: err.message || 'Failed to fetch data',
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const saved = {
+    1: 'تم الحفظ بنجاح',
+    2: 'Saved successfully',
+  };
+
+  const WarrantyDataLang = {
+    1: 'بيانات الضمان',
+    2: 'Warranty Data',
+  };
+
+  const handleSave = async () => {
+    setLoading(true);
+    try {
+      await api.post(`/table`, {
+        sp: 'api_ms_Assets_Warranty_Upd',
+        AssetID,
+        ...warrantyObj,
+      });
+      await fetchWarrantyAssets();
+
+      Toast.show({
+        type: 'success',
+        text1: saved[Lang],
+      });
+    } catch (err) {
+      Toast.show({
+        type: 'error',
+        text1: err.response?.data?.message || 'Save failed',
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (AssetID) fetchWarrantyAssets();
+  }, [AssetID]);
+
+  console.log('Warranty Object:', warrantyObj);
+
+  const isDropdownLoading = SupplierLoader || ContractorLoader;
 
   return (
-    <MainLayout title="بيانات الضمان" className="" loading={SupplierLoader || ContractorLoader}>
-      <View className="flex-1">
-        <MainGrid
-          hasIns={false}
-          hasDel={false}
-          spTrx={'api_ms_Assets_Warranty_Trx'}
-          spUpd={'api_ms_Assets_Warranty_Upd'}
-          TrxParam={[
-            { name: 'AssetID', value: AssetID },
-            { name: 'DepartmentID', value: DepartmentID },
-          ]}
-          UpdParam={[{ name: 'AssetID', value: AssetID }]}
-          mixedWidth
-          tableHead={[
-            {
-              key: 'ContractorID',
-              label: 'المقاول',
-              type: 'dropdown',
-              options: ContractorList,
-              input: 'true',
-              visible: 'false',
-              width: 150,
-            },
-            {
-              key: 'SupplierID',
-              label: 'المورد',
-              type: 'dropdown',
-              options: SupplierList,
-              input: 'true',
-              visible: 'false',
-              width: 150,
-            },
-            {
-              key: 'WarrantyProvider',
-              label: 'شركه الضمان',
-              type: 'text',
-              input: 'true',
-              visible: 'true',
-              width: 150,
-            },
-            {
-              key: 'WarrantyContact',
-              label: 'مسؤول الضمان',
-              type: 'text',
-              input: 'true',
-              visible: 'true',
-              width: 150,
-            },
-            {
-              key: 'WarrantyStartDate',
-              label: 'تاريخ بدايه الضمان',
-              type: 'date',
-              input: 'true',
-              visible: 'true',
-              width: 150,
-            },
-            {
-              key: 'WarrantyEndDate',
-              label: 'تاريخ نهايه الضمان',
-              type: 'date',
-              input: 'true',
-              visible: 'true',
-              width: 150,
-            },
-            {
-              key: 'SupplierName',
-              label: 'المورد',
-              input: 'false',
-              visible: 'true',
-              width: 150,
-            },
-            {
-              key: 'ContractorName',
-              label: 'المقاول',
-              input: 'false',
-              visible: 'true',
-              width: 250,
-            },
-          ]}
-        />
-      </View>
+    <MainLayout title={WarrantyDataLang[Lang]} loading={loading || isDropdownLoading}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        keyboardVerticalOffset={80}>
+        <View className="flex-1">
+          <View className="flex-1 px-4">
+            <FlatList
+              data={WarrantyData}
+              keyExtractor={(item) => String(item?.KeyName)}
+              showsVerticalScrollIndicator={false}
+              removeClippedSubviews={false}
+              keyboardShouldPersistTaps="handled"
+              renderItem={({ item }) => (
+                <View className="my-2">
+                  <RenderWarrantyInput
+                    item={item}
+                    handleChange={updateWarrantyObj}
+                    obj={warrantyObj}
+                    supplierData={SupplierList}
+                    contractorData={ContractorList}
+                    Lang={Lang}
+                  />
+                </View>
+              )}
+            />
+          </View>
+
+          <View className="my-6 flex-row items-center justify-center px-4">
+            <TouchableOpacity
+              className="w-1/2 rounded-lg bg-primary p-2"
+              onPress={handleSave}
+              disabled={loading}>
+              <Text className="text-center font-tregular text-white">
+                {AssetHomeLang.Save?.[Lang] || 'حفظ'}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </KeyboardAvoidingView>
     </MainLayout>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  dropdownContainer: {
-    marginHorizontal: 16,
-    marginVertical: 8,
-  },
-  assetsGrid: {
-    marginVertical: 8,
-  },
-});
-
-export default TechnicalAssets;
+export default WarrantyAssets;

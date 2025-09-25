@@ -15,17 +15,23 @@ import { useGlobalContext } from '../../../../context/GlobalProvider';
 import { useDropDown } from '../../../../hooks/useDropDownData';
 import Toast from 'react-native-toast-message';
 
-const RenderInput = ({ item, handleChange, obj, dropdownData = [] }) => {
+const RenderInput = ({ item, handleChange, obj, dropdownData = [], Lang }) => {
   const value = obj[item.KeyName] ?? item.Value; // fallback only if undefined
   const label = item.Label || item.label;
+
+  const selectEmployee = {
+    1: '  اختر موظف',
+    2: 'Select Employee',
+  };
 
   switch (item.DataType) {
     case 'date':
       return (
         <DatePickerInput
           title={label}
-          defaultDate={item.Value}
+          defaultDate={obj[item.KeyName] || item.Value}
           setDate={(val) => handleChange(item.KeyName, val)}
+          preventDefault={true}
         />
       );
 
@@ -37,6 +43,7 @@ const RenderInput = ({ item, handleChange, obj, dropdownData = [] }) => {
           initailOption={item?.Value}
           onChange={(val) => handleChange(item.KeyName, val)}
           data={dropdownData}
+          placeholder={selectEmployee[Lang]}
         />
       );
 
@@ -47,6 +54,7 @@ const RenderInput = ({ item, handleChange, obj, dropdownData = [] }) => {
           value={value}
           handleChangeText={(val) => handleChange(item.KeyName, val)}
           numeric
+          editable={!(item.KeyName === 'AccumulatedDepreciation')}
         />
       );
 
@@ -95,6 +103,13 @@ const FinancialAssets = () => {
       );
       const data = response.data.data || [];
       setFinanceData(data);
+
+      const initialObj = {};
+      data.forEach((item) => {
+        initialObj[item.KeyName] = item.Value;
+      });
+      setFinanceObj(initialObj);
+      setFinanceData(data);
     } catch (err) {
       console.error(err);
       Toast.show({
@@ -114,10 +129,16 @@ const FinancialAssets = () => {
   const handleSave = async () => {
     setLoading(true);
     try {
-      await api.post(`/table`, {
-        sp: 'api_am_asset_financial_Upd',
-        ...financeObj,
-      });
+      const query = new URLSearchParams({
+        AssetID: AssetID,
+        ...financeObj, // ده هيتحول params أوتوماتيك
+      }).toString();
+
+      const response = await api.post(`/table?sp=api_am_asset_financial_Upd&${query}`);
+      // const response = await api.post(`/table?sp=api_am_asset_financial_Upd&AssetID=${AssetID}`, {
+      //   ...financeObj,
+      // });
+
       Toast.show({
         type: 'success',
         text1: saved[Lang],
@@ -160,6 +181,7 @@ const FinancialAssets = () => {
                     handleChange={updateFinanceObj}
                     obj={financeObj}
                     dropdownData={ms_EmployeeList}
+                    Lang={Lang}
                   />
                 </View>
               )}

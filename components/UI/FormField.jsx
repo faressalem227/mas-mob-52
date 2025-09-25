@@ -48,7 +48,7 @@ const FormField = ({
       )}
       <View
         style={{ borderWidth: 0.5, borderColor: '227099' }}
-        className={`h-14 w-full ${Rtl ? 'flex-row-reverse' : 'flex-row '} items-center rounded-lg bg-[#FEFEFE] px-4 focus:border-primary`}>
+        className={`h-14 w-full ${Rtl ? 'flex-row-reverse' : 'flex-row '} items-center rounded-lg bg-[#FEFEFE] px-4 py-1 focus:border-primary`}>
         {title === ('كلمة المرور' || title === 'Password') && (
           <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
             <Image

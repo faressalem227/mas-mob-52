@@ -27,34 +27,7 @@ const OperatingData = () => {
   const [TradeID, setTradeID] = useState();
   const [currentView, setCurrentView] = useState(1);
 
-  const operationHours = [
-    ,
-    { value: '0', key: 0 },
-    { value: '1', key: 1 },
-    { value: '2', key: 2 },
-    { value: '3', key: 3 },
-    { value: '4', key: 4 },
-    { value: '5', key: 5 },
-    { value: '6', key: 6 },
-    { value: '7', key: 7 },
-    { value: '8', key: 8 },
-    { value: '9', key: 9 },
-    { value: '10', key: 10 },
-    { value: '11', key: 11 },
-    { value: '12', key: 12 },
-    { value: '13', key: 13 },
-    { value: '14', key: 14 },
-    { value: '15', key: 15 },
-    { value: '16', key: 16 },
-    { value: '17', key: 17 },
-    { value: '18', key: 18 },
-    { value: '19', key: 19 },
-    { value: '20', key: 20 },
-    { value: '21', key: 21 },
-    { value: '22', key: 22 },
-    { value: '23', key: 23 },
-  ];
-
+  
   const { data: TradeList } = useDropDown(
     'api_ms_Trade_List_pm',
     { DepartmentID, CompanyID: company, LangID: Lang },
@@ -72,7 +45,7 @@ const OperatingData = () => {
   return (
     <MainLayout title={OperatingSystemLang.OperatingData[Lang]}>
       <View className="flex-1">
-        <View className="my-3 gap-4 px-4">
+        <View className="my-16 gap-4 px-4">
           <DatePickerInput
             title={OperatingSystemLang.Date[Lang]}
             setDate={(selectedDate) => setDate(selectedDate)}
@@ -81,7 +54,7 @@ const OperatingData = () => {
           <Dropdown
             data={TradeList}
             initailOption={TradeList[0]?.key}
-            title={'اختر التصنيف'}
+            title={OperatingSystemLang.Classification[Lang]}
             placeholder={OperatingSystemLang.select[Lang]}
             onChange={(v) => setTradeID(v)}
           />

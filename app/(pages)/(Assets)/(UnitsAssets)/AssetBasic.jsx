@@ -7,7 +7,7 @@ import { MainLayout, MainGrid } from '../../../../components';
 
 const AssetBasicLang = {
   BasicData: {
-    1: 'البيانت الاساسيه',
+    1: 'البيانات الاساسيه',
     2: 'Basic Data',
   },
 
