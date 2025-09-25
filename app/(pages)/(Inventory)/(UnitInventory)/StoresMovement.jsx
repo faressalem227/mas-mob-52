@@ -1,21 +1,16 @@
- // app/screens/StoresPage.jsx
+// app/screens/StoresPage.jsx
 import React, { useState, useEffect, useMemo } from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
 import { useRouter } from 'expo-router';
-import {
-  widthPercentageToDP as wp,
-} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
-import api from '../../../utilities/api';
-import { useGlobalContext } from '../../../context/GlobalProvider';
-import { useDropDown } from '../../../hooks/useDropDownData';
+import api from '../../../../utilities/api';
+import { useGlobalContext } from '../../../../context/GlobalProvider';
+import { useDropDown } from '../../../../hooks/useDropDownData';
 
-import {
-  MainLayout,
-  Dropdown,
-} from '../../../components';
+import { MainLayout, Dropdown } from '../../../../components';
 
-import MainGrid from '../../../components/grid/MainGrid';
+import MainGrid from '../../../../components/grid/MainGrid';
 
 const StoresPage = () => {
   const router = useRouter();
@@ -149,7 +144,7 @@ const StoresPage = () => {
 
   const { data: projects } = useDropDown(
     'api_sc_projects_list',
-{ CompanyID: company },
+    { CompanyID: company },
     'value',
     'label',
     [],
@@ -168,7 +163,9 @@ const StoresPage = () => {
   // --- COL FLAGS ---
   const getCols = async () => {
     try {
-      const res = await api.get('table/filter?sp=api_sc_process_cols&ProcessID=' + selectedProcessID);
+      const res = await api.get(
+        'table/filter?sp=api_sc_process_cols&ProcessID=' + selectedProcessID
+      );
       const data = res?.data?.data || [];
       const flags = data.reduce((acc, curr) => ({ ...acc, [curr.FlagName]: curr.Flag }), {});
       console.log(flags.UseWorkorderID, 'flags');
@@ -207,193 +204,221 @@ const StoresPage = () => {
     }
   }, [selectedProcessID, selectedYear, selectedSectionID, DepartmentID]);
 
-  const tableHead = useMemo(() => ([
-    { key: 'OrderID', visible: false, input: false },
-    { key: 'CompanyID', visible: false, input: false },
-    { key: 'LocationID', visible: false, input: false },
-    { key: 'YearID', visible: false, input: false },
-    { key: 'ProcessID', visible: false, input: false },
-    {
-      key: 'OrderNo',
-      visible: true,
-      label: Lang === 2 ? 'Order No' : 'رقم الإذن',
-      input: true,
-      width: 100,
-      type: 'number',
-      defaultValue: defaultOrderNo,
-      loading: loader === 'generateOrderNumber',
-    },
-    {
-      key: 'OrderDate',
-      visible: true,
-      input: true,
-      label: Lang === 2 ? 'Order Date' : 'تاريخ الإذن',
-      type: 'date',
-      width: 120,
-    },
-    {
-      key: 'SupplierID',
-      visible: !!colsData.UseSupplierID,
-      input: !!colsData.UseSupplierID,
-      label: Lang === 2 ? 'Supplier' : 'المورد',
-      type: 'dropdown',
-      width: 200,
-      options: supplierList,
-    },
-    {
-      key: 'ClientID',
-      visible: !!colsData.UseClient,
-      input: !!colsData.UseClient,
-      label: Lang === 2 ? 'Client' : 'العميل',
-      type: 'dropdown',
-      width: 200,
-      options: clientList,
-    },
-    {
-      key: 'Discount',
-      visible: !!colsData.UseDiscount,
-      input: !!colsData.UseDiscount,
-      label: Lang === 2 ? 'Discount' : 'الخصم',
-      type: 'number',
-      width: 140,
-    },
-    {
-      key: 'ContractorID',
-      visible: !!colsData.UseContractorID,
-      input: !!colsData.UseContractorID,
-      label: Lang === 2 ? 'Contractor' : 'المقاول',
-      type: 'dropdown',
-      width: 200,
-      options: contractorList,
-    },
-    {
-      key: 'EmployeeID',
-      visible: !!colsData.UseEmployeeID,
-      input: !!colsData.UseEmployeeID,
-      label: Lang === 2 ? 'Employee' : 'الموظف',
-      type: 'dropdown',
-      width: 200,
-      options: employeeList,
-    },
-    {
-      key: 'WorkorderID',
-      visible: colsData.UseWorkorderID,
-      input: colsData.UseWorkorderID,
-      label: Lang === 2 ? 'Workorder' : 'أمر الشغل',
-      type: 'dropdown',
-      width: 200,
-      options: workOrderList,
-    },
-    {
-      key: 'ParityID',
-      visible: !!colsData.UseParityID,
-      input: !!colsData.UseParityID,
-      label: Lang === 2 ? 'Parity' : 'الجهة',
-      type: 'dropdown',
-      width: 140,
-      options: parityList,
-    },
-    {
-      key: 'ProjectID',
-      visible: !!colsData.UseProjects,
-      input: !!colsData.UseProjects,
-      label: Lang === 2 ? 'Project' : 'المشروع',
-      type: 'dropdown',
-      width: 160,
-      options: projects,
-    },
-    {
-      key: 'SubDepartmentID',
-visible: !!colsData.UseDepartmentID,
-      input: !!colsData.UseDepartmentID,
-      label: Lang === 2 ? 'Department' : 'الإدارة',
-      type: 'dropdown',
-      width: 160,
-      options: departmentList,
-    },
-    {
-      key: 'AssetID',
-      visible: !!colsData.UseAssetID,
-      input: !!colsData.UseAssetID,
-      label: Lang === 2 ? 'Asset' : 'الأصل',
-      type: 'dropdown',
-      width: 300,
-      options: assetList,
-    },
-    {
-      key: 'AssetClassID',
-      visible: !!colsData.UseAssetClassID,
-      input: !!colsData.UseAssetClassID,
-      label: Lang === 2 ? 'Classification' : 'التصنيف',
-      type: 'dropdown',
-      width: 200,
-      options: assetClassList,
-      onChange: (value, handle) => {
-        setAssetClassID(value);
-        handle('AssetID', null);
+  const tableHead = useMemo(
+    () => [
+      { key: 'OrderID', visible: false, input: false },
+      { key: 'CompanyID', visible: false, input: false },
+      { key: 'LocationID', visible: false, input: false },
+      { key: 'YearID', visible: false, input: false },
+      { key: 'ProcessID', visible: false, input: false },
+      {
+        key: 'OrderNo',
+        visible: true,
+        label: Lang === 2 ? 'Order No' : 'رقم الإذن',
+        input: true,
+        width: 100,
+        type: 'number',
+        defaultValue: defaultOrderNo,
+        loading: loader === 'generateOrderNumber',
       },
-    },
-    {
-      key: 'SelectYearID',
-      visible: !!colsData.UseYear,
-      input: !!colsData.UseYear,
-      type: 'number',
-      label: Lang === 2 ? 'Years' : 'السنوات',
-      width: 100,
-    },
-    {
-      key: 'TotalCost',
-      visible: true,
-      label: Lang === 2 ? 'Total' : 'الإجمالي',
-      type: 'number',
-      width: 120,
-    },
-    {
-      key: 'OrderDescription',
-      visible: true,
-      input: true,
-      label: Lang === 2 ? 'Order Description' : 'وصف الإذن',
-      type: 'text',
-      width: 240,
-    },
-    {
-      key: 'trx_user',
-      visible: true,
-      label: Lang === 2 ? 'User' : 'المستخدم',
-      width: 120,
-    },
-    {
-      key: 'trx_time',
-      visible: true,
-      type: 'date',
-      label: Lang === 2 ? 'Time' : 'الوقت',
-      width: 200,
-    },
-    {
-      key: 'StatusName',
-      visible: true,
-      label: Lang === 2 ? 'Status' : 'الحالة',
-      width: 140,
-    },
-  ]), [Lang, colsData, supplierList, contractorList, employeeList, workOrderList, parityList, projects, departmentList, assetList, assetClassList, defaultOrderNo, loader]);
+      {
+        key: 'OrderDate',
+        visible: true,
+        input: true,
+        label: Lang === 2 ? 'Order Date' : 'تاريخ الإذن',
+        type: 'date',
+        width: 120,
+      },
+      {
+        key: 'SupplierID',
+        visible: !!colsData.UseSupplierID,
+        input: !!colsData.UseSupplierID,
+        label: Lang === 2 ? 'Supplier' : 'المورد',
+        type: 'dropdown',
+        width: 200,
+        options: supplierList,
+      },
+      {
+        key: 'ClientID',
+        visible: !!colsData.UseClient,
+        input: !!colsData.UseClient,
+        label: Lang === 2 ? 'Client' : 'العميل',
+        type: 'dropdown',
+        width: 200,
+        options: clientList,
+      },
+      {
+        key: 'Discount',
+        visible: !!colsData.UseDiscount,
+        input: !!colsData.UseDiscount,
+        label: Lang === 2 ? 'Discount' : 'الخصم',
+        type: 'number',
+        width: 140,
+      },
+      {
+        key: 'ContractorID',
+        visible: !!colsData.UseContractorID,
+        input: !!colsData.UseContractorID,
+        label: Lang === 2 ? 'Contractor' : 'المقاول',
+        type: 'dropdown',
+        width: 200,
+        options: contractorList,
+      },
+      {
+        key: 'EmployeeID',
+        visible: !!colsData.UseEmployeeID,
+        input: !!colsData.UseEmployeeID,
+        label: Lang === 2 ? 'Employee' : 'الموظف',
+        type: 'dropdown',
+        width: 200,
+        options: employeeList,
+      },
+      {
+        key: 'WorkorderID',
+        visible: colsData.UseWorkorderID,
+        input: colsData.UseWorkorderID,
+        label: Lang === 2 ? 'Workorder' : 'أمر الشغل',
+        type: 'dropdown',
+        width: 200,
+        options: workOrderList,
+      },
+      {
+        key: 'ParityID',
+        visible: !!colsData.UseParityID,
+        input: !!colsData.UseParityID,
+        label: Lang === 2 ? 'Parity' : 'الجهة',
+        type: 'dropdown',
+        width: 140,
+        options: parityList,
+      },
+      {
+        key: 'ProjectID',
+        visible: !!colsData.UseProjects,
+        input: !!colsData.UseProjects,
+        label: Lang === 2 ? 'Project' : 'المشروع',
+        type: 'dropdown',
+        width: 160,
+        options: projects,
+      },
+      {
+        key: 'SubDepartmentID',
+        visible: !!colsData.UseDepartmentID,
+        input: !!colsData.UseDepartmentID,
+        label: Lang === 2 ? 'Department' : 'الإدارة',
+        type: 'dropdown',
+        width: 160,
+        options: departmentList,
+      },
+      {
+        key: 'AssetID',
+        visible: !!colsData.UseAssetID,
+        input: !!colsData.UseAssetID,
+        label: Lang === 2 ? 'Asset' : 'الأصل',
+        type: 'dropdown',
+        width: 300,
+        options: assetList,
+      },
+      {
+        key: 'AssetClassID',
+        visible: !!colsData.UseAssetClassID,
+        input: !!colsData.UseAssetClassID,
+        label: Lang === 2 ? 'Classification' : 'التصنيف',
+        type: 'dropdown',
+        width: 200,
+        options: assetClassList,
+        onChange: (value, handle) => {
+          setAssetClassID(value);
+          handle('AssetID', null);
+        },
+      },
+      {
+        key: 'SelectYearID',
+        visible: !!colsData.UseYear,
+        input: !!colsData.UseYear,
+        type: 'number',
+        label: Lang === 2 ? 'Years' : 'السنوات',
+        width: 100,
+      },
+      {
+        key: 'TotalCost',
+        visible: true,
+        label: Lang === 2 ? 'Total' : 'الإجمالي',
+        type: 'number',
+        width: 120,
+      },
+      {
+        key: 'OrderDescription',
+        visible: true,
+        input: true,
+        label: Lang === 2 ? 'Order Description' : 'وصف الإذن',
+        type: 'text',
+        width: 240,
+      },
+      {
+        key: 'trx_user',
+        visible: true,
+        label: Lang === 2 ? 'User' : 'المستخدم',
+        width: 120,
+      },
+      {
+        key: 'trx_time',
+        visible: true,
+        type: 'date',
+        label: Lang === 2 ? 'Time' : 'الوقت',
+        width: 200,
+      },
+      {
+        key: 'StatusName',
+        visible: true,
+        label: Lang === 2 ? 'Status' : 'الحالة',
+        width: 140,
+      },
+    ],
+    [
+      Lang,
+      colsData,
+      supplierList,
+      contractorList,
+      employeeList,
+      workOrderList,
+      parityList,
+      projects,
+      departmentList,
+      assetList,
+      assetClassList,
+      defaultOrderNo,
+      loader,
+    ]
+  );
 
-  const trxParams = useMemo(() => ([
-    { name: 'CompanyID', value: company },
-    { name: 'DepartmentID', value: DepartmentID },
-    { name: 'ProcessID', value: selectedProcessID || 0 },
-    { name: 'YearID', value: selectedYear || 0 },
-    { name: 'MonthID', value: selectedMonth || 0 },
-    { name: 'SectionID', value: selectedSectionID || 0 },
-    { name: 'UserName', value: user?.username || '' },
-    { name: 'LangID', value: Lang },
-  ]), [company, DepartmentID, selectedProcessID, selectedYear, selectedMonth, selectedSectionID, user?.username, Lang]);
+  const trxParams = useMemo(
+    () => [
+      { name: 'CompanyID', value: company },
+      { name: 'DepartmentID', value: DepartmentID },
+      { name: 'ProcessID', value: selectedProcessID || 0 },
+      { name: 'YearID', value: selectedYear || 0 },
+      { name: 'MonthID', value: selectedMonth || 0 },
+      { name: 'SectionID', value: selectedSectionID || 0 },
+      { name: 'UserName', value: user?.username || '' },
+      { name: 'LangID', value: Lang },
+    ],
+    [
+      company,
+      DepartmentID,
+      selectedProcessID,
+      selectedYear,
+      selectedMonth,
+      selectedSectionID,
+      user?.username,
+      Lang,
+    ]
+  );
 
   return (
     <MainLayout title={Lang === 2 ? 'Stores Transactions' : 'حركات المخازن'}>
       <View
         className="mt-2 flex flex-row-reverse flex-wrap items-center justify-center px-4"
-        style={{ gap: wp('3.5%') }}
-      >
+        style={{ gap: wp('3.5%') }}>
         <View style={{ width: windowWidth > 400 ? wp('40%') : wp('90%') }}>
           <Dropdown
             placeholder={Lang === 2 ? 'Select' : 'اختر'}
@@ -466,7 +491,6 @@ visible: !!colsData.UseDepartmentID,
             SectionID: selectedSectionID,
             ProcessID: selectedProcessID,
             MonthID: selectedMonth,
-
           }}
           StaticWidth
           mixedWidth
@@ -493,4 +517,3 @@ const styles = StyleSheet.create({
 });
 
 export default StoresPage;
-

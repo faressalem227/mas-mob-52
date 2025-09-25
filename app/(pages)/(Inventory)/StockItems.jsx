@@ -1,274 +1,262 @@
-import { StyleSheet, View, Dimensions } from 'react-native';
-import { router, useLocalSearchParams } from 'expo-router';
-import MainGrid from '../../../components/grid/MainGrid';
+import { View } from 'react-native';
 import { useGlobalContext } from '../../../context/GlobalProvider';
-import { MainButton, WelcomeCard, Dropdown } from '../../../components';
-import { HandleDropdownFormat, useDropDown } from '../../../hooks/useDropDownData';
-// import Icon from "react-native-vector-icons/MaterialIcons";
-import React, { useState, useCallback, useEffect } from 'react';
-import { SafeAreaView } from 'react-native';
-import StockItemsTable from '../../../components/grid/StockItemsTable';
+import { Dropdown, MainGrid } from '../../../components';
+import { useState, useEffect } from 'react';
 import { MainLayout } from '../../../components';
-import api from '../../../utilities/api';
 import MainDataLang from '../../../constants/Lang/Invintory/MainDataLang';
-const StockItems = ({ title, hasLeftComponent = false, onDrawerPress }) => {
-  const screenHeight = Dimensions.get('window').height;
-  const { WorkorderID } = useGlobalContext();
-  const [loadimg, setLoading] = useState(false);
+
+import { useDropDown } from '../../../hooks/useDropDownData';
+
+const StockItemsLang = {
+  StockItems: {
+    1: 'بيانات الاصناف',
+    2: 'Stock Items',
+  },
+
+  ItemsSection: {
+    1: 'المخزن النوعي',
+    2: 'Section',
+  },
+
+  ItemCode: {
+    1: 'الكود',
+    2: 'Code',
+  },
+  ItemName: {
+    1: 'اسم الصنف',
+    2: 'Item Name',
+  },
+  MainItemID: {
+    1: 'الصنف المركزي',
+    2: 'Central Item',
+  },
+  Group: {
+    1: 'التصنيف',
+    2: 'Classification',
+  },
+  Unit: {
+    1: 'الوحدة',
+    2: 'Unit',
+  },
+  UnitCost: {
+    1: 'تكلفة الوحدة',
+    2: 'Unit Cost',
+  },
+  DepartmentBalance: {
+    1: 'رصيد الصنف على مستوى الإدارة',
+    2: 'Department Balance',
+  },
+  CompanyBalance: {
+    1: 'رصيد الصنف على مستوى الشركة',
+    2: 'Company Balance',
+  },
+  CountDocuments: {
+    1: 'مستندات',
+    2: 'Documents',
+  },
+};
+
+const StockItems = () => {
   const { DepartmentID, Lang, company, user } = useGlobalContext();
-  const [storesData, setStoresData] = useState([]);
-  const [storeValue, setStoreValue] = useState(null);
-  const [storesItems, setStoresItems] = useState([]);
-  const [storeItems, setStoreItems] = useState(null);
-  const [unitList, setUnitList] = useState([]);
-  const [selectedClassification, setSelectedClassification] = useState(null);
-  //console.log(DepartmentID)
-  const fetchDropdownData = useCallback(async () => {
-    try {
-      setLoading(true);
-      const response = await api.get(`/table?sp=api_Sc_Item_Section_List&CompanyID=${company}`);
-      //console.log("API Response:", response.data); // Log the entire response for inspection
+  const [SectionID, setSectionID] = useState(null);
+  const [GroupID, setGroupID] = useState(null);
 
-      // Assuming response.data.data contains the array of sub-locations
-      const subLocationList = response.data.data || [];
+  const { data: itemSectionList } = useDropDown(
+    'api_Sc_Item_Section_List',
+    {
+      CompanyID: company,
+      LangID: Lang,
+      UserName: user.username,
+    },
+    'SectionID',
+    'SectionName'
+  );
 
-      if (Array.isArray(subLocationList)) {
-        const list = HandleDropdownFormat(subLocationList, 'SectionID', 'SectionName');
-        //console.log("5555", list);
-        setStoresData(list);
-      } else {
-        console.error('Expected subLocationList to be an array, but got:', subLocationList);
-      }
-    } catch (err) {
-      console.error('Error fetching dropdown data:', err);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  const { data: itemGroupList } = useDropDown(
+    'api_Sc_Item_Group_List',
+    {
+      CompanyID: company,
+      LangID: Lang,
+      UserName: user.username,
+      SectionID,
+    },
+    'GroupID',
+    'GroupName',
+    [SectionID]
+  );
 
-  useEffect(() => {
-    fetchDropdownData();
-  }, [fetchDropdownData]);
-  const fetchItemsData = useCallback(async () => {
-    try {
-      if (storeValue) {
-        //console.log(storeValue);
+  const { data: unitList } = useDropDown(
+    'api_Sc_Item_Unit_List',
+    {
+      CompanyID: company,
+      LangID: Lang,
+      UserName: user.username,
+    },
+    'UnitID',
+    'UnitName'
+  );
 
-        setLoading(true);
-        const response = await api.get(
-          `/table?sp=api_Sc_Item_Group_List2&CompanyID=${company}&SectionID=${storeValue}`
-        );
-        //console.log("API Response:", response.data); // Log the entire response for inspection
-
-        // Assuming response.data.data contains the array of sub-locations
-        const subLocationList = response.data.data || [];
-
-        if (Array.isArray(subLocationList)) {
-          const list = HandleDropdownFormat(subLocationList, 'GroupID', 'GroupName');
-          //console.log("55555555", list);
-          setStoresItems(list);
-        } else {
-          console.error('Expected subLocationList to be an array, but got:', subLocationList);
-        }
-      }
-    } catch (err) {
-      console.error('Error fetching dropdown data:', err);
-    } finally {
-      setLoading(false);
-    }
-  }, [storeValue]);
-
-  const fetchDropdownData2 = useCallback(async () => {
-    try {
-      setLoading(true);
-      const response = await api.get(`/table?sp=api_Sc_Item_Unit_List&CompanyID=${company}`);
-      console.log('API Response:', response.data); // Log the entire response for inspection
-
-      // Assuming response.data.data contains the array of sub-locations
-      const subLocationList = response.data.data || [];
-
-      if (Array.isArray(subLocationList)) {
-        const list = HandleDropdownFormat(subLocationList, 'UnitID', 'UnitName');
-        console.log('5555', list);
-        setUnitList(list);
-      } else {
-        console.error('Expected subLocationList to be an array, but got:', subLocationList);
-      }
-    } catch (err) {
-      console.error('Error fetching dropdown data:', err);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchDropdownData2();
-  }, [fetchDropdownData2]);
-
-  useEffect(() => {
-    fetchItemsData();
-  }, [fetchItemsData]);
-
-  useEffect(() => {}, [storeItems]);
-  
   return (
-    <View style={styles.container}>
-      <MainLayout title={MainDataLang.InventoryItemData[Lang]}>
-        <View className="mx-[16px] mt-6">
-          <Dropdown
-            placeholder={MainDataLang.Select[Lang]}
-            title={MainDataLang.QualitativeStore[Lang]}
-            onChange={(v) => setStoreValue(v)}
-            value={storeValue}
-            initailOption={storesData[0]?.key}
-            data={storesData}
-          />
-        </View>
-        <View className="mx-[16px] my-6">
-          <Dropdown
-            title={MainDataLang.Classification[Lang]}
-            data={storesItems}
-            placeholder={MainDataLang.Select[Lang]}
-            value={storeValue}
-            initailOption={storesItems[0]?.key}
-            onChange={(value) => {
-              setStoreItems(value);
-            }}
-          />
-        </View>
-        <View style={[styles.assetsGrid, { height: screenHeight - 250 }]}>
-          <MainGrid
-            const
-            tableHead={[
-              {
-                key: 'ItemCode',
-                label: MainDataLang.ItemCode[Lang],
-                type: 'number',
-                input: 'true',
-                visible: 'true',
-                width: 120,
-              },
-              {
-                key: 'ItemName',
-                label: MainDataLang.ItemName[Lang],
-                input: 'true',
-                visible: 'true',
-                width: 200,
-              },
-              {
-                key: 'GroupID',
-                label: MainDataLang.Classification[Lang],
-                type: 'dropdown',
-                options: storesItems ,
-                input: 'true',
-                visible: 'false',
-              },
-              {
-                key: 'GroupName',
-                label: MainDataLang.Classification[Lang],
-                type: 'text',
-                input: 'false',
-                visible: 'true',
-                width: 120,
-              },
-              {
-                key: 'UnitID',
-                label: MainDataLang.Unit[Lang],
-                type: 'dropdown',
-                options: unitList,
-                input: 'true',
-                visible: 'false',
-              },
-              {
-                key: 'UnitName',
-                label: MainDataLang.Unit[Lang],
-                type: 'text',
-                input: 'false',
-                visible: 'true',
-                width: 120,
-              },
-              {
-                key: 'UnitCost',
-                label: MainDataLang.Price[Lang],
-                type: 'number',
-                input: 'true',
-                visible: 'true',
-                width: 120,
-              },
-              {
-                key: 'DepartmentBalance',
-                label: MainDataLang.DepartmentBalance[Lang],
-                input: 'false',
-                visible: 'true',
-                width: 120,
-              },
-              {
-                key: 'CompanyBalance',
-                label: MainDataLang.CompanyBalance[Lang],
-                input: 'false',
-                visible: 'true',
-                width: 130,
-              },
-              {
-                key: 'CountDocuments',
-                label: MainDataLang.Documents[Lang],
-                input: 'false',
-                visible: 'true',
-                width: 120,
-              },
-            ]}
-            pk={'ItemID'}
-            spTrx={'api_Sc_Items__Trx_ms'}
-            spIns={'api_Sc_Items__Ins'}
-            spUpd={'api_Sc_Items__Upd'}
-            spDel={'api_Sc_Items__Del'}
-            TrxParam={[
-              { name: 'CompanyID', value: company },
-              { name: 'GroupID', value: storeItems },
-              {name:'DepartmentID', value: DepartmentID},
-            ]}
-            DelParam={[
-              { rowData: true, name: 'ItemID', value: 'ItemID' },
-              { name: 'CompanyID', value: company },
-            ]}
-            UpdBody={{
+    <MainLayout title={StockItemsLang.StockItems[Lang]}>
+      <View className="mx-[16px] mt-6">
+        <Dropdown
+          data={itemSectionList}
+          title={StockItemsLang.ItemsSection[Lang]}
+          placeholder={StockItemsLang.ItemsSection[Lang]}
+          value={SectionID}
+          initailOption={itemSectionList[0]?.key}
+          onChange={(v) => setSectionID(v)}
+        />
+      </View>
+      <View className="mx-[16px] my-6">
+        <Dropdown
+          data={itemGroupList}
+          title={StockItemsLang.Group[Lang]}
+          placeholder={StockItemsLang.Group[Lang]}
+          value={GroupID}
+          initailOption={itemGroupList[0]?.key}
+          onChange={(value) => {
+            setGroupID(value);
+          }}
+        />
+      </View>
+      <View className="flex-1">
+        <MainGrid
+          pk={'ItemID'}
+          spTrx={'api_Sc_Items__Trx_ms'}
+          spIns={'api_Sc_Items__Ins'}
+          spUpd={'api_Sc_Items__Upd'}
+          spDel={'api_Sc_Items__Del'}
+          TrxParam={[
+            { name: 'CompanyID', value: company },
+            { name: 'UserName', value: user.username },
+            { name: 'LangID', value: Lang },
+            { name: 'DepartmentID', value: DepartmentID },
+            { name: 'GroupID', value: GroupID },
+          ]}
+          InsBody={{
+            DepartmentID,
+            CompanyID: company,
+            GroupID,
+            UserName: user.username,
+            LangID: Lang,
+          }}
+          UpdBody={{
+            DepartmentID,
+            CompanyID: company,
+            GroupID,
+            UserName: user.username,
+            LangID: Lang,
+          }}
+          DelParam={[
+            { rowData: true, name: 'ItemID', value: 'ItemID' },
+            { name: 'CompanyID', value: company },
+            { name: 'UserName', value: user.username },
+            { name: 'LangID', value: Lang },
+          ]}
+          TrxDependency={[GroupID]}
+          mixedWidth
+          tableHead={[
+            { key: 'ItemID', hidden: true },
+            { key: 'CompanyID', hidden: true },
+            {
+              key: 'ItemCode',
+              label: StockItemsLang.ItemCode[Lang],
+              type: 'number',
+              input: true,
+              required: true,
+              width: 100,
+              visible: true,
+            },
+            {
+              key: 'ItemName',
+              label: StockItemsLang.ItemName[Lang],
+              colspan: 6,
+              type: 'text',
+              input: true,
+              required: true,
+              width: 200,
+              visible: true,
+            },
+            {
+              key: 'GroupID',
+              label: StockItemsLang.Group[Lang],
+              type: 'dropdown',
+              options: itemGroupList || [],
+              input: true,
+              visible: false,
+              required: true,
+              width: 100,
+            },
+            {
+              key: 'GroupName',
+              label: StockItemsLang.Group[Lang],
+              visible: true,
+              width: 100,
+            },
+            {
+              key: 'UnitID',
+              label: StockItemsLang.Unit[Lang],
+              options: unitList || [],
+              type: 'dropdown',
+              input: true,
+              visible: false,
+              required: true,
+              width: 80,
+            },
+            {
+              key: 'UnitName',
+              label: StockItemsLang.Unit[Lang],
+              visible: true,
+              width: 80,
+            },
+            {
+              key: 'UnitCost',
+              label: StockItemsLang.UnitCost[Lang],
+              input: true,
+              required: true,
+              width: 125,
+              visible: true,
+            },
+            {
+              key: 'DepartmentBalance',
+              label: StockItemsLang.DepartmentBalance[Lang],
+              input: false,
+              required: false,
+              type: 'number',
+              width: 200,
+              visible: true,
+            },
+            {
+              key: 'CompanyBalance',
+              label: StockItemsLang.CompanyBalance[Lang],
+              input: false,
+              required: false,
+              type: 'number',
+              width: 200,
+              visible: true,
+            },
+            {
+              key: 'CountDocuments',
+              label: StockItemsLang.CountDocuments[Lang],
+              input: false,
+              required: false,
+              width: 100,
+              visible: true,
+            },
+          ]}
+          routeTo={{
+            path: '/TechnicalSpecifications',
+            hasParams: true,
+            params: {
               DepartmentID: DepartmentID,
-              CompanyID: company,
-              GroupID: storeItems,
-            }}
-            InsBody={{
-              DepartmentID: DepartmentID,
-              CompanyID: company,
-              GroupID: storeItems,
-            }}
-            StaticWidth={true}
-            mixedWidth
-            TrxDependency={[storeItems]}
-            routeTo={{
-              path: '/TechnicalSpecifications',
-              hasParams: true,
-              params: {
-                DepartmentID: DepartmentID,
-                GroupID: storeItems,
-              },
-            }}
-          />
-        </View>
-      </MainLayout>
-    </View>
+              GroupID,
+            },
+          }}
+        />
+      </View>
+    </MainLayout>
   );
 };
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  dropdownContainer: {
-    marginHorizontal: 16,
-    marginVertical: 24,
-  },
-  assetsGrid: {
-    marginVertical: 8,
-  },
-});
 
 export default StockItems;
