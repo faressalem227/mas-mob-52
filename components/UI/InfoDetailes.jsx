@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { View, Text, Dimensions } from 'react-native';
+import { View, Text } from 'react-native';
 
 import { useGlobalContext } from '../../context/GlobalProvider';
 
@@ -16,11 +15,8 @@ const InfoDetailes = ({ details = [], containerStyle = '' }) => {
             borderBottomWidth: index === details.length - 1 ? 0 : 1,
             borderColor: '#E4E7EC',
           }}>
-          <Text
-            className={`font-tmedium ${Rtl ? 'text-right' : 'text-left'}`}>{`${item.label} :`}</Text>
-          <Text className={`flex-1 font-tmedium ${Rtl ? 'text-right' : 'text-left'} font-tmedium`}>
-            {item.value}
-          </Text>
+          <Text className={`font-tmedium`}>{`${item.label} :`}</Text>
+          <Text className={`flex-1 font-tmedium`}>{item.value}</Text>
         </View>
       ))}
     </View>

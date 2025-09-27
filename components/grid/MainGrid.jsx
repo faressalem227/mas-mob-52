@@ -277,22 +277,27 @@ const MainGrid = ({
   }, [filteredTableHead, mixedWidth, StaticWidth]);
 
   const handleDoubleClick = (row) => {
-    if (routeTo) {
-      if (routeTo.hasSpecialVal && routeTo.specialVal) {
-        if (row[routeTo.specialVal.col] === routeTo.specialVal.value) {
-          router.push({
-            pathname: routeTo.path,
-            ...(routeTo.hasParams && { params: { ...row, ...routeTo.params } }),
-          });
-        } else {
-          return;
-        }
-      } else {
+    if (!routeTo) return;
+
+    // ✅ If routeTo is a function, just call it
+    if (typeof routeTo === 'function') {
+      routeTo(row);
+      return;
+    }
+
+    // ✅ Otherwise, assume it's an object
+    if (routeTo.hasSpecialVal && routeTo.specialVal) {
+      if (row[routeTo.specialVal.col] === routeTo.specialVal.value) {
         router.push({
           pathname: routeTo.path,
           ...(routeTo.hasParams && { params: { ...row, ...routeTo.params } }),
         });
       }
+    } else {
+      router.push({
+        pathname: routeTo.path,
+        ...(routeTo.hasParams && { params: { ...row, ...routeTo.params } }),
+      });
     }
   };
 
@@ -605,7 +610,10 @@ const MainGrid = ({
                       styles.head,
                       { height: rowHeight, flexDirection: Rtl ? 'row-reverse' : 'row' },
                     ]}
-                    textStyle={[styles.text, { fontSize: labelFontSize * 1.2 }]}
+                    textStyle={{
+                      ...styles.text,
+                      fontSize: labelFontSize * 1.2,
+                    }}
                   />
                 </Table>
                 {/* Table Body with FlatList */}
@@ -645,7 +653,7 @@ const MainGrid = ({
                             flexDirection: Rtl ? 'row-reverse' : 'row',
                           },
                         ]}
-                        textStyle={[styles.text, { fontSize: valueFontSize * 1.6 }]}
+                        textStyle={{ ...styles.text, fontSize: valueFontSize * 1.6 }}
                         widthArr={widthArr} // Dynamic widths
                         data={filteredTableHead.map((col, idx) => {
                           const item = dataRow[col.key]; // Get column data

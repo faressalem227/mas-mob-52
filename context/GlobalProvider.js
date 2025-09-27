@@ -27,7 +27,7 @@ const GlobalProvider = ({ children }) => {
       console.log(user?.company, '1111111');
       setCompany(user?.company);
       const response = await api.get(
-        `/table?sp=api_admin_Departments_Type_List&CompanyID=${user?.company}&LangID=${Lang}&UserName=${user?.username}&SystemID=4`
+        `/table?sp=api_admin_Departments_Type_List&CompanyID=${user?.company}&LangID=${Lang}&UserName=${user?.username}&SystemID=4&IncludeStore=1`
       );
 
       console.log('executing');
