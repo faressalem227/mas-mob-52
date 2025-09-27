@@ -15,7 +15,7 @@ const SparePartsExceeding = () => {
           spTrx={'ms_rpt_dashboard_status5'}
           TrxParam={[
             { name: 'DepartmentID', value: DepartmentID },
-            { name: 'CompanyID', value: company },
+           // { name: 'CompanyID', value: company },
             { name: 'LangID', value: Lang },
             { name: 'UserName', value: user.username },
           ]}
@@ -29,6 +29,13 @@ const SparePartsExceeding = () => {
               type: 'number',
               visible: 'true',
               width: 100,
+            },
+            {
+              key: 'SectionName',
+              label: HealthAndSafetyLang.SectionName[Lang],
+              type: 'text',
+              visible: 'true',
+              width: 120,
             },
             {
               key: 'MaterialClassName',
@@ -69,19 +76,20 @@ const SparePartsExceeding = () => {
               visible: 'true',
               width: 130,
             },
-            {
-              key: 'WorkorderCode',
-              label: HealthAndSafetyLang.WorkorderCode[Lang],
-              type: 'number',
-              visible: 'true',
-              width: 120,
-            },
-            {
-              key: 'WorkorderTypeName',
-              label: HealthAndSafetyLang.WorkorderTypeName[Lang],
-              visible: 'true',
-              width: 200,
-            },
+
+            // {
+            //   key: 'WorkorderCode',
+            //   label: HealthAndSafetyLang.WorkorderCode[Lang],
+            //   type: 'number',
+            //   visible: 'true',
+            //   width: 120,
+            // },
+            // {
+            //   key: 'WorkorderTypeName',
+            //   label: HealthAndSafetyLang.WorkorderTypeName[Lang],
+            //   visible: 'true',
+            //   width: 200,
+            // },
           ]}
         />
       </View>

@@ -57,7 +57,7 @@ const CurrentStatus = () => {
             title={HealthAndSafetyLang.SparePartsExceeding[Lang]}
             handlePress={() => {
               router.navigate({
-                pathname: './StatusTabs/SparePartsExceeding',
+                pathname: 'SparePartsExceeding',
                 params: { DepartmentID },
               });
             }}
