@@ -63,29 +63,32 @@ const Safety = () => {
       setIsLoading(false);
     }
   };
-
   const handleDropdownChange = (SafetyID) => {
-    console.log(SafetyID);
+    console.log('Dropdown changed to:', SafetyID);
+
+    if (!SafetyID) {
+      return; // Don't do anything if no safety selected
+    }
 
     if (SafetyID && SafetyID !== Safety?.SafetyID) {
-      const currentRow = OriginalData.filter((rec) => rec?.SafetyID === SafetyID)[0];
+      const currentRow = OriginalData.find((rec) => rec?.SafetyID === SafetyID);
 
-      if (!currentRow) return;
+      if (!currentRow) {
+        // Fallback - just update SafetyID if no data found
+        SetSafety((prev) => ({
+          ...prev,
+          SafetyID: SafetyID,
+        }));
+        return;
+      }
 
-      console.log(currentRow);
+      console.log('Setting safety data from dropdown:', currentRow);
 
       SetSafety({
         SafetyID: currentRow.SafetyID,
-        SafetyInstructions: currentRow.SafetyInstructions,
-        SafetyDetails: currentRow.SafetyDetail,
-        SafetyTools: currentRow.SafetyTools,
-      });
-    } else if (SafetyID && SafetyID === Safety?.SafetyID) {
-      SetSafety({
-        SafetyID: SafetyID,
-        SafetyInstructions: Safety.SafetyInstructions,
-        SafetyDetails: Safety.SafetyDetails,
-        SafetyTools: Safety.SafetyTools,
+        SafetyInstructions: currentRow.SafetyInstructions || '',
+        SafetyDetails: currentRow.SafetyDetail || '', // Note: SafetyDetail vs SafetyDetails
+        SafetyTools: currentRow.SafetyTools || '',
       });
     }
   };
@@ -110,11 +113,13 @@ const Safety = () => {
       <ScrollView className="mt-10 px-4">
         <View className="flex-1 gap-6">
           <Dropdown
+            key={`safety-${Safety?.SafetyID}`}
             data={safetyList}
             onChange={(val) => handleDropdownChange(val)}
             label={MaintenanceSystem.selectSafety[Lang]}
             value={Safety?.SafetyID}
             initailOption={Safety?.SafetyID}
+            placeholder={Lang === 1 ? 'اختر الاجراء' : 'select procedure'}
           />
 
           <TextArea
