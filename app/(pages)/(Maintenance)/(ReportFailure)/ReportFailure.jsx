@@ -97,7 +97,7 @@ const ReportFailure = () => {
     if (!row) {
       Toast.show({
         type: 'error',
-        text1: ReportBugsLang.rowRequired[Lang],
+        text1: error.response?.data?.message,
       });
       return;
     }
@@ -120,7 +120,7 @@ const ReportFailure = () => {
       console.error(error);
       Toast.show({
         type: 'error',
-        text1: ReportBugsLang.createFailure[Lang],
+        text1: error.response?.data?.message,
       });
     } finally {
       setLoading(false);
@@ -198,8 +198,15 @@ const ReportFailure = () => {
             <TouchableOpacity
               className={`rounded-lg ${row && row?.FailureReportStatusID == 1 ? 'bg-red-500' : 'bg-slate-500'} p-3 duration-300`}
               onPress={() => {
-                if (row && row?.FailureReportStatusID == 1) {
-                  setShowModal(true);
+                if (row) {
+                  if (row?.FailureReportStatusID == 1) {
+                    setShowModal(true);
+                  } else {
+                    Toast.show({
+                      type: 'error',
+                      text1: ReportBugsLang.cancelFailure[Lang],
+                    });
+                  }
                 } else {
                   Toast.show({
                     type: 'error',
@@ -346,7 +353,7 @@ const ReportFailure = () => {
                 },
                 {
                   key: 'StaffName',
-                  label: `${ReportBugsLang.EmployeeName[Lang]}`,
+                  label: `${ReportBugsLang.CancelledByEmployee[Lang]}`,
                   type: 'text',
                   input: 'false',
                   visible: 'true',

@@ -411,6 +411,7 @@ const StockItems = () => {
                 type: 'date',
                 visible: true,
                 width: 125,
+                preventDefault: true,
               },
               {
                 key: 'IsRequired',
@@ -427,6 +428,7 @@ const StockItems = () => {
                 input: 'true',
                 visible: 'true',
                 width: 200,
+                preventDefault: true,
               },
               // {
               //   key: 'GroupName',
