@@ -32,7 +32,7 @@ const CenteralPreventiveMaintenance = () => {
   );
   const { data: ProceduresTypeList } = useDropDown(
     'api_ms_Procedures_Types_List',
-    { DepartmentID: DepartmentID, CompanyID: company , LangID: Lang },
+    { DepartmentID: DepartmentID, CompanyID: company, LangID: Lang },
     'ProcedureTypeID',
     'ProcedureTypeName'
   );
@@ -107,6 +107,7 @@ const CenteralPreventiveMaintenance = () => {
               input: true,
               visible: true,
               width: 100,
+              required: true,
             },
             {
               key: 'ProcedureName',
@@ -123,6 +124,7 @@ const CenteralPreventiveMaintenance = () => {
               options: PriorityList,
               input: true,
               width: 100,
+              required: true,
             },
             {
               key: 'PriorityName',
@@ -143,6 +145,7 @@ const CenteralPreventiveMaintenance = () => {
               options: PeriodList,
               input: true,
               width: 100,
+              required: true,
             },
             {
               key: 'SCADA',

@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -14,7 +13,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment-timezone';
 import { useGlobalContext } from '../../context/GlobalProvider';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-
+import { useState ,useEffect} from 'react';
 const normalizeDate = (val) => {
   if (!val) return null;
   const d = new Date(val);
@@ -69,6 +68,10 @@ const DatePickerInput = ({
       const now = new Date();
       setSelectedDate(now);
       const cairoTime = moment(now).tz('Africa/Cairo').format('YYYY-MM-DD HH:mm:ss');
+      setDate?.(cairoTime);
+    } else if (!preventDefault && selectedDate) {
+      // Added else to emit date on mount if selectedDate already exists but hasn't been sent up
+      const cairoTime = moment(selectedDate).tz('Africa/Cairo').format('YYYY-MM-DD HH:mm:ss');
       setDate?.(cairoTime);
     }
   }, [defaultDate]);

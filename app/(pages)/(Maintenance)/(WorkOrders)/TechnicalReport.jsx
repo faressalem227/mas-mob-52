@@ -23,7 +23,7 @@ const TechnicalReport = () => {
     PlannedStartDate,
     PlannedEndDate,
     ScheduleID,
-    WorksDone,
+    // WorksDone,
     WorkorderStatusID,
   } = useLocalSearchParams();
 
@@ -32,7 +32,7 @@ const TechnicalReport = () => {
   const [loading, setLoading] = useState(false);
   const [scheduleID, setscheduleID] = useState(false);
 
-  const [worksDone, setWorksDone] = useState(WorksDone || '');
+  const [worksDone, setWorksDone] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
@@ -43,11 +43,28 @@ const TechnicalReport = () => {
     return () => timer && clearTimeout(timer);
   }, [modalVisible]);
 
+  const fetchData = async () => {
+    try {
+      const response = await api.get(
+        `/table?sp=api_ms_WorkorderTechnicalReport_Get&WorkorderID=${WorkorderID}&DepartmentID=${DepartmentID}`
+      );
+      const data = response.data.data[0];
+      setWorksDone(data?.WorksDone || '');
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+  useEffect(() => {
+    if (WorkorderID) {
+      fetchData();
+    }
+  }, [WorkorderID]);
+
   const handleSave = async () => {
     setLoading(true);
     try {
       await api.post(`/table?sp=api_ms_WorkorderInfoPm_Update`, {
-        DepartmentID, // DepartmentID is used as LocationID in the API
+        DepartmentID,
         WorkorderID,
         WorksDone: worksDone,
       });
@@ -55,6 +72,7 @@ const TechnicalReport = () => {
         type: 'success',
         text1: WorkOrders.success[Lang],
       });
+      await fetchData();
       setModalVisible(true);
     } catch (err) {
       console.error('Error saving data:', err);
@@ -69,12 +87,12 @@ const TechnicalReport = () => {
 
   const { data: ScheduleList } = useDropDown(
     'api_ms_Schedule_ListForWostatic',
-    { WorkorderID},
+    { WorkorderID },
     'ScheduleID',
     'ScheduleName'
   );
 
-  console.log(WorksDone);
+  console.log(worksDone);
 
   return (
     <MainLayout title={WorkOrders.TechnicalReport[Lang]}>
@@ -85,12 +103,14 @@ const TechnicalReport = () => {
               title={WorkOrders.PlannedStartDate[Lang]}
               defaultDate={PlannedStartDate || null}
               disabled={true}
+              preventDefault
             />
 
             <DatePickerInput
               title={WorkOrders.PlannedEndDate[Lang]}
               defaultDate={PlannedEndDate || null}
               disabled={true}
+              preventDefault
             />
 
             {/* <Dropdown
@@ -101,16 +121,14 @@ const TechnicalReport = () => {
               // disabled={true}
             /> */}
 
-
-                <Dropdown
+            <Dropdown
               title={WorkOrders.ScheduleID[Lang]}
               onChange={(val) => setscheduleID(val)}
               value={scheduleID}
               data={ScheduleList || []}
               initailOption={ScheduleList[0]?.key}
               disabled={true}
-               />
-            
+            />
 
             <TextArea
               label={WorkOrders.TechnicalReport[Lang]}

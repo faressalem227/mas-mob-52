@@ -56,6 +56,7 @@ const TechnicalSpecifications = ({ route }) => {
           pk={'AssetClassID'}
           parentKey={'AssetClassParentID'}
           isNested={true}
+          hasCrud={false}
           spTrx={'api_ms_AssetClass_Trx_spec'}
           spIns={'api_ms_AssetClass_Ins'}
           spUpd={'api_ms_AssetClass_Upd'}

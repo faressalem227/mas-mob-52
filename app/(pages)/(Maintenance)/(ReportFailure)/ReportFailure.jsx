@@ -198,20 +198,20 @@ const ReportFailure = () => {
             <TouchableOpacity
               className={`rounded-lg ${row && row?.FailureReportStatusID == 1 ? 'bg-red-500' : 'bg-slate-500'} p-3 duration-300`}
               onPress={() => {
-                if (row) {
-                  if (row?.FailureReportStatusID == 1) {
-                    setShowModal(true);
+                try {
+                  if (row) {
+                    if (row?.FailureReportStatusID == 1) {
+                      setShowModal(true);
+                    } else {
+                      const msg = ReportBugsLang.cancelFailure?.[Lang] || 'Cancel not allowed';
+                      Toast.show({ type: 'error', text1: msg });
+                    }
                   } else {
-                    Toast.show({
-                      type: 'error',
-                      text1: ReportBugsLang.cancelFailure[Lang],
-                    });
+                    const msg = ReportBugsLang.rowRequired?.[Lang] || 'Row selection required';
+                    Toast.show({ type: 'error', text1: msg });
                   }
-                } else {
-                  Toast.show({
-                    type: 'error',
-                    text1: ReportBugsLang.rowRequired[Lang],
-                  });
+                } catch (err) {
+                  console.error('Error handling cancel click:', err);
                 }
               }}>
               <Text className="text-white">{`${ReportBugsLang.cancelReport[Lang]}${loading ? '...' : ''}`}</Text>
@@ -247,7 +247,7 @@ const ReportFailure = () => {
                 LangID: Lang,
                 UserName: user.username,
                 TradeID,
-                IsSm: 1,
+                IsSm: 0,
               }}
               UpdBody={{ DepartmentID, TradeID }}
               TrxDependency={[TradeID, YearID, counter]}
@@ -292,6 +292,7 @@ const ReportFailure = () => {
                   input: 'true',
                   visible: 'true',
                   width: 130,
+                  required: true,
                 },
                 {
                   key: 'FailureDate',
@@ -300,6 +301,7 @@ const ReportFailure = () => {
                   input: 'true',
                   visible: 'true',
                   width: 100,
+                  required: true,
                 },
                 {
                   key: 'ProblemDescription',
@@ -317,6 +319,7 @@ const ReportFailure = () => {
                   input: 'true',
                   visible: 'false',
                   width: 150,
+                  required: true,
                 },
                 {
                   key: 'WorkorderCode',
@@ -342,6 +345,7 @@ const ReportFailure = () => {
                   input: 'true',
                   visible: 'false',
                   width: 100,
+                  required: true,
                 },
                 {
                   key: 'FailureReportID',

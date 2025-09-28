@@ -88,7 +88,7 @@ const CenetralReportFailure = () => {
     } catch (error) {
       console.error(error);
       Toast.show({
-        type: 'error', 
+        type: 'error',
         text1: error.response?.data?.message,
       });
     } finally {
@@ -305,7 +305,7 @@ const CenetralReportFailure = () => {
                   input: 'true',
                   visible: 'true',
                   width: 130,
-                  require: true,
+                  required: true,
                 },
                 {
                   key: 'FailureDate',
@@ -314,7 +314,7 @@ const CenetralReportFailure = () => {
                   input: 'true',
                   visible: 'true',
                   width: 100,
-                  require: true,
+                  required: true,
                 },
                 {
                   key: 'ProblemDescription',
@@ -349,6 +349,7 @@ const CenetralReportFailure = () => {
                   input: true,
                   visible: false,
                   width: 150,
+                  required: true,
                 },
                 {
                   key: 'StaffName',
@@ -366,6 +367,7 @@ const CenetralReportFailure = () => {
                   input: 'true',
                   visible: 'false',
                   width: 100,
+                  required: true,
                 },
                 // {
                 //   key: 'FailureReportID',

@@ -51,7 +51,7 @@ const SchedulePreventiveMaintenance = () => {
           placeholder={SchedulePreventiveMaintenanceLang.TradeChoose[Lang]}
           title={SchedulePreventiveMaintenanceLang.Trade[Lang]}
           data={Trade}
-          initailOption={16}
+          initailOption={Trade[0]?.key}
           value={TradeID}
           onChange={(e) => {
             setTradeID(e);

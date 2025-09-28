@@ -82,7 +82,9 @@ const WorkOrderSafty = () => {
 
   const handleDropdownChange = (SafetyID) => {
     console.log(SafetyID);
-
+    if (!SafetyID) {
+      return;
+    }
     if (SafetyID && SafetyID !== Safety.SafetyID) {
       const currentRow = OriginalData.filter((rec) => rec.SafetyID == SafetyID)[0];
       console.log(currentRow);
@@ -127,6 +129,7 @@ const WorkOrderSafty = () => {
           <View className="mb-6 flex-1 gap-5">
             <Dropdown
               title={WorkOrderSaftyLang.procedure[Lang]}
+              placeholder={`${WorkOrderSaftyLang.select[Lang]} ${WorkOrderSaftyLang.procedure[Lang]}`}
               onChange={(val) => setProcID(val)}
               value={procID}
               data={safetyProcList || []}
@@ -134,11 +137,13 @@ const WorkOrderSafty = () => {
             />
 
             <Dropdown
-              title={WorkOrderSaftyLang.select[Lang]}
+              title={WorkOrderSaftyLang.SafetyProc[Lang]}
+              placeholder={`${WorkOrderSaftyLang.select[Lang]} ${WorkOrderSaftyLang.procedure[Lang]}`}
               onChange={(val) => handleDropdownChange(val)}
               value={parseInt(Safety.SafetyID)}
               initailOption={parseInt(Safety.SafetyID)}
               data={safetyList || []}
+              key={`safety-${Safety.SafetyID}`} // Force re-render when SafetyID changes
             />
             <TextArea
               label={WorkOrderSaftyLang.SafetyTasks[Lang]}
