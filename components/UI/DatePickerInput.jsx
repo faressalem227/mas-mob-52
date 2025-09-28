@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -13,7 +14,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment-timezone';
 import { useGlobalContext } from '../../context/GlobalProvider';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { useState ,useEffect} from 'react';
+
 const normalizeDate = (val) => {
   if (!val) return null;
   const d = new Date(val);
@@ -30,10 +31,7 @@ const DatePickerInput = ({
 }) => {
   const { Rtl } = useGlobalContext();
 
-  const [selectedDate, setSelectedDate] = useState(
-    preventDefault ? null : normalizeDate(defaultDate) || new Date()
-  );
-
+  const [selectedDate, setSelectedDate] = useState(normalizeDate(defaultDate) || new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [windowWidth] = useState(Dimensions.get('window').width);
 
@@ -57,31 +55,27 @@ const DatePickerInput = ({
   };
 
   useEffect(() => {
-    if (defaultDate) {
-      const normalized = normalizeDate(defaultDate);
-      if (normalized && !moment(normalized).isSame(selectedDate)) {
-        setSelectedDate(normalized);
-        const cairoTime = moment(normalized).tz('Africa/Cairo').format('YYYY-MM-DD HH:mm:ss');
-        setDate?.(cairoTime);
-      }
-    } else if (!preventDefault && !selectedDate) {
+    const normalized = normalizeDate(defaultDate);
+    if (normalized) {
+      setSelectedDate(normalized);
+      const cairoTime = moment(normalized).tz('Africa/Cairo').format('YYYY-MM-DD HH:mm:ss');
+      setDate?.(cairoTime);
+    } else if (!preventDefault) {
       const now = new Date();
       setSelectedDate(now);
       const cairoTime = moment(now).tz('Africa/Cairo').format('YYYY-MM-DD HH:mm:ss');
       setDate?.(cairoTime);
-    } else if (!preventDefault && selectedDate) {
-      // Added else to emit date on mount if selectedDate already exists but hasn't been sent up
-      const cairoTime = moment(selectedDate).tz('Africa/Cairo').format('YYYY-MM-DD HH:mm:ss');
-      setDate?.(cairoTime);
+    } else {
+      setSelectedDate(null);
     }
-  }, [defaultDate]);
+  }, [defaultDate, preventDefault]);
 
   return (
     <View style={styles.container}>
       {title && (
         <Text
-          className="my-2 font-tmedium text-base"
-          style={{ fontSize, textAlign: Rtl ? 'right' : 'left' }}>
+          className={`my-2 font-tmedium text-base ${Rtl ? 'text-right' : 'text-left'}`}
+          style={{ fontSize }}>
           {title}
         </Text>
       )}
@@ -109,7 +103,7 @@ const DatePickerInput = ({
 
       {showDatePicker && (
         <DateTimePicker
-          value={selectedDate || new Date()}
+          value={selectedDate || new Date()} // 👈 fallback
           mode="date"
           display={Platform.OS === 'ios' ? 'spinner' : 'calendar'}
           minimumDate={new Date(1960, 0, 1)}
