@@ -428,17 +428,17 @@ const CenetralReportFailure = () => {
               ]}
             />
           </View>
-
-          <InputModal
-            data={cancelInputs}
-            buttonTitle={ReportBugsLang.cancelReport[Lang]}
-            onButtonPress={cancelReport}
-            visible={showModal}
-            manipulatedRow={cancelObj}
-            loading={cancelLoader}
-            onClose={() => setShowModal(false)}
-          />
         </View>
+
+        <InputModal
+          data={cancelInputs}
+          buttonTitle={ReportBugsLang.cancelReport[Lang]}
+          onButtonPress={cancelReport}
+          visible={showModal}
+          manipulatedRow={cancelObj}
+          loading={cancelLoader}
+          onClose={() => setShowModal(false)}
+        />
       </MainLayout>
     </>
   );

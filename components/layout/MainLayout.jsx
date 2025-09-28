@@ -6,7 +6,14 @@ import Toast from 'react-native-toast-message';
 import { toastMessege } from '../../constants';
 import CustomMenu from './CustomMenu';
 
-const MainLayout = ({ children, title, loading = false, hasLeftComponent = false, toast }) => {
+const MainLayout = ({
+  children,
+  title,
+  loading = false,
+  hasLeftComponent = false,
+  toast,
+  onNavClick,
+}) => {
   const [menu, setMenu] = useState(false);
 
   useEffect(() => {
@@ -57,6 +64,7 @@ const MainLayout = ({ children, title, loading = false, hasLeftComponent = false
         onDrawerPress={() => onDrawerPress()}
         hasLeftComponent={hasLeftComponent}
         title={title}
+        onNavClick={onNavClick}
       />
 
       <View style={{ flex: 1 }}>

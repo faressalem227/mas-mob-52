@@ -13,10 +13,11 @@ import {
 import { useLocalSearchParams, useRouter } from 'expo-router';
 
 import { useGlobalContext } from '../../../../context/GlobalProvider';
-import api, { post } from '../../../../utilities/api';
+import api from '../../../../utilities/api';
 import { MainLayout, MainButton, InfoDetailes } from '../../../../components';
 import MainGrid from '../../../../components/grid/MainGrid';
 import { useDropDown } from '../../../../hooks/useDropDownData';
+import Toast from 'react-native-toast-message';
 
 const OrderDetails = () => {
   const {
@@ -28,8 +29,8 @@ const OrderDetails = () => {
   const OrderID = Number(orderIdParam);
   const ProcessID = Number(processIdParam);
 
-  console.log('ProcessID', ProcessID);
-  console.log(WorkorderID);
+  // console.log('ProcessID', ProcessID);
+  // console.log(WorkorderID);
 
   const router = useRouter();
 
@@ -77,18 +78,31 @@ const OrderDetails = () => {
   };
 
   const handleConfirm = async () => {
+    // console.log('NextApprovalID', detail?.NextApprovalID);
+
     if (!detail?.NextApprovalID) return;
     setLoader('confirm');
     try {
-      await post('table/', {
+      const res = await api.post('table/', {
         sp: 'sc_order_approvals_ins',
         OrderID,
         UserName: user.username,
         ApprovalID: detail?.NextApprovalID,
       });
+
       await fetchDetails(true);
+
+      Toast.show({
+        type: 'success',
+        text1: Lang === 2 ? 'Order Confirmed' : 'تم التاكيد الاذن',
+      });
     } catch (e) {
       console.log(e);
+
+      Toast.show({
+        type: 'success',
+        text1: Lang === 2 ? 'Confirmation Failed' : 'فشل التاكيد',
+      });
     } finally {
       setLoader('');
     }
@@ -470,7 +484,9 @@ const OrderDetails = () => {
             onPress={() => {
               handleConfirm();
             }}>
-            <Text className="text-center font-tregular text-white">{detail?.ApprovalName}</Text>
+            <Text className="text-center font-tregular text-white">
+              {detail?.ApprovalName || (Lang === 2 ? 'Approve' : 'اعتماد')}
+            </Text>
           </TouchableOpacity>
         )}
 
@@ -494,7 +510,7 @@ const OrderDetails = () => {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           className="rounded-lg bg-green-500 p-3"
           onPress={() => {
             const reportId = '3367';
@@ -511,7 +527,7 @@ const OrderDetails = () => {
           <Text className="text-center font-tregular text-white">
             {Lang === 2 ? 'Orders List Report' : 'تقرير قائمة الأذون'}
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <TouchableOpacity
           className="rounded-lg bg-primary p-3"
@@ -677,7 +693,9 @@ const OrderDetails = () => {
 
       {/* Transactions modal */}
       <Modal visible={showModal} animationType="slide" onRequestClose={() => setShowModal(false)}>
-        <MainLayout title={Lang === 2 ? 'Order Transactions' : 'حركات الإذن'}>
+        <MainLayout
+          title={Lang === 2 ? 'Order Transactions' : 'حركات الإذن'}
+          onNavClick={() => setShowModal(false)}>
           <View style={{ height: 520 }}>
             <MainGrid
               hasCrud={false}

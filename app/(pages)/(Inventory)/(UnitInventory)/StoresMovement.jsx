@@ -10,19 +10,13 @@ import { useDropDown } from '../../../../hooks/useDropDownData';
 import { MainLayout, MainGrid } from '../../../../components';
 
 import { useLocalSearchParams } from 'expo-router';
-
-const StoresPageLang = {
-  InventoryTransaction: {
-    1: 'حركه المخزن',
-    2: 'Inventory Transaction',
-  },
-};
+import Toast from 'react-native-toast-message';
 
 const StoresPage = () => {
   const router = useRouter();
   const { SectionID, ProcessID, YearID, MonthID } = useLocalSearchParams();
   const { DepartmentID, Lang, company, user } = useGlobalContext();
-
+  const [activeRow, setActiveRow] = useState(null);
   const [AssetClassID, setAssetClassID] = useState(null);
   const [colsData, setColsData] = useState({});
   const [loader, setLoader] = useState('');
@@ -390,10 +384,10 @@ const StoresPage = () => {
   console.log(SectionID, ProcessID, YearID, MonthID, user.username, DepartmentID, company, Lang);
 
   return (
-    <MainLayout title={Lang === 2 ? 'Stores Transactions' : 'حركات المخازن'}>
+    <MainLayout title={Lang === 2 ? 'Store Transaction' : 'حركة المخزن'}>
       <View className="flex-1">
         <MainGrid
-          tableHead={tableHead}
+          onRowPress={(row) => setActiveRow(row)}
           pk="OrderID"
           spTrx="api_Sc_Orders_Trx"
           spIns="api_Sc_Orders_Ins"
@@ -425,6 +419,7 @@ const StoresPage = () => {
           }}
           mixedWidth
           TrxDependency={[SectionID, ProcessID, YearID, MonthID]}
+          tableHead={tableHead}
           routeTo={{
             path: 'OrderDetails',
             hasParams: true,
@@ -432,6 +427,45 @@ const StoresPage = () => {
               ProcessID,
             },
           }}
+          hasSpecialButton
+          specialButton={[
+            {
+              title: Lang === 2 ? 'Orders List Report' : 'تقرير قائمة الأذون',
+              backgroundColor: 'green',
+              textColor: 'white',
+              action: () =>
+                router.navigate({
+                  pathname: '/ReportWebView',
+                  params: {
+                    ReportId: '3367',
+                    SectionID: String(SectionID || 0),
+                    YearID: String(YearID || 0),
+                    ProcessID: String(ProcessID),
+                  },
+                }),
+            },
+            {
+              title: Lang === 2 ? 'Order Report' : ' تقرير الاذن',
+              backgroundColor: 'green',
+              textColor: 'white',
+              action: () => {
+                if (!activeRow) {
+                  Toast.show({
+                    type: 'error',
+                    text1: Lang === 2 ? 'A record must be selected' : 'يجب اختيار حقل اولا',
+                  });
+                } else {
+                  router.push({
+                    pathname: '/ReportWebView',
+                    params: {
+                      ReportId: '3359',
+                      Value: String(activeRow?.OrderID),
+                    },
+                  });
+                }
+              },
+            },
+          ]}
         />
       </View>
     </MainLayout>
@@ -439,3 +473,38 @@ const StoresPage = () => {
 };
 
 export default StoresPage;
+
+{
+  /* <TouchableOpacity
+  className="rounded-lg bg-green-500 p-3"
+  onPress={() => {
+    const reportId = '3367';
+    router.navigate({
+      pathname: '/ReportWebView',
+      params: {
+        ReportId: reportId,
+        SectionID: String(detail?.SectionID || 0),
+        YearID: String(detail?.YearID || 0),
+        ProcessID: String(detail?.ProcessID || ProcessID),
+      },
+    });
+  }}>
+  <Text className="text-center font-tregular text-white">
+    {Lang === 2 ? 'Orders List Report' : 'تقرير قائمة الأذون'}
+  </Text>
+</TouchableOpacity>; */
+}
+
+// <TouchableOpacity
+//   className="rounded-lg bg-green-500 p-3"
+//   onPress={() => {
+//     const reportId = '3359';
+//     router.push({
+//       pathname: '/ReportWebView',
+//       params: { ReportId: reportId, Value: String(OrderID) },
+//     });
+//   }}>
+//   <Text className="text-center font-tregular text-white">
+//     {Lang === 2 ? 'Order Report' : ' تقرير الاذن'}
+//   </Text>
+// </TouchableOpacity>
