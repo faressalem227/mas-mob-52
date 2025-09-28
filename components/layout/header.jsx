@@ -12,7 +12,7 @@ import {
 const windowWidth = Dimensions.get('window').width;
 const initialFontSize = windowWidth < 800 ? wp('4.3%') : wp('2.5%');
 
-const Header = ({ title, hasLeftComponent = false, onDrawerPress }) => {
+const Header = ({ title, hasLeftComponent = false, onDrawerPress, onNavClick }) => {
   const router = useRouter();
   const { Rtl } = useGlobalContext();
 
@@ -33,7 +33,7 @@ const Header = ({ title, hasLeftComponent = false, onDrawerPress }) => {
               width: 30,
               height: 30,
             }}
-            onPress={() => router.back()}>
+            onPress={onNavClick ? onNavClick : () => router.back()}>
             <Image
               source={Rtl ? icons.ArrowRight : icons.leftArrow}
               style={{

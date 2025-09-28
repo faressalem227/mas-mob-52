@@ -1,75 +1,34 @@
 // app/screens/StoresPage.jsx
-import React, { useState, useEffect, useMemo } from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { useState, useEffect, useMemo } from 'react';
+import { View } from 'react-native';
 import { useRouter } from 'expo-router';
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 import api from '../../../../utilities/api';
 import { useGlobalContext } from '../../../../context/GlobalProvider';
 import { useDropDown } from '../../../../hooks/useDropDownData';
 
-import { MainLayout, Dropdown } from '../../../../components';
+import { MainLayout, MainGrid } from '../../../../components';
 
-import MainGrid from '../../../../components/grid/MainGrid';
+import { useLocalSearchParams } from 'expo-router';
+import Toast from 'react-native-toast-message';
 
 const StoresPage = () => {
   const router = useRouter();
+  const { SectionID, ProcessID, YearID, MonthID } = useLocalSearchParams();
   const { DepartmentID, Lang, company, user } = useGlobalContext();
-  const [windowWidth] = useState(Dimensions.get('window').width);
-
-  const [selectedProcessID, setSelectedProcessID] = useState(0);
-  const [selectedSectionID, setSelectedSectionID] = useState(0);
-  const [selectedYear, setSelectedYear] = useState(0);
-  const [selectedMonth, setSelectedMonth] = useState(0);
-
+  const [activeRow, setActiveRow] = useState(null);
   const [AssetClassID, setAssetClassID] = useState(null);
   const [colsData, setColsData] = useState({});
   const [loader, setLoader] = useState('');
   const [defaultOrderNo, setDefaultOrderNo] = useState(0);
-
-  const screenHeight = Dimensions.get('window').height;
-
-  // --- DROPDOWNS ---
-  const { data: Months } = useDropDown(
-    'api_ms_Months_List_all',
-    { DepartmentID, CompanyID: company, UserName: user?.username, LangID: Lang },
-    'MonthID',
-    'MonthName'
-  );
-
-  const { data: Years } = useDropDown(
-    'api_admin_Years_List',
-    { DepartmentID, CompanyID: company, UserName: user?.username, LangID: Lang },
-    'YearID',
-    'YearName'
-  );
-
-  const { data: Section } = useDropDown(
-    'api_Sc_Item_Section_List',
-    { CompanyID: company, LangID: Lang },
-    'SectionID',
-    'SectionName'
-  );
-
-  const { data: processTypes } = useDropDown(
-    'api_sc_Process_List_MS',
-    {
-      DepartmentID,
-      CompanyID: company,
-      IsPo: 0,
-      SectionID: selectedSectionID,
-      LangID: Lang,
-    },
-    'ProcessID',
-    'ProcessName'
-  );
+  const [selectdepartmentID, setSelectDepartmentID] = useState(false);
 
   const { data: supplierList } = useDropDown(
     'api_Sc_Suppliers_List',
     { CompanyID: company, LangID: Lang, UserName: user?.username },
     'SupplierID',
     'SupplierName',
-    [],
+    [colsData],
     colsData?.UseSupplierID || 0
   );
 
@@ -78,7 +37,7 @@ const StoresPage = () => {
     { CompanyID: company, LangID: Lang, UserName: user?.username },
     'ContractorID',
     'ContractorName',
-    [],
+    [colsData],
     colsData?.UseContractorID || 0
   );
 
@@ -87,16 +46,21 @@ const StoresPage = () => {
     { CompanyID: company, LangID: Lang, UserName: user?.username },
     'EmployeeID',
     'EmployeeName',
-    [],
+    [colsData],
     colsData?.UseEmployeeID || 0
   );
 
   const { data: workOrderList } = useDropDown(
     'api_Sc_Workorder_List',
-    { CompanyID: company, LangID: Lang, UserName: user?.username },
+    {
+      CompanyID: company,
+      LangID: Lang,
+      UserName: user?.username,
+      DepartmentID: selectdepartmentID,
+    },
     'WorkorderID',
     'WorkorderName',
-    [],
+    [selectdepartmentID, colsData],
     colsData?.UseWorkorderID || 0
   );
 
@@ -105,7 +69,7 @@ const StoresPage = () => {
     { CompanyID: company, LangID: Lang, UserName: user?.username },
     'ParityID',
     'ParityName',
-    [],
+    [colsData],
     colsData?.UseParityID || 0
   );
 
@@ -114,9 +78,12 @@ const StoresPage = () => {
     { CompanyID: company, LangID: Lang, UserName: user?.username },
     'DepartmentID',
     'DepartmentName',
-    [],
-    colsData?.UseDepartmentID || 0
+    [colsData],
+    colsData?.UseWorkorderID || 0
   );
+
+  // console.log('depa', departmentList);
+  // console.log('cols', colsData?.UseDepartmentID);
 
   const { data: assetList } = useDropDown(
     'api_Sc_Asset_List',
@@ -124,12 +91,12 @@ const StoresPage = () => {
       CompanyID: company,
       LangID: Lang,
       UserName: user?.username,
-      ProcessID: selectedProcessID,
+      ProcessID: ProcessID,
       AssetClassID: AssetClassID || 0,
     },
     'AssetID',
     'AssetName',
-    [],
+    [colsData],
     colsData?.UseAssetID || 0
   );
 
@@ -138,7 +105,7 @@ const StoresPage = () => {
     { CompanyID: company, LangID: Lang, UserName: user?.username },
     'AssetClassID',
     'FullAssetClassName',
-    [],
+    [colsData],
     colsData?.UseAssetClassID || 0
   );
 
@@ -147,7 +114,7 @@ const StoresPage = () => {
     { CompanyID: company },
     'value',
     'label',
-    [],
+    [colsData],
     colsData?.UseProjects || 0
   );
 
@@ -156,24 +123,24 @@ const StoresPage = () => {
     { CompanyID: company },
     'value',
     'label',
-    [],
+    [colsData],
     colsData?.UseClient || 0
   );
 
   // --- COL FLAGS ---
   const getCols = async () => {
     try {
-      const res = await api.get(
-        'table/filter?sp=api_sc_process_cols&ProcessID=' + selectedProcessID
-      );
+      const res = await api.get('table/filter?sp=api_sc_process_cols&ProcessID=' + ProcessID);
       const data = res?.data?.data || [];
       const flags = data.reduce((acc, curr) => ({ ...acc, [curr.FlagName]: curr.Flag }), {});
-      console.log(flags.UseWorkorderID, 'flags');
+      console.log(flags, 'flags');
       setColsData(flags);
     } catch (err) {
       console.log(err);
     }
   };
+
+  console.log('ProcessID', ProcessID);
 
   // --- ORDER NO ---
   const generateOrderNumber = async () => {
@@ -181,10 +148,10 @@ const StoresPage = () => {
     try {
       const req = await api.post('table/', {
         sp: 'generate_order_number',
-        ProcessID: selectedProcessID,
-        YearID: selectedYear,
+        ProcessID: ProcessID,
+        YearID: YearID,
         DepartmentID: DepartmentID,
-        SectionID: selectedSectionID,
+        SectionID: SectionID,
       });
       setDefaultOrderNo(req?.data?.data?.[0]?.OrderNo ?? 0);
     } catch (err) {
@@ -195,14 +162,14 @@ const StoresPage = () => {
   };
 
   useEffect(() => {
-    if (selectedProcessID) getCols();
-  }, [selectedProcessID]);
+    if (ProcessID) getCols();
+  }, [ProcessID]);
 
   useEffect(() => {
-    if (selectedProcessID && selectedYear && selectedSectionID) {
+    if (ProcessID && YearID && SectionID) {
       generateOrderNumber();
     }
-  }, [selectedProcessID, selectedYear, selectedSectionID, DepartmentID]);
+  }, [ProcessID, YearID, SectionID, DepartmentID]);
 
   const tableHead = useMemo(
     () => [
@@ -218,7 +185,6 @@ const StoresPage = () => {
         input: true,
         width: 100,
         type: 'number',
-        defaultValue: defaultOrderNo,
         loading: loader === 'generateOrderNumber',
       },
       {
@@ -272,6 +238,16 @@ const StoresPage = () => {
         type: 'dropdown',
         width: 200,
         options: employeeList,
+      },
+      {
+        key: 'DepartmentID',
+        visible: !!colsData.UseWorkorderID,
+        input: colsData.UseWorkorderID,
+        label: Lang === 2 ? 'Department' : 'الادارة',
+        type: 'dropdown',
+        width: 200,
+        options: departmentList,
+        onChange: (val) => setSelectDepartmentID(val),
       },
       {
         key: 'WorkorderID',
@@ -395,74 +371,23 @@ const StoresPage = () => {
     () => [
       { name: 'CompanyID', value: company },
       { name: 'DepartmentID', value: DepartmentID },
-      { name: 'ProcessID', value: selectedProcessID || 0 },
-      { name: 'YearID', value: selectedYear || 0 },
-      { name: 'MonthID', value: selectedMonth || 0 },
-      { name: 'SectionID', value: selectedSectionID || 0 },
+      { name: 'YearID', value: YearID || 0 },
+      { name: 'MonthID', value: MonthID || 0 },
+      { name: 'SectionID', value: SectionID || 0 },
+      { name: 'ProcessID', value: ProcessID || 0 },
       { name: 'UserName', value: user?.username || '' },
       { name: 'LangID', value: Lang },
     ],
-    [
-      company,
-      DepartmentID,
-      selectedProcessID,
-      selectedYear,
-      selectedMonth,
-      selectedSectionID,
-      user?.username,
-      Lang,
-    ]
+    []
   );
 
+  console.log(SectionID, ProcessID, YearID, MonthID, user.username, DepartmentID, company, Lang);
+
   return (
-    <MainLayout title={Lang === 2 ? 'Stores Transactions' : 'حركات المخازن'}>
-      <View
-        className="mt-2 flex flex-row-reverse flex-wrap items-center justify-center px-4"
-        style={{ gap: wp('3.5%') }}>
-        <View style={{ width: windowWidth > 400 ? wp('40%') : wp('90%') }}>
-          <Dropdown
-            placeholder={Lang === 2 ? 'Select' : 'اختر'}
-            title={Lang === 2 ? 'Store' : 'المخزن'}
-            onChange={(v) => setSelectedSectionID(v)}
-            initailOption={selectedSectionID || Section?.[0]?.key}
-            data={Section}
-          />
-        </View>
-
-        <View style={{ width: windowWidth > 400 ? wp('40%') : wp('90%') }}>
-          <Dropdown
-            placeholder={Lang === 2 ? 'Select' : 'اختر'}
-            title={Lang === 2 ? 'Process' : 'الإذن'}
-            onChange={(v) => setSelectedProcessID(v)}
-            initailOption={selectedProcessID || processTypes?.[0]?.key}
-            data={processTypes}
-          />
-        </View>
-
-        <View style={{ width: windowWidth > 400 ? wp('40%') : wp('90%') }}>
-          <Dropdown
-            placeholder={Lang === 2 ? 'Select' : 'اختر'}
-            title={Lang === 2 ? 'Year' : 'العام'}
-            onChange={(v) => setSelectedYear(v)}
-            initailOption={selectedYear || Years?.[4]?.key}
-            data={Years}
-          />
-        </View>
-
-        <View style={{ width: windowWidth > 400 ? wp('40%') : wp('90%') }}>
-          <Dropdown
-            placeholder={Lang === 2 ? 'Select' : 'اختر'}
-            title={Lang === 2 ? 'Month' : 'الشهر'}
-            onChange={(v) => setSelectedMonth(v)}
-            initailOption={selectedMonth || Months?.[13]?.key}
-            data={Months}
-          />
-        </View>
-      </View>
-
-      <View style={[styles.assetsGrid, { height: screenHeight - 250 }]}>
+    <MainLayout title={Lang === 2 ? 'Store Transaction' : 'حركة المخزن'}>
+      <View className="flex-1">
         <MainGrid
-          tableHead={tableHead}
+          onRowPress={(row) => setActiveRow(row)}
           pk="OrderID"
           spTrx="api_Sc_Orders_Trx"
           spIns="api_Sc_Orders_Ins"
@@ -487,33 +412,99 @@ const StoresPage = () => {
             UserName: user?.username || '',
             LangID: Lang,
             OrderNo: defaultOrderNo,
-            YearID: selectedYear,
-            SectionID: selectedSectionID,
-            ProcessID: selectedProcessID,
-            MonthID: selectedMonth,
+            YearID: YearID,
+            SectionID: SectionID,
+            ProcessID: ProcessID,
+            MonthID: MonthID,
           }}
-          StaticWidth
           mixedWidth
-          TrxDependency={[selectedSectionID, selectedProcessID, selectedYear, selectedMonth]}
-          onRowPress={(row) => {
-            router.push({
-              pathname: '/OrderDetails',
-              params: {
-                OrderID: String(row?.OrderID),
-                ProcessID: String(row?.ProcessID),
-              },
-            });
+          TrxDependency={[SectionID, ProcessID, YearID, MonthID]}
+          tableHead={tableHead}
+          routeTo={{
+            path: 'OrderDetails',
+            hasParams: true,
+            params: {
+              ProcessID,
+            },
           }}
+          hasSpecialButton
+          specialButton={[
+            {
+              title: Lang === 2 ? 'Orders List Report' : 'تقرير قائمة الأذون',
+              backgroundColor: 'green',
+              textColor: 'white',
+              action: () =>
+                router.navigate({
+                  pathname: '/ReportWebView',
+                  params: {
+                    ReportId: '3367',
+                    SectionID: String(SectionID || 0),
+                    YearID: String(YearID || 0),
+                    ProcessID: String(ProcessID),
+                  },
+                }),
+            },
+            {
+              title: Lang === 2 ? 'Order Report' : ' تقرير الاذن',
+              backgroundColor: 'green',
+              textColor: 'white',
+              action: () => {
+                if (!activeRow) {
+                  Toast.show({
+                    type: 'error',
+                    text1: Lang === 2 ? 'A record must be selected' : 'يجب اختيار حقل اولا',
+                  });
+                } else {
+                  router.push({
+                    pathname: '/ReportWebView',
+                    params: {
+                      ReportId: '3359',
+                      Value: String(activeRow?.OrderID),
+                    },
+                  });
+                }
+              },
+            },
+          ]}
         />
       </View>
     </MainLayout>
   );
 };
 
-const styles = StyleSheet.create({
-  assetsGrid: {
-    marginVertical: 8,
-  },
-});
-
 export default StoresPage;
+
+{
+  /* <TouchableOpacity
+  className="rounded-lg bg-green-500 p-3"
+  onPress={() => {
+    const reportId = '3367';
+    router.navigate({
+      pathname: '/ReportWebView',
+      params: {
+        ReportId: reportId,
+        SectionID: String(detail?.SectionID || 0),
+        YearID: String(detail?.YearID || 0),
+        ProcessID: String(detail?.ProcessID || ProcessID),
+      },
+    });
+  }}>
+  <Text className="text-center font-tregular text-white">
+    {Lang === 2 ? 'Orders List Report' : 'تقرير قائمة الأذون'}
+  </Text>
+</TouchableOpacity>; */
+}
+
+// <TouchableOpacity
+//   className="rounded-lg bg-green-500 p-3"
+//   onPress={() => {
+//     const reportId = '3359';
+//     router.push({
+//       pathname: '/ReportWebView',
+//       params: { ReportId: reportId, Value: String(OrderID) },
+//     });
+//   }}>
+//   <Text className="text-center font-tregular text-white">
+//     {Lang === 2 ? 'Order Report' : ' تقرير الاذن'}
+//   </Text>
+// </TouchableOpacity>

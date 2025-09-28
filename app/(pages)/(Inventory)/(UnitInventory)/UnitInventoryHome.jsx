@@ -35,7 +35,7 @@ const UnitInventoryHome = () => {
 
           <SmallButton
             title={UnitInventoryHomeLang.InventoryTransaction[Lang]}
-            handlePress={() => router.navigate('StoresMovement')}
+            handlePress={() => router.navigate('StoreTransactions')}
           />
         </View>
       </ScrollView>
