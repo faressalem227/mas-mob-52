@@ -98,7 +98,6 @@ const OrderDetails = () => {
       });
     } catch (e) {
       console.log(e);
-
       Toast.show({
         type: 'success',
         text1: Lang === 2 ? 'Confirmation Failed' : 'فشل التاكيد',
@@ -162,7 +161,7 @@ const OrderDetails = () => {
     [colsData]
   );
 
-  console.log(SectionID);
+  // console.log(SectionID);
 
   const { data: filterdItemData, loading: filterdItemDataLoding } = useDropDown(
     'Sc_Items_List_trx',
@@ -468,7 +467,7 @@ const OrderDetails = () => {
     },
   ];
 
-  console.log(SectionID);
+  // console.log(SectionID);
 
   return (
     <MainLayout title={Lang === 2 ? 'Order Details' : 'تفاصيل الإذن'}>

@@ -656,7 +656,10 @@ const MainGrid = ({
                         textStyle={{ ...styles.text, fontSize: valueFontSize * 1.6 }}
                         widthArr={widthArr} // Dynamic widths
                         data={filteredTableHead.map((col, idx) => {
-                          const item = dataRow[col.key]; // Get column data
+                          const columnKey =
+                            typeof col.key === 'function' ? col.key(dataRow) : col.key;
+
+                          const item = dataRow[columnKey];
                           if (col?.type === 'checkbox') {
                             return (
                               <View
@@ -784,7 +787,7 @@ const MainGrid = ({
                             // backgroundColor:"red",
                           }}
                           data={tableHead}
-                          keyExtractor={(item) => item.key}
+                          keyExtractor={(item, index) => `${item.key}-${index}`}
                           contentContainerStyle={{
                             paddingHorizontal: wp('1%'),
                             paddingVertical: wp('2%'),
@@ -792,10 +795,17 @@ const MainGrid = ({
                           renderItem={({ item }) => {
                             const type =
                               typeof item.type === 'function' ? item?.type(rowData) : item?.type;
+
                             const options =
                               typeof item.options === 'function'
                                 ? item?.options(rowData)
                                 : item?.options;
+
+                            const key =
+                              typeof item?.key === 'function' ? item?.key?.(rowData) : item?.key;
+
+                            const addParams = item?.addParams && item?.addParams?.(rowData);
+
                             return (
                               <>
                                 {item?.input && item?.input !== 'false' && (
@@ -811,10 +821,10 @@ const MainGrid = ({
                                     </Text>
                                     <KeyboardAvoidingView behavior="padding">
                                       <RenderInput
-                                        inputkey={item.key}
+                                        inputkey={key}
                                         label={item.label}
                                         type={type}
-                                        value={rowData[item.key]}
+                                        value={rowData[key]}
                                         onChange={item.onChange}
                                         options={options}
                                         lines={item.lines}
@@ -824,6 +834,8 @@ const MainGrid = ({
                                         code={code}
                                         input={item.input}
                                         preventDefault={item.preventDefault}
+                                        sp={item.sp}
+                                        addParams={addParams}
                                       />
                                       {errors[item.key] && (
                                         <Text

@@ -3,10 +3,9 @@ import { useState, useEffect } from 'react';
 import { useGlobalContext } from '../context/GlobalProvider';
 import { Dimensions, TextInput } from 'react-native';
 import { DatePickerInput, Dropdown, CheckBox } from '../components';
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
+import { useDropDown } from '../hooks/useDropDownData';
 
 export const RenderInput = ({
   inputkey,
@@ -21,6 +20,8 @@ export const RenderInput = ({
   code,
   input,
   preventDefault,
+  sp,
+  addParams,
 }) => {
   const { Rtl } = useGlobalContext();
   const windowWidth = Dimensions.get('window').width;
@@ -35,6 +36,15 @@ export const RenderInput = ({
     if (onChange) onChange(value);
     if (setRowData) setRowData((prevData) => ({ ...prevData, [key]: value }));
   };
+
+  const { data: rowDropDownData } = useDropDown(
+    sp,
+    addParams,
+    'value',
+    'label',
+    [addParams],
+    sp ? true : false
+  );
 
   useEffect(() => {
     if (code && dynamicCode && dynamicCode.codeCol === inputkey) {
@@ -58,6 +68,8 @@ export const RenderInput = ({
   if (!input && input == 'false') {
     return;
   }
+
+  console.log('inputkey', inputkey);
 
   switch (type) {
     case 'sub':
@@ -127,7 +139,7 @@ export const RenderInput = ({
       return (
         <Dropdown
           placeholder={'اختر'}
-          data={options}
+          data={sp ? rowDropDownData : options}
           value={value}
           initailOption={value}
           onChange={(v) => handleInputChange(inputkey, v, type)}

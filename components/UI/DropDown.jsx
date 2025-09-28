@@ -85,7 +85,7 @@ const DropdownComponent = ({
         valueField="key"
         placeholder={!isFocus ? placeholder : '...'}
         searchPlaceholder="بحث..."
-        value={Value}
+        value={isFocus ? null : Value}
         onFocus={() => !disabled && setIsFocus(true)} // ✅ prevent focus if disabled
         onBlur={() => !disabled && setIsFocus(false)}
         onChange={(item) => {
