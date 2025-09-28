@@ -31,7 +31,7 @@ const PreventiveMaintenance = () => {
   );
   const { data: ProceduresTypeList } = useDropDown(
     'api_ms_Procedures_Types_List',
-    { DepartmentID: DepartmentID, CompanyID: company , LangID: Lang  },
+    { DepartmentID: DepartmentID, CompanyID: company, LangID: Lang },
     'ProcedureTypeID',
     'ProcedureTypeName'
   );
@@ -105,6 +105,7 @@ const PreventiveMaintenance = () => {
               input: true,
               visible: true,
               width: 100,
+              required: true,
             },
             {
               key: 'ProcedureName',
@@ -113,6 +114,7 @@ const PreventiveMaintenance = () => {
               visible: true,
               lines: 3,
               width: 150,
+              required: true,
             },
             {
               key: 'PriorityID',
@@ -121,6 +123,7 @@ const PreventiveMaintenance = () => {
               options: PriorityList,
               input: true,
               width: 100,
+              required: true,
             },
             {
               key: 'PriorityName',
@@ -141,6 +144,7 @@ const PreventiveMaintenance = () => {
               options: PeriodList,
               input: true,
               width: 100,
+              required: true,
             },
             {
               key: 'SCADA',

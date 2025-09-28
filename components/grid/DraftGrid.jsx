@@ -37,6 +37,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import MainGridLang from '../../constants/Lang/components/MainGridLang';
 const RenderInput = ({
   inputkey,
   label,
@@ -1095,13 +1096,15 @@ const DraftGrid = ({
                     Icon={add_outline}
                     title={Lang == 1 ? 'إضافه' : 'Add'}
                     onPress={handleAdd}
+                    Rtl={Rtl}
                   />
                 )}
                 {hasUpd && (
                   <CustomButton
                     Icon={PencilLine}
-                    title={Lang == 1 ? 'تعديل' : 'Edit'}
+                    title={MainGridLang.editBtn[Lang]}
                     onPress={handleEdit}
+                    Rtl={Rtl}
                   />
                 )}
                 {hasDel && (
@@ -1109,6 +1112,7 @@ const DraftGrid = ({
                     Icon={trashh}
                     title={Lang == 1 ? 'حذف' : 'Delete'}
                     onPress={handleDelete}
+                    Rtl={Rtl}
                   />
                 )}
               </>
@@ -1262,6 +1266,7 @@ const DraftGrid = ({
                           handlePress={confirmAction}
                           isLoading={modelLoader}
                           containerStyles={'mt-4 flex items-center '}
+                          width={wp('50%')}
                         />
                       </>
                     ) : (

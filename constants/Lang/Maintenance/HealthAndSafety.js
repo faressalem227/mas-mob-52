@@ -95,6 +95,10 @@ const HealthAndSafety = {
     1: 'الفئه',
     2: 'Category',
   },
+    SectionName: {
+    1: 'التصنيف',
+    2: 'Section',
+  },
   MaterialName: {
     1: 'اسم الخدمه',
     2: 'Service Name',

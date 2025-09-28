@@ -103,7 +103,7 @@ const ReportSafety = () => {
       });
       SetSafety((prev) => ({
         ...prev,
-        SafetyID: prev.SafetyID, 
+        SafetyID: prev.SafetyID,
       }));
 
       Toast.show({ type: 'success', text1: ReportBugsLang.saveSuccess[Lang] });
@@ -142,7 +142,8 @@ const ReportSafety = () => {
             value={Safety.SafetyID}
             onChange={(val) => handleDropdownChange(val)}
             disabled={FailureReportStatusID != 1}
-            initailOption={Safety.SafetyID} // Add this line
+            initailOption={Safety.SafetyID}
+            placeholder={Lang === 1 ? 'اختر الاجراء' : 'select procedure'}
           />
 
           <TextArea
