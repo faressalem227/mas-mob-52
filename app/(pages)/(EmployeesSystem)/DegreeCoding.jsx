@@ -32,7 +32,6 @@ const DegreeCoding = ({ title, hasLeftComponent = false, onDrawerPress }) => {
             UpdBody={{ DepartmentID: DepartmentID }}
             InsBody={{ DepartmentID: DepartmentID }}
             TrxDependency={[]}
-
             tableHead={[
               {
                 key: 'DefinitionID',
@@ -49,6 +48,7 @@ const DegreeCoding = ({ title, hasLeftComponent = false, onDrawerPress }) => {
                 type: 'number',
                 visible: 'true',
                 width: 90,
+                required: true,
               },
               {
                 key: 'DefinitionNameAr',
@@ -57,6 +57,7 @@ const DegreeCoding = ({ title, hasLeftComponent = false, onDrawerPress }) => {
                 input: 'true',
                 visible: 'true',
                 width: 200,
+                required: true,
               },
               {
                 key: 'DefinitionNameEn',

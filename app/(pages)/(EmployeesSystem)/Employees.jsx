@@ -135,6 +135,7 @@ const Employees = ({ title, hasLeftComponent = false, onDrawerPress }) => {
                 input: true,
                 visible: true,
                 width: 150,
+                required: true,
               },
               {
                 key: 'StaffName',
@@ -143,6 +144,7 @@ const Employees = ({ title, hasLeftComponent = false, onDrawerPress }) => {
                 input: true,
                 visible: true,
                 width: 200,
+                required: true,
               },
               {
                 key: 'GenderID',
@@ -150,6 +152,7 @@ const Employees = ({ title, hasLeftComponent = false, onDrawerPress }) => {
                 type: 'dropdown',
                 options: TypeList,
                 input: true,
+                required: true,
               },
               {
                 key: 'GenderName',
@@ -164,6 +167,7 @@ const Employees = ({ title, hasLeftComponent = false, onDrawerPress }) => {
                 input: true,
                 visible: true,
                 width: 120,
+                preventDefault: true,
               },
               {
                 key: 'Address',
@@ -180,6 +184,7 @@ const Employees = ({ title, hasLeftComponent = false, onDrawerPress }) => {
                 input: true,
                 visible: true,
                 width: 120,
+                required: true,
               },
               {
                 key: 'CivilID',
@@ -188,6 +193,7 @@ const Employees = ({ title, hasLeftComponent = false, onDrawerPress }) => {
                 input: true,
                 visible: true,
                 width: 150,
+                required: true,
               },
               {
                 key: 'Mail',
@@ -214,6 +220,7 @@ const Employees = ({ title, hasLeftComponent = false, onDrawerPress }) => {
                 label: MainDataLang.MaritalStatus[Lang],
                 type: 'dropdown',
                 options: MaritalStatusList,
+                required: true,
                 input: true,
               },
               {
@@ -229,6 +236,7 @@ const Employees = ({ title, hasLeftComponent = false, onDrawerPress }) => {
                 type: 'dropdown',
                 options: DegreeList,
                 input: true,
+                required: true,
               },
               {
                 key: 'DegreeName',
@@ -305,6 +313,7 @@ const Employees = ({ title, hasLeftComponent = false, onDrawerPress }) => {
                 type: 'dropdown',
                 options: EducationList,
                 input: true,
+                required: true,
               },
               {
                 key: 'EducationName',
@@ -340,6 +349,7 @@ const Employees = ({ title, hasLeftComponent = false, onDrawerPress }) => {
                 input: true,
                 visible: true,
                 width: 150,
+                required: true,
               },
               // {
               //   key: 'BirthDate',

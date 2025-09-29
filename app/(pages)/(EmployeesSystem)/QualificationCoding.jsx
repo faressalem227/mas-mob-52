@@ -31,6 +31,7 @@ const QualificationCoding = ({ title, hasLeftComponent = false, onDrawerPress })
                 input: true,
                 visible: 'true',
                 width: 80,
+                required: true,
               },
               {
                 key: 'DefinitionNameAr',
@@ -39,6 +40,7 @@ const QualificationCoding = ({ title, hasLeftComponent = false, onDrawerPress })
                 input: 'true',
                 visible: 'true',
                 width: 200,
+                required: true,
               },
               {
                 key: 'DefinitionNameEn',

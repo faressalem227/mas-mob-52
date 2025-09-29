@@ -30,7 +30,7 @@ const UnitInventoryHome = () => {
         <View className={`m-auto ${Rtl ? 'flex-row-reverse' : 'flex-row'} flex-wrap gap-3`}>
           <SmallButton
             title={UnitInventoryHomeLang.StockItems[Lang]}
-            handlePress={() => router.navigate('StockItems')}
+            handlePress={() => router.navigate('UnitStockItems')}
           />
 
           <SmallButton

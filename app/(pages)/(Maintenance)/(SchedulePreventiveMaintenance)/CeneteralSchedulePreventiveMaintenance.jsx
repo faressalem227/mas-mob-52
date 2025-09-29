@@ -7,7 +7,7 @@ import { Dropdown } from '../../../../components';
 import SchedulePreventiveMaintenanceLang from '../../../../constants/Lang/Maintenance/PreventiveMaintenanceHome/SchedulePreventiveMaintenance';
 import { useGlobalContext } from '../../../../context/GlobalProvider';
 const CeneteralSchedulePreventiveMaintenance = () => {
-  const { DepartmentID, Lang, company } = useGlobalContext();
+  const { DepartmentID, Lang, company,user } = useGlobalContext();
   const [TradeID, setTradeID] = useState(null);
   const [ProcedureTypeID, setProcedureTypeID] = useState(null);
 
@@ -26,13 +26,14 @@ const CeneteralSchedulePreventiveMaintenance = () => {
   );
   const { data: employeeData } = useDropDown(
     'py_Staff_List_CenterlalTeam_t',
-    { DepartmentID: DepartmentID , IsSm: 1},
+    { DepartmentID: DepartmentID, IsSm: 1 },
     'StaffID',
     'StaffName'
   );
+
   const { data: Trade } = useDropDown(
-    'api_ms_Trade_List_pm',
-    { DepartmentID: DepartmentID, LangID: Lang },
+    'api_ms_Trade_List',
+    { DepartmentID: DepartmentID, UserName: user.username, LangID: Lang, CompanyID: company },
     'TradeID',
     'TradeName'
   );

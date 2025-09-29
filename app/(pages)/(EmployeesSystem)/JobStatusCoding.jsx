@@ -48,6 +48,7 @@ const JobStatusCoding = ({ title, hasLeftComponent = false, onDrawerPress }) => 
 
                 visible: 'true',
                 width: 90,
+                required: true,
               },
               {
                 key: 'DefinitionNameAr',
@@ -56,6 +57,7 @@ const JobStatusCoding = ({ title, hasLeftComponent = false, onDrawerPress }) => 
                 input: 'true',
                 visible: 'true',
                 width: 200,
+                required: true,
               },
               {
                 key: 'DefinitionNameEn',

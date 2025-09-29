@@ -548,7 +548,7 @@ const MainGrid = ({
                 </>
               )}
               {hasSpecialButton && (
-                <>
+                <View className='my-3 flex gap-2 flex-row'>
                   {specialButton &&
                     specialButton.map((button, index) => (
                       <CustomButton
@@ -564,7 +564,7 @@ const MainGrid = ({
                         Rtl={Rtl}
                       />
                     ))}
-                </>
+                </View>
               )}
             </View>
             <View

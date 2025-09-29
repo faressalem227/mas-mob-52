@@ -489,13 +489,13 @@ const OrderDetails = () => {
           </TouchableOpacity>
         )}
 
-        <TouchableOpacity className="rounded-lg bg-primary p-3" onPress={() => setShowModal(true)}>
+        {/* <TouchableOpacity className="rounded-lg bg-primary p-3" onPress={() => setShowModal(true)}>
           <Text className="text-center font-tregular text-white">
             {Lang === 2 ? 'Order Transactions' : 'حركات الاذن'}
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
-        <TouchableOpacity
+        {/* <TouchableOpacity 
           className="rounded-lg bg-green-500 p-3"
           onPress={() => {
             const reportId = '3359';
@@ -507,7 +507,7 @@ const OrderDetails = () => {
           <Text className="text-center font-tregular text-white">
             {Lang === 2 ? 'Order Report' : ' تقرير الاذن'}
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         {/* <TouchableOpacity
           className="rounded-lg bg-green-500 p-3"
@@ -680,6 +680,7 @@ const OrderDetails = () => {
             { name: 'OrderID', value: OrderID },
             { name: 'LangID', value: Lang },
           ]}
+          mixedWidth
           UpdBody={{ UserName: user.username || '' }}
           InsBody={{ UserName: user.username || '', OrderID }}
           DelParam={[
@@ -695,7 +696,7 @@ const OrderDetails = () => {
         <MainLayout
           title={Lang === 2 ? 'Order Transactions' : 'حركات الإذن'}
           onNavClick={() => setShowModal(false)}>
-          <View style={{ height: 520 }}>
+          <ScrollView style={{ height: 520, paddingHorizontal: 12 }}>
             <MainGrid
               hasCrud={false}
               mixedWidth
@@ -746,7 +747,7 @@ const OrderDetails = () => {
               //   });
               // }}
             />
-          </View>
+          </ScrollView>
         </MainLayout>
       </Modal>
     </MainLayout>

@@ -30,7 +30,7 @@ const EmploymentTypeCoding = ({ title, hasLeftComponent = false, onDrawerPress }
                 type: 'number',
                 input: 'true',
                 visible: 'true',
-
+                required: true,
                 width: 90,
               },
               {
@@ -40,6 +40,7 @@ const EmploymentTypeCoding = ({ title, hasLeftComponent = false, onDrawerPress }
                 input: 'true',
                 visible: 'true',
                 width: 200,
+                required: true,
               },
               {
                 key: 'DefinitionNameEn',

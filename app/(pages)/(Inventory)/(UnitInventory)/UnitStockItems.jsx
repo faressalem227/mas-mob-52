@@ -1,13 +1,13 @@
 import { View } from 'react-native';
-import { useGlobalContext } from '../../../context/GlobalProvider';
-import { Dropdown, MainGrid } from '../../../components';
+import { useGlobalContext } from '../../../../context/GlobalProvider';
+import { Dropdown, MainGrid } from '../../../../components';
 import { useState, useEffect } from 'react';
-import { MainLayout } from '../../../components';
-import MainDataLang from '../../../constants/Lang/Invintory/MainDataLang';
-import StockItemsLang from '../../../constants/Lang/Invintory/StockItemsLang';
-import { useDropDown } from '../../../hooks/useDropDownData';
+import { MainLayout } from '../../../../components';
+import MainDataLang from '../../../../constants/Lang/Invintory/MainDataLang';
+import StockItemsLang from '../../../../constants/Lang/Invintory/StockItemsLang';
+import { useDropDown } from '../../../../hooks/useDropDownData';
 
-const StockItems = () => {
+const UnitStockItems = () => {
   const { DepartmentID, Lang, company, user } = useGlobalContext();
   const [SectionID, setSectionID] = useState(null);
   const [GroupID, setGroupID] = useState(null);
@@ -107,6 +107,7 @@ const StockItems = () => {
           ]}
           TrxDependency={[GroupID]}
           mixedWidth
+          hasCrud={false}
           tableHead={[
             { key: 'ItemID', hidden: true },
             { key: 'CompanyID', hidden: true },
@@ -210,4 +211,4 @@ const StockItems = () => {
   );
 };
 
-export default StockItems;
+export default UnitStockItems;

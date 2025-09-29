@@ -182,7 +182,7 @@ const StoresPage = () => {
         key: 'OrderNo',
         visible: true,
         label: Lang === 2 ? 'Order No' : 'رقم الإذن',
-        input: true,
+        input: false,
         width: 100,
         type: 'number',
         loading: loader === 'generateOrderNumber',
@@ -427,45 +427,45 @@ const StoresPage = () => {
               ProcessID,
             },
           }}
-          hasSpecialButton
-          specialButton={[
-            {
-              title: Lang === 2 ? 'Orders List Report' : 'تقرير قائمة الأذون',
-              backgroundColor: 'green',
-              textColor: 'white',
-              action: () =>
-                router.navigate({
-                  pathname: '/ReportWebView',
-                  params: {
-                    ReportId: '3367',
-                    SectionID: String(SectionID || 0),
-                    YearID: String(YearID || 0),
-                    ProcessID: String(ProcessID),
-                  },
-                }),
-            },
-            {
-              title: Lang === 2 ? 'Order Report' : ' تقرير الاذن',
-              backgroundColor: 'green',
-              textColor: 'white',
-              action: () => {
-                if (!activeRow) {
-                  Toast.show({
-                    type: 'error',
-                    text1: Lang === 2 ? 'A record must be selected' : 'يجب اختيار حقل اولا',
-                  });
-                } else {
-                  router.push({
-                    pathname: '/ReportWebView',
-                    params: {
-                      ReportId: '3359',
-                      Value: String(activeRow?.OrderID),
-                    },
-                  });
-                }
-              },
-            },
-          ]}
+          // hasSpecialButton
+          // specialButton={[
+          //   {
+          //     title: Lang === 2 ? 'Orders List Report' : 'تقرير قائمة الأذون',
+          //     backgroundColor: 'green',
+          //     textColor: 'white',
+          //     action: () =>
+          //       router.navigate({
+          //         pathname: '/ReportWebView',
+          //         params: {
+          //           ReportId: '3367',
+          //           SectionID: String(SectionID || 0),
+          //           YearID: String(YearID || 0),
+          //           ProcessID: String(ProcessID),
+          //         },
+          //       }),
+          //   },
+          //   {
+          //     title: Lang === 2 ? 'Order Report' : ' تقرير الاذن',
+          //     backgroundColor: 'green',
+          //     textColor: 'white',
+          //     action: () => {
+          //       if (!activeRow) {
+          //         Toast.show({
+          //           type: 'error',
+          //           text1: Lang === 2 ? 'A record must be selected' : 'يجب اختيار حقل اولا',
+          //         });
+          //       } else {
+          //         router.push({
+          //           pathname: '/ReportWebView',
+          //           params: {
+          //             ReportId: '3359',
+          //             Value: String(activeRow?.OrderID),
+          //           },
+          //         });
+          //       }
+          //     },
+          //   },
+          // ]}
         />
       </View>
     </MainLayout>

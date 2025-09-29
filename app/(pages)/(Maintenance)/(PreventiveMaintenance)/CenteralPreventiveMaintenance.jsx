@@ -12,12 +12,11 @@ const CenteralPreventiveMaintenance = () => {
   const [ProcedureTypeID, setProcedureTypeID] = useState([]);
 
   const { data: TradeList } = useDropDown(
-    'api_ms_Trade_List_pm',
-    { DepartmentID: DepartmentID, CompanyID: company },
+    'api_ms_Trade_List',
+    { DepartmentID: DepartmentID, UserName: user.username, LangID: Lang, CompanyID: company },
     'TradeID',
     'TradeName'
   );
-
   const { data: PriorityList } = useDropDown(
     'api_ms_Priority_List',
     { DepartmentID: DepartmentID, CompanyID: company, LangID: Lang },
