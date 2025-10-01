@@ -47,12 +47,14 @@ const SubDepartments = () => {
               input: true,
               visible: 'true',
               width: 100,
+              required: true,
             },
             {
               key: 'DepartmentName',
               label: `${SubDepartmentsLang.SubDepartmentName[Lang]}`,
               input: 'true',
               visible: 'true',
+              required: true,
             },
           ]}
           mixedWidth={true}

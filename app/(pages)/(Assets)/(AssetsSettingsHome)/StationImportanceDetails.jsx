@@ -87,6 +87,7 @@ const StationImportanceDetails = ({ route }) => {
                 input: 'true',
                 visible: 'true',
                 width: 250,
+                required: true,
               },
               {
                 key: 'AnswerValue',
@@ -95,6 +96,7 @@ const StationImportanceDetails = ({ route }) => {
                 input: 'true',
                 visible: 'true',
                 width: 100,
+                required: true,
               },
               {
                 key: 'ValueDesc',

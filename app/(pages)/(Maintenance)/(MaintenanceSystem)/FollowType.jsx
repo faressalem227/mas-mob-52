@@ -30,6 +30,7 @@ const FollowType = () => {
                 input: 'true',
                 visible: 'true',
                 width: 100,
+                required: true,
               },
               {
                 key: 'FollowupTypeNameAr',
@@ -38,6 +39,7 @@ const FollowType = () => {
                 input: 'true',
                 visible: 'true',
                 width: 200,
+                required: true,
               },
               // {
               //   key: 'FollowupTypeNameEn',

@@ -88,6 +88,7 @@ const AssetsClassification = () => {
                 input: true,
                 visible: true,
                 width: 80,
+                required: true,
               },
               {
                 key: 'AssetClassName',
@@ -95,6 +96,7 @@ const AssetsClassification = () => {
                 input: 'true',
                 visible: 'true',
                 width: 150,
+                required: true,
               },
               {
                 key: 'TradeID',

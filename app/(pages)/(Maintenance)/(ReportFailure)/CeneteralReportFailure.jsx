@@ -229,7 +229,7 @@ const CenetralReportFailure = () => {
               onRowPress={(row) => setRow(row)}
               pk={'FailureReportID'}
               spTrx={'api_ms_FailureReports_Trx_Central'}
-              spIns={'api_ms_FailureReports_Ins'}
+              spIns={'api_ms_FailureReports_Ins_Central'}
               spUpd={'api_ms_FailureReports_Upd'}
               spDel={'api_ms_FailureReports_Del'}
               TrxParam={[
@@ -323,6 +323,7 @@ const CenetralReportFailure = () => {
                   input: 'true',
                   visible: 'true',
                   width: 250,
+                  required: true,
                 },
                 {
                   key: 'WorkorderCode',

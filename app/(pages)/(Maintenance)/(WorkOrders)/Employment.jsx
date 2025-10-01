@@ -118,6 +118,7 @@ const Employment = () => {
               type: 'dropdown',
               options: employeetList,
               input: 'true',
+              required: true,
             },
             {
               key: 'EmployeeName',
@@ -172,6 +173,7 @@ const Employment = () => {
               input: 'false',
               visible: 'true',
               width: 150,
+              required: true,
             },
             {
               key: 'TotalCost',
@@ -199,6 +201,8 @@ const Employment = () => {
               input: 'true',
               visible: 'false',
               width: 150,
+                            required: true,
+
             },
             {
               key: 'AssetNameLabour',

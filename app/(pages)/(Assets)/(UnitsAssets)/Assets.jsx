@@ -252,6 +252,7 @@ const Assets = () => {
               required: false,
               width: 100,
               label: AssetsLang.AssetCode[Lang],
+              required: true,
             },
             {
               key: 'AssetName',

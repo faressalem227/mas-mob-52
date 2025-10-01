@@ -58,6 +58,7 @@ const StationImportance = ({ route }) => {
                 input: 'true',
                 visible: 'true',
                 width: 250,
+                required: true,
               },
               {
                 key: 'NormWt',
@@ -66,6 +67,7 @@ const StationImportance = ({ route }) => {
                 input: 'true',
                 visible: 'true',
                 width: 100,
+                required: true,
               },
               {
                 key: 'QuestionToAsk',
@@ -74,6 +76,7 @@ const StationImportance = ({ route }) => {
                 input: 'true',
                 visible: 'true',
                 width: 250,
+                required: true,
               },
             ]}
             StaticWidth={true}

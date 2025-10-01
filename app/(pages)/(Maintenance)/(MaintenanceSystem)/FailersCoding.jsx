@@ -31,6 +31,7 @@ const FailersCoding = () => {
                 width: 100,
                 input: 'true',
                 visible: 'true',
+                required: true,
               },
               {
                 key: 'FailureName',
@@ -39,6 +40,7 @@ const FailersCoding = () => {
                 input: 'true',
                 visible: 'true',
                 width: 300,
+                required: true,
               },
               {
                 key: 'Troubleshooting',

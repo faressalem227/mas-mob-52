@@ -233,6 +233,7 @@ const WorkOrders = () => {
               input: true,
               visible: true,
               width: 300,
+              required: true,
             },
             {
               key: 'WorkorderTypeID',
@@ -240,6 +241,7 @@ const WorkOrders = () => {
               options: WorkTypeList,
               type: 'dropdown',
               input: true,
+              required: true,
             },
             {
               key: 'WorkorderTypeName',

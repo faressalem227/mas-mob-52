@@ -65,6 +65,7 @@ const TechnicalEvaluationAnswers = ({ route }) => {
                 input: 'true',
                 visible: 'true',
                 width: 250,
+                required: true,
               },
               {
                 key: 'AnswerValue',
@@ -73,6 +74,7 @@ const TechnicalEvaluationAnswers = ({ route }) => {
                 input: 'true',
                 visible: 'true',
                 width: 100,
+                required: true,
               },
             ]}
           />

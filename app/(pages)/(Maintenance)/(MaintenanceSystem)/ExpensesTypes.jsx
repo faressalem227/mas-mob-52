@@ -11,7 +11,7 @@ const ExpensesTypes = () => {
 
   return (
     <MainLayout title={ImportanceLang.ExpensesTypes[Lang]} className="">
-      <View className="flex h-[100vh] flex-col bg-white py-4 m-2">
+      <View className="m-2 flex h-[100vh] flex-col bg-white py-4">
         <View style={[styles.ImportanceGrid, { height: screenHeight }]}>
           <MainGrid
             tableHead={[
@@ -30,6 +30,7 @@ const ExpensesTypes = () => {
                 input: 'true',
                 visible: 'true',
                 width: 100,
+                required: true,
               },
               {
                 key: 'ExpenseTypeName',
@@ -37,6 +38,7 @@ const ExpensesTypes = () => {
                 type: '',
                 input: 'true',
                 visible: 'true',
+                required: true,
               },
             ]}
             mixedWidth={true}

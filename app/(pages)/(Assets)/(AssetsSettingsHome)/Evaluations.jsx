@@ -25,6 +25,7 @@ const Evaluations = ({ route }) => {
                 type: 'number',
                 visible: 'true',
                 input: 'true',
+                required: true,
 
                 width: 80,
               },
@@ -34,6 +35,7 @@ const Evaluations = ({ route }) => {
                 input: 'true',
                 visible: 'true',
                 width: 200,
+                required: true,
               },
             ]}
             mixedWidth

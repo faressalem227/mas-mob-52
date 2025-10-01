@@ -110,6 +110,8 @@ const Services = () => {
               visible: 'false',
               options: Section,
               width: 100,
+              required: true,
+
               // onChange: (val) => selectedScetionID(val)
             },
             {
@@ -128,6 +130,8 @@ const Services = () => {
               input: 'true',
               visible: 'false',
               width: 100,
+              required: true,
+
               onChange: (val) => setSelectdGroupID(val),
             },
             {
@@ -147,6 +151,7 @@ const Services = () => {
               visible: 'false',
               width: 100,
               onChange: (val) => setItemID(val),
+              required: true,
             },
             {
               key: 'ItemName',
@@ -179,6 +184,7 @@ const Services = () => {
               input: 'true',
               visible: 'true',
               width: 100,
+              required: true,
             },
             {
               key: 'UnitCost',
@@ -204,7 +210,7 @@ const Services = () => {
               input: 'true',
               visible: 'true',
               width: 200,
-              preventDefault:true,
+              preventDefault: true,
             },
 
             {
@@ -215,6 +221,7 @@ const Services = () => {
               input: 'true',
               visible: 'false',
               width: 100,
+              required: true,
             },
             {
               key: 'AssetName',

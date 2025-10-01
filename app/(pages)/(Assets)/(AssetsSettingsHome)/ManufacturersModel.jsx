@@ -29,7 +29,7 @@ const ManufacturersModel = () => {
             { name: 'CompanyID', value: company },
             { name: 'ManufacturerID', value: ManufacturerID },
           ]}
-          DelParam={[{ rowData: true, name: 'ModelID', value: "ModelID" }]}
+          DelParam={[{ rowData: true, name: 'ModelID', value: 'ModelID' }]}
           InsBody={{
             CompanyID: company,
             ManufacturerID,
@@ -50,6 +50,7 @@ const ManufacturersModel = () => {
               visible: true,
               input: true,
               width: 150,
+              required: true,
             },
             {
               key: 'ModelName',
@@ -57,6 +58,7 @@ const ManufacturersModel = () => {
               input: true,
               visible: true,
               width: 300,
+              required: true,
             },
           ]}
           mixedWidth={true}

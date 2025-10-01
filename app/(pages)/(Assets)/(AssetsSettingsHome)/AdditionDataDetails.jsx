@@ -47,7 +47,9 @@ const AdditionDataDetails = () => {
               key: 'SelectNo',
               label: AssetHomeLang.SelectionCode[Lang],
               visible: true,
+              required: true,
               width: 150,
+              input: true,
             },
             {
               key: 'SelectName',
@@ -55,6 +57,7 @@ const AdditionDataDetails = () => {
               input: true,
               visible: true,
               width: 150,
+              required: true,
             },
           ]}
           mixedWidth={true}

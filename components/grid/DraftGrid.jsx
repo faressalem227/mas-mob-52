@@ -38,6 +38,21 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import MainGridLang from '../../constants/Lang/components/MainGridLang';
+const validateRowFields = (tableHead, rowData, dynamicCode) => {
+  const errors = {};
+  for (const header of tableHead) {
+    const isInput = header.input && header.input !== 'false';
+    const isRequired = header.required;
+    const valueMissing = !rowData[header.key] || rowData[header.key] === '';
+    const isDynamicField = dynamicCode && dynamicCode.codeCol === header.key;
+
+    if (isInput && isRequired && valueMissing && !isDynamicField) {
+      errors[header.key] = `${header.label} مطلوب ولا يمكن أن يكون فارغًا.`;
+    }
+  }
+  return errors;
+};
+
 const RenderInput = ({
   inputkey,
   label,
@@ -327,386 +342,6 @@ const RenderRows = ({
     </View>
   );
 };
-// const RenderRows = ({
-//   Expandednodes = [],
-//   setExpandednodes = () => {},
-//   dataRow,
-//   index,
-//   depth = 0,
-//   pk,
-//   handleDoubleClick,
-//   handleRowPress,
-//   selectedRow,
-//   highlight,
-//   widthArr,
-//   filteredTableHead = [],
-//   isNested,
-// }) => {
-//   const { Rtl } = useGlobalContext();
-//   const expandedSet = new Set(Expandednodes);
-//   const isExpanded = dataRow?.[pk] && expandedSet.has(dataRow[pk]);
-//   const isSelected = selectedRow?.[pk] === dataRow?.[pk];
-
-//   const windowWidth = Dimensions.get('window').width;
-
-//   const [buttonStyles, setButtonStyles] = useState({
-//     buttonHeight: hp('6%'),
-//     fontSize: hp('1.8%'),
-//     iconSize: hp('2%'),
-//     gap: wp('1%'),
-//     padding: wp('2%'),
-//   });
-
-//   useEffect(() => {
-//     if (windowWidth < 750) {
-//       setButtonStyles({
-//         buttonHeight: hp('5%'),
-//         fontSize: hp('1.8%'),
-//         iconSize: hp('2.2%'),
-//         gap: wp('1%'),
-//         padding: wp('3%'),
-//       });
-//     } else {
-//       setButtonStyles({
-//         buttonHeight: hp('4.5%'),
-//         fontSize: hp('1.4%'),
-//         iconSize: hp('2%'),
-//         gap: wp('.5%'),
-//         padding: wp('2%'),
-//       });
-//     }
-//   }, [windowWidth]);
-
-//   // ✅ Hooks above, now we check for invalid row
-//   if (!dataRow) return null;
-
-//   const handleExpandToggle = () => {
-//     setExpandednodes((prev) =>
-//       isExpanded ? prev.filter((id) => id !== dataRow[pk]) : [...prev, dataRow[pk]]
-//     );
-//   };
-
-//   return (
-//     <View key={dataRow[pk] || `row-${index}`}>
-//       <View
-//         className={`${Rtl ? 'flex-row-reverse' : 'flex-row'} border-b-4 border-b-[#f3f2f3] bg-[#f9f9f9]`}>
-//         {isNested &&
-//           (dataRow.children?.length > 0 ? (
-//             <TouchableOpacity
-//               style={[
-//                 {
-//                   backgroundColor: '#f9f9f9',
-//                   padding: 8,
-//                 },
-//                 isSelected && { backgroundColor: '#227099' },
-//                 highlight?.col &&
-//                   dataRow[highlight.col] === highlight.value && {
-//                     backgroundColor: highlight.bgcolor,
-//                   },
-//               ]}
-//               className="items-center justify-center px-2"
-//               onPress={handleExpandToggle}>
-//               <Image
-//                 source={isExpanded ? Nigative : Plus}
-//                 style={{
-//                   width: buttonStyles.iconSize,
-//                   height: buttonStyles.iconSize,
-//                   resizeMode: 'contain',
-//                   marginLeft: Rtl ? 0 : wp('1%'),
-//                   marginRight: Rtl ? wp('1%') : 0,
-//                   opacity: 0.25,
-//                 }}
-//               />
-//             </TouchableOpacity>
-//           ) : (
-//             <View
-//               style={{
-//                 width: buttonStyles.iconSize,
-//                 height: buttonStyles.iconSize,
-//               }}
-//               className="bg-[#F3F3F3] px-8"
-//             />
-//           ))}
-
-//         <TouchableOpacity
-//           onLongPress={() => handleDoubleClick(dataRow, index)}
-//           onPress={() => handleRowPress(dataRow, index)}>
-//           <Row
-//             style={[
-//               !isNested && {
-//                 backgroundColor: index % 2 === 0 ? '#ffffff' : '#f9f9f9',
-//                 padding: 8,
-//               },
-//               isNested &&
-//                 dataRow.children?.length > 0 && {
-//                   backgroundColor: '#f9f9f9',
-//                   padding: 8,
-//                 },
-//               isSelected && { backgroundColor: '#227099' },
-//               highlight?.col &&
-//                 dataRow[highlight.col] == highlight.value && {
-//                   backgroundColor: highlight.bgcolor,
-//                 },
-//               { flexDirection: Rtl ? 'row-reverse' : 'row' },
-//             ]}
-//             widthArr={widthArr}
-//             data={
-//               Array.isArray(filteredTableHead)
-//                 ? filteredTableHead.map((col, idx) => {
-//                     if (!col) return null;
-//                     const item = col.key ? (dataRow[col.key] ?? '') : '';
-//                     if (col.type === 'checkbox') {
-//                       return (
-//                         <View
-//                           key={`checkbox-${idx}`}
-//                           style={{
-//                             width: widthArr[idx],
-//                             justifyContent: 'center',
-//                             alignItems: 'center',
-//                           }}>
-//                           <CheckBox value={!!item} isEditable={false} onChange={() => {}} />
-//                         </View>
-//                       );
-//                     } else {
-//                       return (
-//                         <View key={`text-${idx}`} className="p-2">
-//                           <Text
-//                             numberOfLines={3}
-//                             className="line-clamp-3"
-//                             style={{
-//                               width: widthArr[idx],
-//                               textAlign: 'center',
-//                               overflow: 'hidden',
-//                               color: isSelected ? '#fff' : '#000',
-//                             }}>
-//                             {col.type === 'date' && item
-//                               ? item.split('T')[0]
-//                               : col.type === 'price'
-//                                 ? priceFormatter(item)
-//                                 : item}
-//                           </Text>
-//                         </View>
-//                       );
-//                     }
-//                   })
-//                 : null
-//             }
-//           />
-//         </TouchableOpacity>
-//       </View>
-
-//       {isExpanded &&
-//         isNested &&
-//         Array.isArray(dataRow.children) &&
-//         dataRow.children.map((child, idx) => (
-//           <RenderRows
-//             key={child?.[pk] || `child-${idx}`}
-//             Expandednodes={Expandednodes}
-//             setExpandednodes={setExpandednodes}
-//             dataRow={child}
-//             index={idx}
-//             depth={depth + 1}
-//             pk={pk}
-//             handleDoubleClick={handleDoubleClick}
-//             handleRowPress={handleRowPress}
-//             selectedRow={selectedRow}
-//             highlight={highlight}
-//             widthArr={widthArr}
-//             filteredTableHead={filteredTableHead}
-//             isNested
-//           />
-//         ))}
-//     </View>
-//   );
-// };
-
-// const RenderRows = ({
-//   Expandednodes = [],
-//   setExpandednodes = () => {},
-//   dataRow,
-//   index,
-//   depth = 0,
-//   pk,
-//   handleDoubleClick,
-//   handleRowPress,
-//   selectedRow,
-//   highlight,
-//   widthArr,
-//   filteredTableHead = [],
-//   isNested,
-// }) => {
-//   if (!dataRow) return null; // ✅ Prevents error
-//   const { Rtl, company, Lang } = useGlobalContext();
-//   const expandedSet = new Set(Expandednodes);
-//   const isExpanded = expandedSet.has(dataRow[pk]);
-//   const isSelected = selectedRow?.[pk] === dataRow[pk];
-//   const windowWidth = Dimensions.get('window').width;
-
-//   const handleExpandToggle = () => {
-//     setExpandednodes((prev) =>
-//       isExpanded ? prev.filter((id) => id !== dataRow[pk]) : [...prev, dataRow[pk]]
-//     );
-//   };
-//   const [buttonStyles, setButtonStyles] = useState({
-//     buttonHeight: hp('6%'),
-//     fontSize: hp('1.8%'),
-//     iconSize: hp('2%'),
-//     gap: wp('1%'),
-//     padding: wp('2%'),
-//   });
-
-//   useEffect(() => {
-//     if (windowWidth < 750) {
-//       setButtonStyles({
-//         buttonHeight: hp('5%'),
-//         fontSize: hp('1.8%'),
-//         iconSize: hp('2.2%'),
-//         gap: wp('1%'),
-//         padding: wp('3%'),
-//       });
-//     } else {
-//       setButtonStyles({
-//         buttonHeight: hp('4.5%'),
-//         fontSize: hp('1.4%'),
-//         iconSize: hp('2%'),
-//         gap: wp('.5%'),
-//         padding: wp('2%'),
-//       });
-//     }
-//   }, [windowWidth]);
-//   return (
-//     <View
-//       key={dataRow[pk] || `row-${index}`}
-//       style={[
-//         isNested &&
-//           Rtl && {
-//             paddingRight: depth > 0 && 25,
-//           },
-//         isNested &&
-//           !Rtl && {
-//             paddingLeft: depth > 0 && 25,
-//           },
-//       ]}>
-//       <View
-//         className={`${Rtl == 1 ? 'flex-row-reverse' : 'flex-row'} border-b-4 border-b-[#f3f2f3] bg-[#f9f9f9]`}>
-//         {isNested && dataRow.children?.length > 0 && (
-//           <TouchableOpacity
-//             className="items-center justify-center px-2"
-//             onPress={handleExpandToggle}>
-//             <Text className="text-lg ">{isExpanded ? '-' : '+'}</Text>
-//             <Image
-//               source={isExpanded ? Nigative : Plus}
-//               style={{
-//                 width: buttonStyles.iconSize,
-//                 height: buttonStyles.iconSize,
-//                 resizeMode: 'contain',
-//                 marginLeft: Rtl ? 0 : wp('1%'),
-//                 marginRight: Rtl ? wp('1%') : 0,
-//               }}
-//             />
-//           </TouchableOpacity>
-//         )}
-
-//         <TouchableOpacity
-//           onLongPress={() => handleDoubleClick(dataRow, index)}
-//           onPress={() => handleRowPress(dataRow, index)}>
-//           <Row
-//             className={`flex`}
-//             style={[
-//               styles.row,
-//               !isNested && {
-//                 backgroundColor: index % 2 === 0 ? '#ffffff' : '#f9f9f9',
-//                 padding: 8,
-//               },
-//               isSelected && { backgroundColor: '#227099' },
-//               highlight?.col &&
-//                 dataRow[highlight.col] == highlight.value && {
-//                   backgroundColor: highlight.bgcolor,
-//                 },
-//               { flexDirection: Rtl ? 'row-reverse' : 'row' },
-//             ]}
-//             textStyle={styles.text}
-//             widthArr={widthArr}
-//             data={
-//               Array.isArray(filteredTableHead)
-//                 ? filteredTableHead.map((col, idx) => {
-//                     if (!col) return null; // ✅ Prevents error
-//                     const item = col.key ? (dataRow[col.key] ?? '') : '';
-//                     let content;
-
-//                     if (col.type === 'checkbox') {
-//                       content = (
-//                         <View
-//                           key={`checkbox-${idx}`}
-//                           style={{
-//                             width: widthArr[idx],
-//                             justifyContent: 'center',
-//                             alignItems: 'center',
-//                           }}>
-//                           <CheckBox value={!!item} isEditable={false} onChange={() => {}} />
-//                         </View>
-//                       );
-//                     } else {
-//                       content = (
-//                         <Text
-//                           className="line-clamp-3"
-//                           key={`text-${idx}`}
-//                           style={[
-//                             styles.text,
-//                             {
-//                               width: widthArr[idx],
-//                               textAlign: 'center',
-//                               overflow: 'hidden',
-//                             },
-//                             isSelected && { color: '#ffffff' },
-//                           ]}
-//                           numberOfLines={3}>
-//                           {col.type === 'date' && item
-//                             ? item.split('T')[0]
-//                             : col.type === 'price'
-//                               ? priceFormatter(item)
-//                               : item}
-//                         </Text>
-//                       );
-//                     }
-
-//                     return (
-//                       <View key={`view-${idx}`} className="p-2">
-//                         {content}
-//                       </View>
-//                     );
-//                   })
-//                 : null
-//             }
-//           />
-//         </TouchableOpacity>
-//       </View>
-
-//       {isExpanded &&
-//         isNested &&
-//         Array.isArray(dataRow.children) &&
-//         dataRow.children.length > 0 &&
-//         dataRow.children.map((child, idx) => (
-//           <RenderRows
-//             key={child?.[pk] || `child-${idx}`}
-//             Expandednodes={Expandednodes}
-//             setExpandednodes={setExpandednodes}
-//             dataRow={child}
-//             index={idx}
-//             depth={depth + 1}
-//             pk={pk}
-//             handleDoubleClick={handleDoubleClick}
-//             handleRowPress={handleRowPress}
-//             selectedRow={selectedRow}
-//             highlight={highlight}
-//             widthArr={widthArr}
-//             filteredTableHead={filteredTableHead}
-//             isNested
-//           />
-//         ))}
-//     </View>
-//   );
-// };
 
 const DraftGrid = ({
   tableHead,
@@ -758,6 +393,7 @@ const DraftGrid = ({
   const [Expandednodes, setExpandednodes] = useState([]);
 
   const [rowData, setRowData] = useState(Object.fromEntries(tableHead.map((col) => [col.key, ''])));
+  const [labelFontSize, setLabelFontSize] = useState(hp('1.5%'));
 
   //(data, "sadojasdhsado");
   const scrollViewRef = useRef(null);
@@ -912,9 +548,19 @@ const DraftGrid = ({
       setRefreshing(false);
     }, 1000);
   };
+  const [errors, setErrors] = useState({});
+
+  const validateFields = () => {
+    const validationErrors = validateRowFields(tableHead, rowData, dynamicCode);
+    setErrors(validationErrors);
+    return Object.keys(validationErrors).length === 0;
+  };
 
   const confirmAction = async () => {
     try {
+      if (!validateFields()) {
+        return;
+      }
       if (modalType === 'add') {
         setModelLoader(true);
         let params = ``;
@@ -1244,6 +890,17 @@ const DraftGrid = ({
                                         dynamicCode={dynamicCode}
                                         code={code}
                                       />
+                                      {errors[item.key] && (
+                                        <Text
+                                          style={{
+                                            fontSize: labelFontSize * 1.2,
+                                            marginVertical: hp('.5%'),
+                                            // color: 'red',
+                                            textAlign: 'center',
+                                          }}>
+                                          {errors[item.key]}
+                                        </Text>
+                                      )}
                                     </KeyboardAvoidingView>
                                   </View>
                                 )}

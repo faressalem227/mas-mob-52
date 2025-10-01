@@ -65,6 +65,7 @@ const TechnicalEvaluationQuestions = ({ route }) => {
                 input: 'true',
                 visible: 'true',
                 width: 250,
+                required: true,
               },
               {
                 key: 'Weight',
@@ -73,6 +74,7 @@ const TechnicalEvaluationQuestions = ({ route }) => {
                 input: 'true',
                 visible: 'true',
                 width: 100,
+                required: true,
               },
             ]}
             routeTo={{

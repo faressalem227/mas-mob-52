@@ -32,6 +32,11 @@ function CentralDataAssetsSettingsHome() {
 
           <SmallButton
             style={styles.smlBtn}
+            title={AssetHomeLang.ManufacturersCountry[Lang]}
+            handlePress={() => router.navigate('/ManufacturersCountry')}
+          />
+          <SmallButton
+            style={styles.smlBtn}
             title={AssetHomeLang.StationCriticality[Lang]}
             handlePress={() => router.navigate('/StationImportance')}
           />

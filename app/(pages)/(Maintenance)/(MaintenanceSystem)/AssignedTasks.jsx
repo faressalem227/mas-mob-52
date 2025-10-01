@@ -51,6 +51,7 @@ const AssignedTasks = () => {
             input: true,
             visible: true,
             width: 120,
+            required: true,
           },
           {
             key: 'ProcedureTasksName',
@@ -58,6 +59,7 @@ const AssignedTasks = () => {
             input: true,
             visible: true,
             width: 300,
+            required: true,
           },
           {
             key: 'EstimatedTasksHours',

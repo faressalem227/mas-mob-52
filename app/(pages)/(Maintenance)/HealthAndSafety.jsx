@@ -95,6 +95,7 @@ const HealthAndSafety = () => {
               input: true,
               visible: true,
               width: 80,
+              required: true,
             },
             {
               key: 'SafetyName',
@@ -103,6 +104,7 @@ const HealthAndSafety = () => {
               input: true,
               visible: true,
               width: 250,
+              required: true,
             },
             {
               key: 'SafetyInstructions',

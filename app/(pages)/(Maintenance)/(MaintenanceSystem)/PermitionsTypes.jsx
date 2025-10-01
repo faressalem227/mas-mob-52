@@ -30,6 +30,7 @@ const PermitionsTypes = () => {
                 input: 'true',
                 visible: 'true',
                 width: 100,
+                required: true,
               },
               {
                 key: 'PermitTypeName',
@@ -37,6 +38,7 @@ const PermitionsTypes = () => {
                 type: '',
                 input: 'true',
                 visible: 'true',
+                required: true,
               },
             ]}
             mixedWidth={true}

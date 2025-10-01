@@ -29,13 +29,12 @@ const Approvals = () => {
     'ms_Employees_ListForWo',
     {
       DepartmentID,
-      UserName:user.username,
-      LangID:Lang
+      UserName: user.username,
+      LangID: Lang,
     },
     'StaffID',
     'StaffName'
   );
-
 
   return (
     <MainLayout title={Appproval.PageTitle[Lang]} className="">
@@ -61,11 +60,9 @@ const Approvals = () => {
             // { name: 'DepartmentID', value: DepartmentID },
             { name: 'WorkorderID', value: WorkorderID },
           ]}
-          
-           UpdBody={{
-           WorkorderID: WorkorderID,
-           }}
-
+          UpdBody={{
+            WorkorderID: WorkorderID,
+          }}
           InsBody={{ DepartmentID: DepartmentID, WorkorderID: WorkorderID }}
           TrxDependency={[WorkorderID]}
           StaticWidth
@@ -79,6 +76,7 @@ const Approvals = () => {
               type: 'dropdown',
               options: employeetList,
               input: 'true',
+              required: true,
             },
             {
               key: 'StaffName',
@@ -93,7 +91,6 @@ const Approvals = () => {
               visible: true,
               width: 250,
             },
-          
           ]}
         />
       </View>

@@ -78,6 +78,10 @@ const AssetHomeLang = {
     1: ' المصنعون',
     2: ' Manufacturers  ',
   },
+  ManufacturersCountry: {
+    1: ' بلد الصنع',
+    2: ' Manufacturers Country ',
+  },
   Manufacturer: {
     1: ' المصنع',
     2: ' Manufacturer',

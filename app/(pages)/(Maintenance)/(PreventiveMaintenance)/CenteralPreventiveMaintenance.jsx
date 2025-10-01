@@ -65,8 +65,8 @@ const CenteralPreventiveMaintenance = () => {
         <MainGrid
           pk={'ProcedureID'}
           spTrx={'api_ms_Procedures_Trx_Central'}
-          spIns={'api_ms_Procedures_Ins'}
-          spUpd={'api_ms_Procedures_Upd'}
+          spIns={'api_ms_Procedures_Ins_central'}
+          spUpd={'api_ms_Procedures_Upd_Central'}
           spDel={'api_ms_Procedures_Del'}
           TrxParam={[
             { name: 'DepartmentID', value: DepartmentID },
@@ -115,6 +115,7 @@ const CenteralPreventiveMaintenance = () => {
               visible: true,
               lines: 3,
               width: 150,
+              required: true,
             },
             {
               key: 'PriorityID',
