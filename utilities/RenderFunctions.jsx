@@ -30,7 +30,7 @@ export const RenderInput = ({
   const [inputHeight, setInputHeight] = useState(hp('6%')); // New responsive row height
 
   const handleInputChange = (key, value, type) => {
-    if (type === 'dropdown' && handleDropdownChange) {
+    if (type === 'dropdown' && typeof handleDropdownChange === 'function') {
       handleDropdownChange(key, value);
     }
     if (onChange) onChange(value);
@@ -63,7 +63,7 @@ export const RenderInput = ({
       setValueFontSize(hp('1.6%'));
       setInputHeight(hp('5%'));
     }
-  }, [windowWidth]);
+  }, [code]);
 
   if (!input && input == 'false') {
     return;
@@ -162,4 +162,79 @@ export const RenderInput = ({
         />
       );
   }
+};
+
+export const RenderSearchInput = ({ header, searchRow, handleChange }) => {
+  const value = searchRow?.[header.key] ?? '';
+
+  if (!header.visible || header.visible === 'false') {
+    return <View style={{ width: header.width || 100 }} />;
+  }
+
+  // Dropdown
+  if (header.type === 'dropdown') {
+    const options =
+      typeof header.options === 'function' ? header.options({}) : header.options || [];
+
+    return (
+      <View style={{ width: header.width || 120, paddingHorizontal: 4 }}>
+        <Dropdown
+          value={value}
+          onChange={(val) => handleChange(header.key, val)}
+          data={options}
+          placeholder={{ label: `${header.label}`, value: '' }}
+        />
+      </View>
+    );
+  }
+
+  // Date
+  if (header.type === 'date') {
+    return (
+      <View style={{ width: header.width || 120, paddingHorizontal: 4 }}>
+        <DatePickerInput
+          defaultDate={value}
+          setDate={(selectedDate) => handleChange(header.key, selectedDate)}
+        />
+      </View>
+    );
+  }
+
+  // Checkbox
+  if (header.type === 'checkbox') {
+    return (
+      <View
+        style={{
+          width: header.width || 60,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <CheckBox
+          value={value === true || value === 'true' || value === 1}
+          onChange={(val) => handleChange(header.key, val)}
+          isEditable={true}
+        />
+      </View>
+    );
+  }
+
+  // Default: Text / Number
+  return (
+    <View style={{ width: header.width || 120, paddingHorizontal: 4 }}>
+      <TextInput
+        value={String(value)}
+        onChangeText={(val) => handleChange(header.key, val)}
+        placeholder={header.label}
+        placeholderTextColor="#999"
+        keyboardType={header.type === 'number' || header.type === 'price' ? 'numeric' : 'default'}
+        style={{
+          borderWidth: 1,
+          borderColor: '#ddd',
+          borderRadius: 4,
+          paddingHorizontal: 6,
+          height: 36,
+        }}
+      />
+    </View>
+  );
 };

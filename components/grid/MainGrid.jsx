@@ -45,8 +45,10 @@ import {
 import { useTableApi } from '../../hooks/useTableApi';
 import { useModalManager } from '../../hooks/useModalManager';
 import useTableActions from '../../hooks/useTableActions'; // Adjust path based on your project structure
+import MagnifyingGlass from '../../assets/images/MagnifyingGlass.svg';
 
 import { RenderInput } from '../../utilities';
+import { RenderSearchInput } from '../../utilities/RenderFunctions';
 
 const RenderReportInput = ({ item, setFilters, filters }) => {
   const { Rtl, company, DepartmentID } = useGlobalContext();
@@ -177,6 +179,8 @@ const MainGrid = ({
   dynamicCode = false,
   onRowPress = () => {},
   insRoute = '',
+  haveSearch = true,
+  crudPage = false,
   reports = false,
 }) => {
   const router = useRouter();
@@ -322,29 +326,81 @@ const MainGrid = ({
     showErrorToast,
   });
 
-  // handlers
+  // Update the handleAdd function:
   const handleAdd = async () => {
+    let nextCode = false;
+
     if (dynamicCode) {
       try {
-        const code = await fetchNextCode(
+        nextCode = await fetchNextCode(
           dynamicCode.tbName,
           dynamicCode.codeCol,
           dynamicCode.CompanyID || company
         );
-        setCode(code);
+        setCode(nextCode);
       } catch {
         showErrorToast('حدث خطأ اثناء تنفيذ العمليه حاول مره اخرى ❌');
+        return;
       } finally {
         setLoading(false);
       }
     }
 
     const emptyRow = Object.fromEntries(tableHead.map((col) => [col.key, '']));
-    setRowData({ [dynamicCode.codeCol]: code, ...emptyRow });
-    openModal('add');
+    const newRowData = dynamicCode ? { [dynamicCode.codeCol]: nextCode, ...emptyRow } : emptyRow;
+
+    // NEW: Check if crudPage prop exists
+    if (crudPage) {
+      router.navigate({
+        pathname: 'CrudPage',
+        params: {
+          modalType: 'add',
+          tableHead: JSON.stringify(tableHead),
+          rowData: JSON.stringify(newRowData),
+          spIns,
+          InsParam: JSON.stringify(InsParam),
+          InsBody: JSON.stringify(InsBody),
+          dynamicCode: dynamicCode ? JSON.stringify(dynamicCode) : null,
+          code: nextCode && nextCode,
+          insRoute,
+          handleDropDownChange: handleDropDownChange || false,
+        },
+      });
+    } else {
+      setRowData(newRowData);
+      openModal('add');
+    }
   };
 
-  const handleEdit = () => openModal('edit', selectedRow);
+  // Update the handleEdit function:
+  const handleEdit = () => {
+    if (!selectedRow) {
+      showErrorToast('من فضلك اختر صف لاستكمال العمليه');
+      return;
+    }
+
+    // NEW: Check if crudPage prop exists
+    if (crudPage) {
+      router.navigate({
+        pathname: 'CrudPage', // Use the constant
+        params: {
+          modalType: 'edit',
+          tableHead: JSON.stringify(tableHead),
+          rowData: JSON.stringify(selectedRow),
+          spUpd,
+          UpdParam: JSON.stringify(UpdParam),
+          UpdBody: JSON.stringify(UpdBody),
+          dynamicCode: dynamicCode ? JSON.stringify(dynamicCode) : null,
+          code: selectedRow[dynamicCode?.codeCol] || false,
+          insRoute,
+          handleDropDownChange: handleDropDownChange || false,
+        },
+      });
+    } else {
+      // Original modal behavior
+      openModal('edit', selectedRow);
+    }
+  };
 
   const handleDelete = () => openModal('delete', selectedRow);
 
@@ -497,6 +553,42 @@ const MainGrid = ({
   // console.log('selected Row', selectedRow);
 
   // console.log('data', data);
+  const [searchRow, setSearchRow] = useState(null);
+  const [filteredData, setFilteredData] = useState([]);
+  const [showSearch, setShowSearch] = useState(false);
+  useEffect(() => {
+    setFilteredData(data);
+  }, [data]);
+
+  // const handleSearch = useCallback(() => {
+  //   if (!searchRow && Object.keys(searchRow).length === 0) {
+  //     return;
+  //   }
+  //   setIsSearching(true);
+
+  //   setFilteredData(() => {
+  //     let Data;
+  //     if (searchRow && Object.keys(searchRow).length > 0) {
+  //       Data = data.filter((row) =>
+  //         Object.keys(searchRow).every((key) => {
+  //           const rowValue = row[key] ?? '';
+  //           const searchValue = searchRow[key] ?? '';
+
+  //           console.log(rowValue, ' ', searchRow, ' ', key);
+
+  //           return rowValue.toString().toLowerCase().includes(searchValue.toString().toLowerCase());
+  //         })
+  //       );
+  //     } else {
+  //       Data = data;
+  //     }
+
+  //     return Data;
+  //   });
+  // }, [searchRow]);
+  // useEffect(() => {
+  //   handleSearch();
+  // }, [searchRow, handleSearch]);
 
   return (
     <KeyboardAvoidingView
@@ -566,6 +658,29 @@ const MainGrid = ({
                     ))}
                 </>
               )}
+              {haveSearch && (
+                <TouchableOpacity
+                  onPress={() => {
+                    if (showSearch) {
+                      setSearchRow({});
+                      setFilteredData(data);
+                    }
+                    setShowSearch((prev) => !prev);
+                  }}
+                  style={{
+                    width: 30,
+                    height: 40,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginHorizontal: 8,
+                  }}>
+                  <Image
+                    source={require('../../assets/images/MagnifyingGlass.png')}
+                    style={{ width: 24, height: 24 }}
+                    resizeMode="contain"
+                  />
+                </TouchableOpacity>
+              )}
             </View>
             <View
               style={[
@@ -616,9 +731,30 @@ const MainGrid = ({
                     }}
                   />
                 </Table>
+                {/* Search Row */}
+                {haveSearch && showSearch && (
+                  <Table>
+                    <Row
+                      data={filteredTableHead.map((header) => (
+                        <RenderSearchInput
+                          header={header}
+                          searchRow={searchRow}
+                          handleChange={(key, val) => {
+                            setSearchRow((prev) => ({
+                              ...prev,
+                              [key]: val,
+                            }));
+                          }}
+                        />
+                      ))}
+                      widthArr={filteredTableHead.map((h) => h.width || 120)}
+                      style={{ minHeight: 40 }}
+                    />
+                  </Table>
+                )}
                 {/* Table Body with FlatList */}
                 <FlatList
-                  data={data}
+                  data={filteredData}
                   contentContainerStyle={{ paddingBottom: 100 }}
                   refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
                   maxToRenderPerBatch={30}
