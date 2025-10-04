@@ -658,7 +658,7 @@ const MainGrid = ({
                     ))}
                 </>
               )}
-              {haveSearch && (
+              {/* {haveSearch && (
                 <TouchableOpacity
                   onPress={() => {
                     if (showSearch) {
@@ -680,7 +680,7 @@ const MainGrid = ({
                     resizeMode="contain"
                   />
                 </TouchableOpacity>
-              )}
+              )} */}
             </View>
             <View
               style={[
@@ -732,7 +732,7 @@ const MainGrid = ({
                   />
                 </Table>
                 {/* Search Row */}
-                {haveSearch && showSearch && (
+                {/* {haveSearch && showSearch && (
                   <Table>
                     <Row
                       data={filteredTableHead.map((header) => (
@@ -751,7 +751,7 @@ const MainGrid = ({
                       style={{ minHeight: 40 }}
                     />
                   </Table>
-                )}
+                )} */}
                 {/* Table Body with FlatList */}
                 <FlatList
                   data={filteredData}
