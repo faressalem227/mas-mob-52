@@ -48,12 +48,12 @@ const getFinancialYearId = (date = new Date()) => {
 };
 
 const StoreTransactions = () => {
-  const { Lang, company, user } = useGlobalContext();
+  const { Lang, company, user, dynamicStore, handleSetDynamicStore } = useGlobalContext();
 
-  const [SectionID, setSectionID] = useState(null);
-  const [ProcessID, setProcessID] = useState(null);
-  const [YearID, setYearID] = useState(getFinancialYearId());
-  const [MonthID, setMonthID] = useState(null);
+  const [SectionID, setSectionID] = useState(dynamicStore?.Sc_SectionID || null);
+  const [ProcessID, setProcessID] = useState(dynamicStore?.Sc_ProcessID || null);
+  const [YearID, setYearID] = useState(dynamicStore?.Sc_YearID || null || getFinancialYearId());
+  const [MonthID, setMonthID] = useState(dynamicStore?.Sc_MonthID || null);
 
   const router = useRouter();
 
@@ -100,7 +100,7 @@ const StoreTransactions = () => {
     'MonthName'
   );
 
-  console.log(MonthList?.[0]?.key);
+  console.log('dynamicStore', dynamicStore);
 
   return (
     <MainLayout title={StoreTransactionsLang.InventoryTransaction[Lang]}>
@@ -111,8 +111,9 @@ const StoreTransactions = () => {
             title={StoreTransactionsLang.ItemsSection[Lang]}
             placeholder={StoreTransactionsLang.ItemsSection[Lang]}
             value={SectionID}
-            initailOption={SectionData?.[0]?.key}
+            initailOption={dynamicStore?.Sc_SectionID || SectionData?.[0]?.key}
             onChange={(value) => {
+              handleSetDynamicStore('Sc_SectionID', value);
               setSectionID(value);
             }}
           />
@@ -123,9 +124,10 @@ const StoreTransactions = () => {
             placeHolder={StoreTransactionsLang.OrderType[Lang]}
             value={ProcessID}
             onChange={(value) => {
+              handleSetDynamicStore('Sc_ProcessID', value);
               setProcessID(value);
             }}
-            initailOption={processData?.[0]?.key}
+            initailOption={dynamicStore?.Sc_ProcessID || processData?.[0]?.key}
           />
 
           <Dropdown
@@ -134,9 +136,10 @@ const StoreTransactions = () => {
             placeHolder={StoreTransactionsLang.Years[Lang]}
             value={YearID}
             onChange={(value) => {
+              handleSetDynamicStore('Sc_YearID', value);
               setYearID(value);
             }}
-            initailOption={YearID}
+            initailOption={dynamicStore?.Sc_YearID || YearID}
           />
 
           <Dropdown
@@ -145,9 +148,10 @@ const StoreTransactions = () => {
             placeHolder={StoreTransactionsLang.Month[Lang]}
             value={MonthID}
             onChange={(value) => {
+              handleSetDynamicStore('Sc_MonthID', value);
               setMonthID(value);
             }}
-            initailOption={MonthList?.[0]?.key || 0}
+            initailOption={dynamicStore?.Sc_MonthID || MonthList?.[0]?.key || 0}
           />
         </View>
 

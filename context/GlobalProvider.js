@@ -3,7 +3,11 @@ import * as SecureStore from 'expo-secure-store';
 import api from '../utilities/api';
 import { HandleDropdownFormat } from '../utilities/useDropDownData';
 import Toast from 'react-native-toast-message';
-const GlobalContext = createContext();
+
+const GlobalContext = createContext({
+  dynamicStore: {},
+  handleSetDynamicStore: () => {},
+});
 
 export const useGlobalContext = () => useContext(GlobalContext);
 
@@ -19,7 +23,8 @@ const GlobalProvider = ({ children }) => {
   const [Lang, setLang] = useState(1);
   const [Rtl, setRtl] = useState(true);
   const [company, setCompany] = useState(user?.company);
-  const [isMounted, setIsMounted] = useState(false); // Ensure company is derived from user state
+  const [isMounted, setIsMounted] = useState(false);
+  const [dynamicStore, setDynamicStore] = useState({});
 
   const fetchDepartmentTypeData = useCallback(async () => {
     try {
@@ -228,6 +233,13 @@ const GlobalProvider = ({ children }) => {
     }
   };
 
+  const handleSetDynamicStore = (key, value) => {
+    setDynamicStore((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
+
   useEffect(() => {
     if (user?.username) fetchDepartmentTypeData();
   }, [user, Lang]);
@@ -275,6 +287,8 @@ const GlobalProvider = ({ children }) => {
         company: user?.company,
         setLang,
         setRtl,
+        dynamicStore,
+        handleSetDynamicStore,
       }}>
       {children}
     </GlobalContext.Provider>

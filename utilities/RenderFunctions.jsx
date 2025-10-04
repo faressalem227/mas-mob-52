@@ -22,6 +22,8 @@ export const RenderInput = ({
   preventDefault,
   sp,
   addParams,
+  modalType,
+  defaultValue,
 }) => {
   const { Rtl } = useGlobalContext();
   const windowWidth = Dimensions.get('window').width;
@@ -100,7 +102,7 @@ export const RenderInput = ({
     case 'date':
       return (
         <DatePickerInput
-          defaultDate={value}
+          defaultDate={defaultValue && modalType && modalType == 'add' ? defaultValue : value}
           setDate={(selectedDate) => handleInputChange(inputkey, selectedDate)}
           preventDefault={preventDefault}
         />

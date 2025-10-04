@@ -182,6 +182,7 @@ const MainGrid = ({
   haveSearch = true,
   crudPage = false,
   reports = false,
+  rowStyle,
 }) => {
   const router = useRouter();
 
@@ -520,9 +521,7 @@ const MainGrid = ({
       } catch (err) {
         console.log(err);
       } finally {
-        setTimeout(() => {
-          setLoading(false);
-        }, 200);
+        setLoading(false);
       }
     };
     fetchData();
@@ -775,14 +774,15 @@ const MainGrid = ({
                           index % 2 === 0
                             ? { backgroundColor: '#ffffff' }
                             : { backgroundColor: '#f9f9f9' },
+                          highlight &&
+                            dataRow[`${highlight.col}`] === highlight?.value && {
+                              backgroundColor: highlight.bgcolor,
+                            },
+                          rowStyle && { backgroundColor: rowStyle(dataRow) },
                           pk &&
                             selectedRow &&
                             selectedRow[`${pk}`] === dataRow[`${pk}`] && {
                               backgroundColor: '#227099',
-                            },
-                          highlight &&
-                            dataRow[`${highlight.col}`] === highlight?.value && {
-                              backgroundColor: highlight.bgcolor,
                             },
                           {
                             minHeight: rowHeight * 0.8,
@@ -957,6 +957,8 @@ const MainGrid = ({
                                     </Text>
                                     <KeyboardAvoidingView behavior="padding">
                                       <RenderInput
+                                        defaultValue={item.defaultValue}
+                                        modalType={modalType}
                                         inputkey={key}
                                         label={item.label}
                                         type={type}
