@@ -171,6 +171,10 @@ const StoresPage = () => {
     }
   }, [ProcessID, YearID, SectionID, DepartmentID]);
 
+  const currentDay = new Date().getDate();
+
+  const Month = parseInt(MonthID) ? parseInt(MonthID) : new Date().getMonth();
+
   const tableHead = useMemo(
     () => [
       { key: 'OrderID', visible: false, input: false },
@@ -194,6 +198,7 @@ const StoresPage = () => {
         label: Lang === 2 ? 'Order Date' : 'تاريخ الإذن',
         type: 'date',
         width: 120,
+        defaultValue: new Date(parseInt(YearID), parseInt(Month), currentDay),
       },
       {
         key: 'SupplierID',
@@ -387,6 +392,9 @@ const StoresPage = () => {
     <MainLayout title={Lang === 2 ? 'Store Transaction' : 'حركة المخزن'}>
       <View className="flex-1">
         <MainGrid
+          rowStyle={(row) => {
+            return row.Color;
+          }}
           onRowPress={(row) => setActiveRow(row)}
           pk="OrderID"
           spTrx="api_Sc_Orders_Trx"
