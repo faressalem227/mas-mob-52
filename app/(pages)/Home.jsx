@@ -69,7 +69,7 @@ function HomePage() {
             <Dropdown
               placeholder={HomeLang.stationNameDropdown[Lang]}
               title={HomeLang.stationName[Lang]}
-              initailOption={user?.DepartmentID || 1}
+              initailOption={DepartmentID || 1}
               onChange={(v) => handleDepartmentChange(v)}
               data={departmentData}
             />
@@ -77,7 +77,7 @@ function HomePage() {
         </View>
         <View
           className="m-auto flex flex-row-reverse flex-wrap items-center justify-center px-4"
-          style={{ gap: hp('4.5%') ,marginTop:hp('5%')}}>
+          style={{ gap: hp('4.5%'), marginTop: hp('5%') }}>
           {/* <SmallButton
             title={HomeLang.CentralData[Lang]}
             icon={icons.manage}
@@ -113,7 +113,6 @@ function HomePage() {
             iconStyles={'w-8 h-8'}
             textStyles={'w-52 p-2'}
           />
-
         </View>
       </MainLayout>
     </>

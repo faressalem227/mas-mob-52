@@ -31,7 +31,7 @@ const DatePickerInput = ({
 }) => {
   const { Rtl } = useGlobalContext();
 
-  const [selectedDate, setSelectedDate] = useState(normalizeDate(defaultDate) || new Date());
+  const [selectedDate, setSelectedDate] = useState(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [windowWidth] = useState(Dimensions.get('window').width);
 
@@ -55,6 +55,7 @@ const DatePickerInput = ({
   };
 
   useEffect(() => {
+    if (selectedDate) return;
     const normalized = normalizeDate(defaultDate);
     if (normalized) {
       setSelectedDate(normalized);
@@ -68,7 +69,7 @@ const DatePickerInput = ({
     } else {
       setSelectedDate(null);
     }
-  }, [defaultDate, preventDefault]);
+  }, [defaultDate]);
 
   return (
     <View style={styles.container}>
