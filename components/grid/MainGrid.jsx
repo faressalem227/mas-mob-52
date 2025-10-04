@@ -507,7 +507,7 @@ const MainGrid = ({
             style={{ paddingHorizontal: 10 }}
             className={`${Rtl ? 'flex-row-reverse' : 'flex-row'} my-2 items-center justify-between`}>
             <View className={`relative flex-wrap ${Rtl ? 'flex-row-reverse' : 'flex-row'}`}>
-              {hasCrud && hasCrud !== 'false' ? (
+              {hasCrud && hasCrud !== 'false' && company != 0 ? (
                 <>
                   {hasIns && (
                     <CustomButton
