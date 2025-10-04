@@ -263,7 +263,6 @@ const OrderDetails = () => {
         onChange: (value) => {
           setSelectedItem(value);
         },
-        width: 200,
         type: 'dropdown',
         options: filterdItemData,
         loading: filterdItemDataLoding,
@@ -273,7 +272,7 @@ const OrderDetails = () => {
       {
         key: 'ItemName',
         label: Lang === 2 ? 'Item' : 'الصنف',
-        width: 200,
+        width: 500,
         type: 'text',
         input: false,
         visible: true,

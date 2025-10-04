@@ -464,9 +464,7 @@ const MainGrid = ({
       } catch (err) {
         console.log(err);
       } finally {
-        setTimeout(() => {
-          setLoading(false);
-        }, 200);
+        setLoading(false);
       }
     };
     fetchData();
@@ -548,7 +546,7 @@ const MainGrid = ({
                 </>
               )}
               {hasSpecialButton && (
-                <View className='my-3 flex gap-2 flex-row'>
+                <View className="my-3 flex flex-row gap-2">
                   {specialButton &&
                     specialButton.map((button, index) => (
                       <CustomButton
