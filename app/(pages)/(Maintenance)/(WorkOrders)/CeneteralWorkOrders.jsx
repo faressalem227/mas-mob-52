@@ -225,6 +225,7 @@ const CeneteralWorkOrders = () => {
               label: WorkOrdersLang.WorkorderCode[Lang],
               visible: true,
               width: 150,
+              // required: true,
             },
             {
               key: 'WorkorderName',
@@ -232,6 +233,7 @@ const CeneteralWorkOrders = () => {
               input: true,
               visible: true,
               width: 300,
+              required: true,
             },
             {
               key: 'WorkorderTypeID',
@@ -239,6 +241,7 @@ const CeneteralWorkOrders = () => {
               options: WorkTypeList,
               type: 'dropdown',
               input: true,
+              required: true,
             },
             {
               key: 'WorkorderTypeName',
@@ -266,7 +269,7 @@ const CeneteralWorkOrders = () => {
               type: 'dropDown',
               options: CustomSchedule,
             },
-                   
+
             {
               key: 'ScheduleCode',
               label: WorkOrdersLang.ScheduleCode[Lang],

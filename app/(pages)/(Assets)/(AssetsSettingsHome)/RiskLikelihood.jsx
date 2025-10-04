@@ -37,6 +37,7 @@ const RiskLikelihood = () => {
             label: AssetHomeLang.RiskGroup[Lang],
             input: true,
             visible: true,
+            required: true,
             width: 250,
           },
           {
@@ -46,6 +47,7 @@ const RiskLikelihood = () => {
             input: true,
             visible: true,
             width: 100,
+            required: true,
           },
           {
             key: 'QuestionToAsk',
@@ -53,6 +55,7 @@ const RiskLikelihood = () => {
             input: true,
             visible: true,
             width: 350,
+            required: true,
           },
         ]}
         routeTo={{

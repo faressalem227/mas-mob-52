@@ -144,6 +144,7 @@ const MpProcedures = () => {
             type: 'dropdown',
             input: true,
             options: AssetClassList,
+            required: true,
           },
           {
             key: 'AssetClassName',
@@ -157,6 +158,7 @@ const MpProcedures = () => {
             type: 'dropdown',
             input: true,
             options: PeriodsList,
+            required: true,
           },
           {
             key: 'PeriodName',

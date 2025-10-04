@@ -3,40 +3,36 @@ import { MainLayout } from '../../../../components';
 import MainGrid from '../../../../components/grid/MainGrid';
 import { useGlobalContext } from '../../../../context/GlobalProvider';
 import AssetHomeLang from '../../../../constants/Lang/AssetManagment/AssetHomeLang';
-const Manufacturers = ({ route }) => {
+const ManufacturersCountry = ({ route }) => {
   const { DepartmentID, Lang, company, user } = useGlobalContext();
   const screenHeight = Dimensions.get('window').height; // Get screen height dynamically
 
   return (
     <MainLayout title={AssetHomeLang.Manufacturers[Lang]}>
-      <View style={{ height: screenHeight }}>
-        <MainGrid
-          pk={'ManufacturerID'}
-          spTrx={'api_ms_Manufacturers_Trx'}
-          spIns={'api_ms_Manufacturers_Ins'}
-          spUpd={'api_ms_Manufacturers_Upd'}
-          spDel={'api_ms_Manufacturers_Del'}
+      <View style={{ height: screenHeight }} className='p-2'>
+        <MainGrid 
+          pk={'CountryID'}
+          spTrx={'api_ms_ManufacturerCountries_list'}
+          spIns={'api_ms_ManufacturerCountries_Ins'}
+          spUpd={'api_ms_ManufacturerCountries_Upd'}
+          spDel={'api_ms_ManufacturerCountries_Del'}
           TrxParam={[
-            { name: 'DepartmentID', value: DepartmentID },
             { name: 'CompanyID', value: company },
             { name: 'UserName', value: user.username },
             { name: 'LangID', value: Lang },
           ]}
           DelParam={[
-            { rowData: true, name: 'ManufacturerID', value: 'ManufacturerID' },
-            { name: 'DepartmentID', value: DepartmentID },
+            { rowData: true, name: 'CountryID', value: 'CountryID' },
             { name: 'CompanyID', value: company },
             { name: 'UserName', value: user },
             { name: 'LangID', value: Lang },
           ]}
           UpdBody={{
-            DepartmentID: DepartmentID,
             UserName: user.username,
             LangID: Lang,
             CompanyID: company,
           }}
           InsBody={{
-            DepartmentID: DepartmentID,
             UserName: user.username,
             LangID: Lang,
             CompanyID: company,
@@ -44,10 +40,10 @@ const Manufacturers = ({ route }) => {
           TrxDependency={[]}
           tableHead={[
             {
-              key: 'ManufacturerID',
+              key: 'CountryID',
             },
             {
-              key: 'ManufacturerCode',
+              key: 'CountryCode',
               label: AssetHomeLang.Code[Lang],
               input: 'true',
               visible: 'true',
@@ -55,8 +51,8 @@ const Manufacturers = ({ route }) => {
               required: true,
             },
             {
-              key: 'ManufacturerName',
-              label: AssetHomeLang.Manufacturer[Lang],
+              key: 'CountryName',
+              label: AssetHomeLang.ManufacturersCountry[Lang],
               input: 'true',
               visible: 'true',
               width: 150,
@@ -64,15 +60,10 @@ const Manufacturers = ({ route }) => {
             },
           ]}
           mixedWidth
-          routeTo={{
-            path: 'ManufacturersModel',
-            hasParams: true,
-            params: {},
-          }}
         />
       </View>
     </MainLayout>
   );
 };
 
-export default Manufacturers;
+export default ManufacturersCountry;

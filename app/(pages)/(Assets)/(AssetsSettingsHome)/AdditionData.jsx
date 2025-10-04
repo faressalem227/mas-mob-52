@@ -80,9 +80,9 @@ const AdditionData = () => {
                 key: 'AdditionNo',
                 label: AssetHomeLang.AdditionCode[Lang],
                 type: '',
-                input: 'true',
                 visible: 'true',
                 width: 150,
+                // required: true,
               },
               {
                 key: 'AdditionName',
@@ -90,6 +90,7 @@ const AdditionData = () => {
                 input: 'true',
                 visible: 'true',
                 width: 150,
+                required: true,
               },
               {
                 key: 'DataTypeID',

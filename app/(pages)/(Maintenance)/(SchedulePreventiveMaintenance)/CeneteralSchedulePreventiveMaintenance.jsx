@@ -7,7 +7,7 @@ import { Dropdown } from '../../../../components';
 import SchedulePreventiveMaintenanceLang from '../../../../constants/Lang/Maintenance/PreventiveMaintenanceHome/SchedulePreventiveMaintenance';
 import { useGlobalContext } from '../../../../context/GlobalProvider';
 const CeneteralSchedulePreventiveMaintenance = () => {
-  const { DepartmentID, Lang, company,user } = useGlobalContext();
+  const { DepartmentID, Lang, company, user } = useGlobalContext();
   const [TradeID, setTradeID] = useState(null);
   const [ProcedureTypeID, setProcedureTypeID] = useState(null);
 
@@ -77,7 +77,7 @@ const CeneteralSchedulePreventiveMaintenance = () => {
         <MainGrid
           pk={'ScheduleID'}
           spTrx={'api_ms_Schedule_Trx_Central'}
-          spIns={'api_ms_Schedule_Ins'}
+          spIns={'api_ms_Schedule_Ins_central'}
           spUpd={'api_ms_Schedule_Upd'}
           spDel={'api_ms_Schedule_Del'}
           TrxParam={[
@@ -120,6 +120,7 @@ const CeneteralSchedulePreventiveMaintenance = () => {
               input: 'true',
               visible: 'true',
               width: 100,
+              required: true,
             },
             {
               key: 'ScheduleName',
@@ -127,6 +128,7 @@ const CeneteralSchedulePreventiveMaintenance = () => {
               input: 'true',
               visible: 'true',
               width: 200,
+              required: true,
             },
             {
               key: 'TargetTypeID',
@@ -163,6 +165,7 @@ const CeneteralSchedulePreventiveMaintenance = () => {
               input: 'true',
               visible: 'true',
               width: 100,
+              required: true,
             },
             {
               key: 'PeriodName',
@@ -180,6 +183,7 @@ const CeneteralSchedulePreventiveMaintenance = () => {
               input: 'true',
               visible: 'false',
               width: 100,
+              // required: true,
             },
             {
               key: 'PeriodDays',

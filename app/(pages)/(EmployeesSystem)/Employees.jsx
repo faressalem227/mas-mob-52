@@ -349,7 +349,6 @@ const Employees = ({ title, hasLeftComponent = false, onDrawerPress }) => {
                 input: true,
                 visible: true,
                 width: 150,
-                required: true,
               },
               // {
               //   key: 'BirthDate',

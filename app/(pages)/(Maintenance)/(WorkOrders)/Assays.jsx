@@ -91,6 +91,7 @@ const Assays = () => {
               input: 'true',
               visible: 'true',
               width: 100,
+              required: true,
             },
             {
               key: 'TaskName',
@@ -99,6 +100,7 @@ const Assays = () => {
               input: 'true',
               visible: 'true',
               width: 100,
+              required: true,
             },
             {
               key: 'Quantity',

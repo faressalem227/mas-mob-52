@@ -33,7 +33,7 @@ const RiskLiklihoodDetails = () => {
         ]}
         InsBody={{
           CompanyID: company,
-          LikelihoodLevelTypeID:LikelihoodLevelTypeID,
+          LikelihoodLevelTypeID: LikelihoodLevelTypeID,
         }}
         UpdBody={{}}
         DelParam={[
@@ -49,7 +49,7 @@ const RiskLiklihoodDetails = () => {
             key: 'AnswerId',
             input: false,
             visible: false,
-          //  keyName: 'AnswerID',
+            //  keyName: 'AnswerID',
             width: 100,
           },
           {
@@ -57,7 +57,7 @@ const RiskLiklihoodDetails = () => {
             key: 'LikelihoodLevelTypeID',
             input: false,
             visible: false,
-          //  keyName: 'AnswerID',
+            //  keyName: 'AnswerID',
             width: 100,
           },
           {
@@ -70,6 +70,7 @@ const RiskLiklihoodDetails = () => {
             visible: true,
             //keyName: 'Answer',
             width: 150,
+            required: true,
           },
           {
             arCaption: 'القيمة',
@@ -78,9 +79,10 @@ const RiskLiklihoodDetails = () => {
             input: true,
             visible: true,
             key: 'AnswerValue',
-           // keyName: 'AnswerValue',
+            // keyName: 'AnswerValue',
             width: 100,
             type: 'number',
+            required: true,
           },
           {
             arCaption: 'الوصف',

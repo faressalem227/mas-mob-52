@@ -40,6 +40,7 @@ const AssetAttributesValues = () => {
             input: true,
             visible: true,
             width: 100,
+            required: true,
           },
           {
             key: 'AttributeName',
@@ -47,6 +48,7 @@ const AssetAttributesValues = () => {
             input: true,
             visible: true,
             width: 150,
+            required: true,
           },
           {
             key: 'Unit',

@@ -114,6 +114,7 @@ const AssetCounters = () => {
               isRequired: true,
               width: 170,
               label: AssetCountersLang.MeterValue[Lang],
+              required: true,
             },
             {
               key: 'Remarks',

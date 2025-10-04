@@ -31,6 +31,7 @@ const DefTrade = () => {
               input: 'true',
               visible: 'true',
               width: 80,
+              required: true,
             },
             {
               key: 'TradeNameAr',
@@ -39,6 +40,7 @@ const DefTrade = () => {
               input: 'true',
               visible: 'true',
               width: 300,
+              required: true,
             },
             {
               key: 'TradeName',
@@ -47,6 +49,7 @@ const DefTrade = () => {
               input: 'true',
               visible: 'true',
               width: 300,
+              required: true,
             },
 
             {
