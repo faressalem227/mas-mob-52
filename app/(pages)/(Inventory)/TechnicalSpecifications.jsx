@@ -38,6 +38,9 @@ const TechnicalSpecifications = () => {
     'GroupSpecID',
     'GroupAttribute'
   );
+
+  console.log(typeof parseInt(ItemID));
+
   return (
     <MainLayout title={TechnicalSpecificationsLang.TechnicalSpecifications[Lang]}>
       <View className="flex-1">
@@ -48,10 +51,7 @@ const TechnicalSpecifications = () => {
           spUpd={'api_Sc_Items_Spec_Upd'}
           spDel={'api_Sc_Items_Spec_Del'}
           TrxParam={[
-            { name: 'ItemID', value: ItemID },
-            { name: 'LangID', value: Lang },
-            { name: 'CompanyID', value: company },
-            { name: 'UserName', value: user.username },
+            { name: 'ItemID', value: parseInt(ItemID) },
             { name: 'LangID', value: Lang },
           ]}
           InsBody={{ ItemID }}

@@ -77,6 +77,8 @@ const OrderDetails = () => {
     }
   };
 
+  console.log(OrderID, detail?.NextApprovalID);
+
   const handleConfirm = async () => {
     // console.log('NextApprovalID', detail?.NextApprovalID);
 
@@ -90,17 +92,26 @@ const OrderDetails = () => {
         ApprovalID: detail?.NextApprovalID,
       });
 
+      if (!res.data.success) {
+        Toast.show({
+          type: 'error',
+          text1: res.data.message || (Lang === 2 ? 'Confirmation Failed' : 'فشل التاكيد'),
+        });
+
+        return;
+      }
+
       await fetchDetails(true);
 
       Toast.show({
         type: 'success',
-        text1: Lang === 2 ? 'Order Confirmed' : 'تم التاكيد الاذن',
+        text1: res.data.message || (Lang === 2 ? 'Order Confirmed' : 'تم تاكيد الاذن'),
       });
     } catch (e) {
-      console.log(e);
+      // console.log('error', e.response.data.message);
       Toast.show({
-        type: 'success',
-        text1: Lang === 2 ? 'Confirmation Failed' : 'فشل التاكيد',
+        type: 'error',
+        text1: e.response?.data?.message || (Lang === 2 ? 'Confirmation Failed' : 'فشل التاكيد'),
       });
     } finally {
       setLoader('');
@@ -220,7 +231,7 @@ const OrderDetails = () => {
       {
         key: 'SectionID',
         label: Lang === 2 ? 'Section' : 'المخزن',
-        input: colsData.UseSection,
+        input: colsData?.UseSection,
         visible: false,
         width: 110,
         type: 'dropdown',
@@ -234,7 +245,7 @@ const OrderDetails = () => {
         label: Lang === 2 ? 'Section' : 'المخزن',
         type: 'text',
         input: false,
-        visible: !!colsData.UseSection,
+        visible: colsData?.UseSection,
         width: 110,
       },
       {
@@ -247,7 +258,6 @@ const OrderDetails = () => {
           setSelectedGroup(value);
         },
         input: true,
-        visible: false,
       },
       {
         key: 'GroupName',
@@ -272,7 +282,7 @@ const OrderDetails = () => {
       {
         key: 'ItemName',
         label: Lang === 2 ? 'Item' : 'الصنف',
-        width: 500,
+        width: 250,
         type: 'text',
         input: false,
         visible: true,
@@ -316,16 +326,16 @@ const OrderDetails = () => {
         key: 'UnitCost',
         label: Lang === 2 ? 'Unit Cost' : 'تكلفة الوحدة',
         width: 140,
-        input: colsData.UseCost,
-        visible: colsData.UseCost,
+        input: colsData?.UseCost,
+        visible: colsData?.UseCost,
         type: 'number',
       },
       {
         key: 'UnitPrice',
         label: Lang === 2 ? 'Unit Price' : 'سعر الوحدة',
         width: 140,
-        input: colsData.UsePrice,
-        visible: colsData.UsePrice,
+        input: colsData?.UsePrice,
+        visible: colsData?.UsePrice,
         type: 'number',
       },
       {
@@ -333,8 +343,8 @@ const OrderDetails = () => {
         label: Lang === 2 ? 'Status' : 'الحالة',
         width: 90,
         type: 'dropdown',
-        input: colsData.Usestatues,
-        visible: colsData.Usestatues,
+        input: colsData?.Usestatues,
+        visible: colsData?.Usestatues,
         options: statusData,
       },
       {
@@ -363,14 +373,14 @@ const OrderDetails = () => {
         key: 'Qty2',
         label: Lang === 2 ? 'Quantity 2' : 'الكمية 2',
         width: 90,
-        input: colsData.UseGard,
-        visible: colsData.UseGard,
+        input: colsData?.UseGard,
+        visible: colsData?.UseGard,
         type: 'number',
       },
       {
         key: 'Discount',
-        visible: colsData.UseDiscount1,
-        input: colsData.UseDiscount1,
+        visible: colsData?.UseDiscount1,
+        input: colsData?.UseDiscount1,
         label: Lang === 2 ? 'Discount' : 'الخصم',
         type: 'number',
         width: 200,
@@ -379,30 +389,30 @@ const OrderDetails = () => {
         key: 'TotalCost',
         label: Lang === 2 ? 'Total Cost' : 'اجمالي التكلفة',
         input: false,
-        visible: colsData.UseCost,
+        visible: colsData?.UseCost,
         width: 120,
       },
       {
         key: 'TotalPrice',
         label: Lang === 2 ? 'Total Price' : 'اجمالي السعر',
         input: false,
-        visible: colsData.UsePrice,
+        visible: colsData?.UsePrice,
         width: 120,
       },
       {
         key: 'SerialNo',
         label: Lang === 2 ? 'Serial No' : 'السيريال',
         width: 90,
-        input: colsData.UseSerial,
-        visible: colsData.UseSerial,
+        input: colsData?.UseSerial,
+        visible: colsData?.UseSerial,
         type: 'text',
       },
       {
         key: 'AssetID',
         label: Lang === 2 ? 'Asset' : 'الاصل',
         width: 350,
-        input: colsData.UseAssetID1,
-        visible: colsData.UseAssetID1,
+        input: colsData?.UseAssetID1,
+        visible: colsData?.UseAssetID1,
         type: 'dropdown',
         loading: assetListWoLoader,
         options: assetListWo,
@@ -411,8 +421,8 @@ const OrderDetails = () => {
         key: 'Result',
         label: Lang === 2 ? 'Result' : 'النتيجة',
         width: 200,
-        input: colsData.UseResult,
-        visible: colsData.UseResult,
+        input: colsData?.UseResult,
+        visible: colsData?.UseResult,
         type: 'number',
       },
       {
@@ -434,6 +444,7 @@ const OrderDetails = () => {
       selectedItem,
       selectedGroup,
       SelctedSectionID,
+      unitData,
     ]
   );
 
@@ -675,13 +686,13 @@ const OrderDetails = () => {
           spUpd="Sc_Orders_Details_Upd"
           spDel="Sc_Orders_Details_Del"
           TrxParam={[
-            { name: 'UserName', value: user.username || '' },
+            { name: 'UserName', value: user?.username || '' },
             { name: 'OrderID', value: OrderID },
             { name: 'LangID', value: Lang },
           ]}
           mixedWidth
-          UpdBody={{ UserName: user.username || '' }}
-          InsBody={{ UserName: user.username || '', OrderID }}
+          UpdBody={{ UserName: user?.username || '' }}
+          InsBody={{ UserName: user?.username || '', OrderID }}
           DelParam={[
             { rowData: true, name: 'OrderDetailsID', value: 'OrderDetailsID' },
             { name: 'UserName', value: user.username || '' },
@@ -703,7 +714,7 @@ const OrderDetails = () => {
               spTrx="Sc_Orders__trx"
               TrxParam={[
                 { name: 'OrderID', value: OrderID },
-                { name: 'UserName', value: user.username || '' },
+                { name: 'UserName', value: user?.username || '' },
                 { name: 'LangID', value: Lang },
               ]}
               tableHead={[

@@ -22,15 +22,12 @@ const GlobalProvider = ({ children }) => {
   const [SystemID, setSystemID] = useState();
   const [Lang, setLang] = useState(1);
   const [Rtl, setRtl] = useState(true);
-  const [company, setCompany] = useState(user?.company);
   const [isMounted, setIsMounted] = useState(false);
   const [dynamicStore, setDynamicStore] = useState({});
 
   const fetchDepartmentTypeData = useCallback(async () => {
     try {
       setLoading(true);
-      console.log(user?.company, '1111111');
-      setCompany(user?.company);
       const response = await api.get(
         `/table?sp=api_admin_Departments_Type_List&CompanyID=${user?.company}&LangID=${Lang}&UserName=${user?.username}&SystemID=4&IncludeStore=1`
       );
@@ -57,7 +54,7 @@ const GlobalProvider = ({ children }) => {
       console.log(user?.username, 'kk');
 
       const response = await api.get(
-        `/table?sp=api_admin_Department_List&CompanyID=${1}&LangID=${Lang}&UserName=${user?.username}&SystemID=4&DepartmentTypeID=${DepartmentTypeID}`
+        `/table?sp=api_admin_Department_List&CompanyID=${user?.company}&LangID=${Lang}&UserName=${user?.username}&SystemID=4&DepartmentTypeID=${DepartmentTypeID}`
       );
       setDepartmentData(HandleDropdownFormat(response.data.data, 'DepartmentID', 'DepartmentName'));
       //CompanyID.Current = response.data.data[0]?.CompanyID
@@ -140,7 +137,7 @@ const GlobalProvider = ({ children }) => {
         DepartmentID: user.UserDepartmentID,
         SystemID: user.SystemID, // Ensure this is set
         UserDepartmentName: user.UserDepartmentName,
-        company: company,
+        company: user?.company,
       });
       setSystemID(user.SystemID); // Set state for SystemID
       setIsLogged(true);
@@ -256,6 +253,7 @@ const GlobalProvider = ({ children }) => {
   // console.log('context departmentdata', departmentData);
 
   console.log('company', user?.company);
+  console.log('user', user);
   if (!isMounted) return null;
 
   return (

@@ -1,5 +1,5 @@
 /* eslint-disable eqeqeq */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useGlobalContext } from '../context/GlobalProvider';
 import { Dimensions, TextInput } from 'react-native';
 import { DatePickerInput, Dropdown, CheckBox } from '../components';
@@ -30,6 +30,8 @@ export const RenderInput = ({
 
   const [valueFontSize, setValueFontSize] = useState(hp('2%'));
   const [inputHeight, setInputHeight] = useState(hp('6%')); // New responsive row height
+
+  const isOpened = useRef(null);
 
   const handleInputChange = (key, value, type) => {
     if (type === 'dropdown' && handleDropdownChange) {
@@ -67,11 +69,18 @@ export const RenderInput = ({
     }
   }, [windowWidth]);
 
+  useEffect(() => {
+    if (defaultValue && modalType == 'add' && type != 'date')
+      handleInputChange(inputkey, defaultValue);
+
+    if (isOpened.current == null) isOpened.current = true;
+  }, []);
+
   if (!input && input == 'false') {
     return;
   }
 
-  console.log('inputkey', inputkey);
+  // console.log('inputkey', inputkey);
 
   switch (type) {
     case 'sub':
@@ -93,7 +102,7 @@ export const RenderInput = ({
             !Rtl && 'text-left'
           }`}
           keyboardType="numeric"
-          value={`${code && dynamicCode.codeCol === inputkey ? code : value ? value : ''}`}
+          value={`${code && dynamicCode.codeCol === inputkey ? code : value ? value : defaultValue && modalType == 'add' && !isOpened.current ? defaultValue : ''}`}
           onChangeText={(text) => handleInputChange(inputkey, text)}
           editable={dynamicCode && dynamicCode.codeCol === inputkey ? false : true}
         />
@@ -118,8 +127,6 @@ export const RenderInput = ({
       );
 
     case 'text':
-      // console.log(lines, 'lines');
-
       return (
         <TextInput
           style={{
@@ -131,7 +138,7 @@ export const RenderInput = ({
           }`}
           multiline
           numberOfLines={lines || 4}
-          value={`${code && dynamicCode.codeCol === inputkey ? code : value ? value : ''}`}
+          value={`${code && dynamicCode.codeCol === inputkey ? code : value ? value : defaultValue && modalType == 'add' && !isOpened.current ? defaultValue : ''}`}
           onChangeText={(text) => handleInputChange(inputkey, text)}
           editable={dynamicCode && dynamicCode.codeCol === inputkey ? false : true}
         />
@@ -158,7 +165,7 @@ export const RenderInput = ({
           className={`w-full rounded-lg border-[.5px]  border-[#1C5B7D] p-4 text-right text-sm font-medium focus:border-[#133e5475] ${
             !Rtl && 'text-left'
           }`}
-          value={`${code && dynamicCode.codeCol === inputkey ? code : value ? value : ''}`}
+          value={`${code && dynamicCode.codeCol === inputkey ? code : value ? value : defaultValue && modalType == 'add' && !isOpened.current ? defaultValue : ''}`}
           onChangeText={(text) => handleInputChange(inputkey, text)}
           editable={dynamicCode && dynamicCode.codeCol === inputkey ? false : true}
         />

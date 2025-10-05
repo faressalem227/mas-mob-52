@@ -507,7 +507,7 @@ const MainGrid = ({
             style={{ paddingHorizontal: 10 }}
             className={`${Rtl ? 'flex-row-reverse' : 'flex-row'} my-2 items-center justify-between`}>
             <View className={`relative flex-wrap ${Rtl ? 'flex-row-reverse' : 'flex-row'}`}>
-              {hasCrud && hasCrud !== 'false' && company != 0 ? (
+              {hasCrud && hasCrud !== 'false' ? (
                 <>
                   {hasIns && (
                     <CustomButton
@@ -517,20 +517,28 @@ const MainGrid = ({
                       Rtl={Rtl}
                     />
                   )}
+
                   {hasUpd && (
                     <CustomButton
                       Icon={PencilLine}
                       title={MainGridText.editBtn[Lang]}
                       onPress={handleEdit}
                       Rtl={Rtl}
+                      backgroundColor={selectedRow?.CompanyID == 0 && 'gray'}
+                      textColor={selectedRow?.CompanyID == 0 && 'white'}
+                      disabled={selectedRow?.CompanyID == 0}
                     />
                   )}
+
                   {hasDel && (
                     <CustomButton
                       Icon={trashh}
                       title={MainGridText.deleteBtn[Lang]}
                       onPress={handleDelete}
                       Rtl={Rtl}
+                      backgroundColor={selectedRow?.CompanyID == 0 && 'gray'}
+                      textColor={selectedRow?.CompanyID == 0 && 'white'}
+                      disabled={selectedRow?.CompanyID == 0}
                     />
                   )}
                 </>

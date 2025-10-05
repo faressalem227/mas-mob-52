@@ -72,13 +72,13 @@ const SpecificInventory = ({ title, hasLeftComponent = false, onDrawerPress }) =
                 //   input: 'true',
                 //   visible: 'false',
                 // },
-                {
-                  key: 'EmployeeName',
-                  label: InvintorySystemSettingLang.Invintorykeeper[Lang],
-                  input: 'false',
-                  visible: 'true',
-                  width: 150,
-                },
+                // {
+                //   key: 'EmployeeName',
+                //   label: InvintorySystemSettingLang.Invintorykeeper[Lang],
+                //   input: 'false',
+                //   visible: 'true',
+                //   width: 150,
+                // },
                 {
                   key: 'IsServices',
                   label: 'خدمات',

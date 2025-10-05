@@ -16,11 +16,11 @@ const StoresPage = () => {
   const router = useRouter();
   const { SectionID, ProcessID, YearID, MonthID } = useLocalSearchParams();
   const { DepartmentID, Lang, company, user } = useGlobalContext();
-  const [activeRow, setActiveRow] = useState(null);
   const [AssetClassID, setAssetClassID] = useState(null);
   const [colsData, setColsData] = useState({});
   const [loader, setLoader] = useState('');
   const [defaultOrderNo, setDefaultOrderNo] = useState(0);
+  const [counter, setCounter] = useState(0);
   const [selectdepartmentID, setSelectDepartmentID] = useState(false);
 
   const { data: supplierList } = useDropDown(
@@ -148,10 +148,10 @@ const StoresPage = () => {
     try {
       const req = await api.post('table/', {
         sp: 'generate_order_number',
-        ProcessID: ProcessID,
-        YearID: YearID,
-        DepartmentID: DepartmentID,
-        SectionID: SectionID,
+        ProcessID,
+        YearID,
+        DepartmentID,
+        SectionID,
       });
       setDefaultOrderNo(req?.data?.data?.[0]?.OrderNo ?? 0);
     } catch (err) {
@@ -169,11 +169,12 @@ const StoresPage = () => {
     if (ProcessID && YearID && SectionID) {
       generateOrderNumber();
     }
-  }, [ProcessID, YearID, SectionID, DepartmentID]);
+  }, [ProcessID, YearID, SectionID, DepartmentID, counter]);
 
   const currentDay = new Date().getDate();
+  const currentYear = new Date().getFullYear();
 
-  const Month = parseInt(MonthID) ? parseInt(MonthID) : new Date().getMonth();
+  const Month = parseInt(MonthID) ? parseInt(MonthID) : new Date().getMonth() + 1;
 
   const tableHead = useMemo(
     () => [
@@ -186,10 +187,11 @@ const StoresPage = () => {
         key: 'OrderNo',
         visible: true,
         label: Lang === 2 ? 'Order No' : 'رقم الإذن',
-        input: false,
+        input: true,
         width: 100,
         type: 'number',
         loading: loader === 'generateOrderNumber',
+        defaultValue: defaultOrderNo.toString(),
       },
       {
         key: 'OrderDate',
@@ -198,119 +200,165 @@ const StoresPage = () => {
         label: Lang === 2 ? 'Order Date' : 'تاريخ الإذن',
         type: 'date',
         width: 120,
-        defaultValue: new Date(parseInt(YearID), parseInt(Month), currentDay),
+        defaultValue: new Date(parseInt(currentYear), parseInt(Month) - 1, currentDay),
       },
       {
         key: 'SupplierID',
-        visible: !!colsData.UseSupplierID,
-        input: !!colsData.UseSupplierID,
+        input: colsData.UseSupplierID,
         label: Lang === 2 ? 'Supplier' : 'المورد',
         type: 'dropdown',
         width: 200,
         options: supplierList,
       },
       {
+        key: 'SupplierName',
+        visible: colsData.UseSupplierID,
+        label: Lang === 2 ? 'Supplier' : 'المورد',
+        width: 200,
+      },
+      {
         key: 'ClientID',
-        visible: !!colsData.UseClient,
-        input: !!colsData.UseClient,
+        input: colsData.UseClient,
         label: Lang === 2 ? 'Client' : 'العميل',
         type: 'dropdown',
         width: 200,
         options: clientList,
       },
       {
+        key: 'ClientName',
+        visible: colsData.UseClient,
+        label: Lang === 2 ? 'Client' : 'العميل',
+        width: 200,
+      },
+      {
         key: 'Discount',
-        visible: !!colsData.UseDiscount,
-        input: !!colsData.UseDiscount,
+        visible: colsData.UseDiscount,
+        input: colsData.UseDiscount,
         label: Lang === 2 ? 'Discount' : 'الخصم',
         type: 'number',
         width: 140,
       },
       {
         key: 'ContractorID',
-        visible: !!colsData.UseContractorID,
-        input: !!colsData.UseContractorID,
+        input: colsData.UseContractorID,
         label: Lang === 2 ? 'Contractor' : 'المقاول',
         type: 'dropdown',
-        width: 200,
         options: contractorList,
       },
       {
+        key: 'ContractorName',
+        visible: !!colsData.UseContractorID,
+        label: Lang === 2 ? 'Contractor' : 'المقاول',
+        width: 200,
+      },
+      {
         key: 'EmployeeID',
-        visible: !!colsData.UseEmployeeID,
         input: !!colsData.UseEmployeeID,
         label: Lang === 2 ? 'Employee' : 'الموظف',
         type: 'dropdown',
-        width: 200,
         options: employeeList,
       },
       {
-        key: 'DepartmentID',
-        visible: !!colsData.UseWorkorderID,
+        key: 'EmployeeName',
+        visible: !!colsData.UseEmployeeID,
+        label: Lang === 2 ? 'Employee' : 'الموظف',
+        width: 200,
+      },
+      {
+        key: 'SubDepartmentID',
         input: colsData.UseWorkorderID,
         label: Lang === 2 ? 'Department' : 'الادارة',
         type: 'dropdown',
-        width: 200,
         options: departmentList,
         onChange: (val) => setSelectDepartmentID(val),
       },
       {
-        key: 'WorkorderID',
+        key: 'SubDepartmentName',
         visible: colsData.UseWorkorderID,
+        label: Lang === 2 ? 'Department' : 'الادارة',
+        width: 200,
+      },
+      {
+        key: 'WorkorderID',
         input: colsData.UseWorkorderID,
         label: Lang === 2 ? 'Workorder' : 'أمر الشغل',
         type: 'dropdown',
-        width: 200,
         options: workOrderList,
       },
       {
+        key: 'WorkorderName',
+        visible: colsData.UseWorkorderID,
+        label: Lang === 2 ? 'Workorder' : 'أمر الشغل',
+        width: 250,
+      },
+      {
         key: 'ParityID',
-        visible: !!colsData.UseParityID,
-        input: !!colsData.UseParityID,
+        input: colsData.UseParityID,
         label: Lang === 2 ? 'Parity' : 'الجهة',
         type: 'dropdown',
-        width: 140,
         options: parityList,
       },
       {
+        key: 'ParityName',
+        visible: colsData.UseParityID,
+        label: Lang === 2 ? 'Parity' : 'الجهة',
+        width: 140,
+      },
+      {
         key: 'ProjectID',
-        visible: !!colsData.UseProjects,
-        input: !!colsData.UseProjects,
+        input: colsData.UseProjects,
         label: Lang === 2 ? 'Project' : 'المشروع',
         type: 'dropdown',
-        width: 160,
         options: projects,
       },
       {
+        key: 'ProjectName',
+        visible: colsData.UseProjects,
+        label: Lang === 2 ? 'Project' : 'المشروع',
+        width: 160,
+      },
+      {
         key: 'SubDepartmentID',
-        visible: !!colsData.UseDepartmentID,
-        input: !!colsData.UseDepartmentID,
+        input: colsData.UseDepartmentID,
         label: Lang === 2 ? 'Department' : 'الإدارة',
         type: 'dropdown',
-        width: 160,
         options: departmentList,
       },
       {
-        key: 'AssetID',
-        visible: !!colsData.UseAssetID,
-        input: !!colsData.UseAssetID,
-        label: Lang === 2 ? 'Asset' : 'الأصل',
-        type: 'dropdown',
-        width: 300,
-        options: assetList,
+        key: 'SubDepartmentName',
+        visible: colsData.UseDepartmentID,
+        label: Lang === 2 ? 'Department' : 'الإدارة',
+        width: 160,
       },
       {
         key: 'AssetClassID',
-        visible: !!colsData.UseAssetClassID,
-        input: !!colsData.UseAssetClassID,
+        input: colsData.UseAssetClassID,
         label: Lang === 2 ? 'Classification' : 'التصنيف',
         type: 'dropdown',
-        width: 200,
         options: assetClassList,
         onChange: (value, handle) => {
           setAssetClassID(value);
           handle('AssetID', null);
         },
+      },
+      {
+        key: 'FullAssetClassName',
+        visible: colsData.UseAssetClassID,
+        label: Lang === 2 ? 'Classification' : 'التصنيف',
+        width: 200,
+      },
+      {
+        key: 'AssetID',
+        input: colsData.UseAssetID,
+        label: Lang === 2 ? 'Asset' : 'الأصل',
+        type: 'dropdown',
+        options: assetList,
+      },
+      {
+        key: 'AssetName',
+        visible: colsData.UseAssetID,
+        label: Lang === 2 ? 'Asset' : 'الأصل',
+        width: 300,
       },
       {
         key: 'SelectYearID',
@@ -369,6 +417,7 @@ const StoresPage = () => {
       assetClassList,
       defaultOrderNo,
       loader,
+      company,
     ]
   );
 
@@ -395,7 +444,7 @@ const StoresPage = () => {
           rowStyle={(row) => {
             return row.Color;
           }}
-          onRowPress={(row) => setActiveRow(row)}
+          onRowPress={(row) => console.log('row', row)}
           pk="OrderID"
           spTrx="api_Sc_Orders_Trx"
           spIns="api_Sc_Orders_Ins"
@@ -419,7 +468,6 @@ const StoresPage = () => {
             CompanyID: company,
             UserName: user?.username || '',
             LangID: Lang,
-            OrderNo: defaultOrderNo,
             YearID: YearID,
             SectionID: SectionID,
             ProcessID: ProcessID,

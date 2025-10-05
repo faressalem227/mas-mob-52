@@ -91,7 +91,7 @@ const OrderAttributes = () => {
           hasDel={false}
           hasIns={false}
           tableHead={additionalHead}
-          pk="TableDataAdditionID"
+          pk="AdditionID"
           spTrx="sc_addition_data__Trx"
           spUpd="sc_addition_data__Upd"
           TrxParam={[
