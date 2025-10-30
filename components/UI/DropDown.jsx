@@ -22,7 +22,7 @@ const DropdownComponent = ({
 }) => {
   const [Value, setValue] = useState(value || null);
   const [isFocus, setIsFocus] = useState(false);
-  const { Rtl } = useGlobalContext();
+  const { Rtl, Lang } = useGlobalContext();
   const [windowWidth, setWindowWidth] = useState(Dimensions.get('window').width);
 
   useEffect(() => {
@@ -84,7 +84,7 @@ const DropdownComponent = ({
         labelField="value"
         valueField="key"
         placeholder={!isFocus ? placeholder : '...'}
-        searchPlaceholder="بحث..."
+        searchPlaceholder={Lang===1?"بحث...":"Search..."}
         value={isFocus ? null : Value}
         onFocus={() => !disabled && setIsFocus(true)} // ✅ prevent focus if disabled
         onBlur={() => !disabled && setIsFocus(false)}

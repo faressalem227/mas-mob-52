@@ -45,7 +45,7 @@ const HealthAndSafetyDetails = () => {
 
   return (
     <MainLayout title={HealthAndSafetyDetailsLang.pageTitle[Lang]}>
-      <ScrollView className="flex-1 gap-5 p-4">
+      <ScrollView className="flex-1 gap-4 p-4">
         <FormField title={HealthAndSafetyDetailsLang.SafetyCode[Lang]} value={SafetyCode} />
 
         <FormField
@@ -58,32 +58,34 @@ const HealthAndSafetyDetails = () => {
             })
           }
         />
-
-        <TextArea
-          label={HealthAndSafetyDetailsLang.SafetyInstructions[Lang]}
-          initialHeight={180}
-          value={manipulatedRow.SafetyInstructions || ''}
-          onChange={(val) =>
-            setManipulatedRow({
-              ...manipulatedRow,
-              SafetyInstructions: val,
-            })
-          }
-          disabled={false}
-        />
-
-        <TextArea
-          label={HealthAndSafetyDetailsLang.SafetyTools[Lang]}
-          disabled={false}
-          initialHeight={200}
-          value={manipulatedRow.SafetyTools || ''}
-          onChange={(val) =>
-            setManipulatedRow({
-              ...manipulatedRow,
-              SafetyTools: val,
-            })
-          }
-        />
+        <View className="my-2">
+          <TextArea
+            label={HealthAndSafetyDetailsLang.SafetyInstructions[Lang]}
+            initialHeight={180}
+            value={manipulatedRow.SafetyInstructions || ''}
+            onChange={(val) =>
+              setManipulatedRow({
+                ...manipulatedRow,
+                SafetyInstructions: val,
+              })
+            }
+            disabled={false}
+          />
+        </View>
+        <View className="my-2">
+          <TextArea
+            label={HealthAndSafetyDetailsLang.SafetyTools[Lang]}
+            disabled={false}
+            initialHeight={200}
+            value={manipulatedRow.SafetyTools || ''}
+            onChange={(val) =>
+              setManipulatedRow({
+                ...manipulatedRow,
+                SafetyTools: val,
+              })
+            }
+          />
+        </View>
 
         <View className="mt-3 flex-row items-center justify-center">
           <TouchableOpacity className="rounded-lg bg-primary p-4" onPress={handleSave}>

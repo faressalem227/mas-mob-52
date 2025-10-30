@@ -1,7 +1,7 @@
 const PreventiveMaintenanceContracts = {
   pageTitle: {
     1: 'المقاولات المخصصة للاجراء',
-    2: 'Contracts dedicated to the procedure',
+    2: 'Contracts Assigned to the procedure',
   },
   Location: {
     1: 'الموقع',

@@ -83,7 +83,7 @@ const Works = () => {
               type: 'number',
               input: 'true',
               visible: 'true',
-              width: 100,
+              width: 120,
               required: true,
             },
             {
@@ -92,7 +92,7 @@ const Works = () => {
               type: 'text',
               input: 'true',
               visible: 'true',
-              width: 100,
+              width: 200,
               required: true,
             },
             {
@@ -101,7 +101,7 @@ const Works = () => {
               type: 'number',
               input: 'true',
               visible: 'true',
-              width: 100,
+              width: 150,
             },
             {
               key: 'Cost',
@@ -109,7 +109,7 @@ const Works = () => {
               type: 'number',
               input: 'true',
               visible: 'true',
-              width: 100,
+              width: 120,
             },
             {
               key: 'Unit',
@@ -117,7 +117,7 @@ const Works = () => {
               type: 'text',
               input: 'true',
               visible: 'true',
-              width: 100,
+              width: 120,
             },
             {
               key: 'PlannedStartDate',
@@ -125,7 +125,7 @@ const Works = () => {
               type: 'date',
               input: 'true',
               visible: 'true',
-              width: 100,
+              width: 150,
             },
             {
               key: 'PlannedEndDate',
@@ -133,7 +133,7 @@ const Works = () => {
               type: 'date',
               input: 'true',
               visible: 'true',
-              width: 100,
+              width: 150,
             },
             {
               key: 'ActualStartDate',
@@ -141,7 +141,7 @@ const Works = () => {
               type: 'date',
               input: 'true',
               visible: 'true',
-              width: 100,
+              width: 150,
             },
             {
               key: 'ActualEndDate',
@@ -149,7 +149,7 @@ const Works = () => {
               type: 'date',
               input: 'true',
               visible: 'true',
-              width: 100,
+              width: 150,
             },
 
             {
@@ -174,7 +174,7 @@ const Works = () => {
               type: 'number',
               input: 'false',
               visible: 'true',
-              width: 100,
+              width: 120,
               required: 'false',
             },
           ]}

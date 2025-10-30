@@ -56,10 +56,10 @@ const FollowType = () => {
             spIns={'api_ms_Followup_Type_Ins'}
             spUpd={'api_ms_Followup_Type_Upd'}
             spDel={'api_ms_Followup_Type_Del'}
-            dynamicCode={{
-              tbName: 'ms_Followup_Type',
-              codeCol: 'FollowupTypeCode',
-            }}
+            // dynamicCode={{
+            //   tbName: 'ms_Followup_Type',
+            //   codeCol: 'FollowupTypeCode',
+            // }}
             TrxParam={[
               { name: 'DepartmentID', value: DepartmentID },
               { name: 'CompanyID', value: company },

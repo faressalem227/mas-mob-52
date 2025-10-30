@@ -47,10 +47,10 @@ const ExpensesTypes = () => {
             spIns={'api_ms_Expenses_Types_Ins'}
             spUpd={'api_ms_Expenses_Types_Upd'}
             spDel={'api_ms_Expenses_Types_Del'}
-            dynamicCode={{
-              tbName: 'ms_Expenses_Types',
-              codeCol: 'PriorityCode',
-            }}
+            // dynamicCode={{
+            //   tbName: 'ms_Expenses_Types',
+            //   codeCol: 'PriorityCode',
+            // }}
             TrxParam={[
               { name: 'DepartmentID', value: DepartmentID },
               { name: 'CompanyID', value: company },

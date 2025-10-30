@@ -141,7 +141,7 @@ const Serviceschart = () => {
               key: 'GroupName',
               label: ServicesLang.TableHeaders.Group[Lang],
               visible: 'true',
-              width: 100,
+              width: 150,
             },
             {
               key: 'ItemID',

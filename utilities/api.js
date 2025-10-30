@@ -6,7 +6,7 @@ import * as SecureStore from 'expo-secure-store';
 // 196.219.138.210
 
 const API_BASE_URL = 'https://apimaintenance.isis-eg.com/api';
-// export const API_BASE_URL = 'http:/192.168.1.15:5005/api';
+// export const API_BASE_URL = 'http://localhost:5007/api';
 
 // export const API_BASE_URL = 'https://apimaintenance.isis-eg.com/api';
 // const API_BASE_URL = 'https://apimaintenance.isis-eg.com/api';

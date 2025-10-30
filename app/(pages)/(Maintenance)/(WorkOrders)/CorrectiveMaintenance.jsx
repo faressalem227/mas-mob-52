@@ -31,7 +31,7 @@ const CorrectiveMaintenance = ({}) => {
 
   const { data: subLocationList, loading: subLocationListLoader } = useDropDown(
     'api_ms_SubLocation_List',
-    { DepartmentID: DepartmentID, LangID: Lang },
+    { DepartmentID: DepartmentID, LangID: Lang, UserName: user?.username },
     'SubLocationID',
     'SubLocationName'
   );
@@ -49,13 +49,13 @@ const CorrectiveMaintenance = ({}) => {
     'FailureID',
     'FailureName'
   );
-    const { data: WorkshopWorkStatus } = useDropDown(
-    "ms_Workorder_WorkshopStatus",
+  const { data: WorkshopWorkStatus } = useDropDown(
+    'ms_Workorder_WorkshopStatus',
     {
       WorkorderID: WorkorderID,
     },
-    "WorkshopWork",
-    "WorkshopWork"
+    'WorkshopWork',
+    'WorkshopWork'
   );
 
   const { data: failureCause } = useDropDown(
@@ -64,11 +64,17 @@ const CorrectiveMaintenance = ({}) => {
     'FailureCauseID',
     'FailureCauseName'
   );
+  console.log(SubLocationID, 'subbbbbbbbbbbbb');
 
   return (
-    <MainLayout title="بيانات العطل" loading={subLocationListLoader || loading}>
+    <MainLayout
+      title={CorrectiveMaintenanceLang.PageTitle[Lang]}
+      loading={subLocationListLoader || loading}>
       <View style={{ height: height - 50 }}>
         <MainGrid
+          onRowPress={(row) => {
+            setSubLocationID(row?.SubLocationID);
+          }}
           tableHead={[
             {
               key: 'SubLocationID',
@@ -128,46 +134,16 @@ const CorrectiveMaintenance = ({}) => {
               input: 'true',
               visible: 'true',
               width: 140,
-            },            
+            },
             {
               key: 'WorkshopWork',
-              label: 'اعمال ورش',
+              label: `${CorrectiveMaintenanceLang.WorkshopWork[Lang]}`,
               type: 'checkbox',
               input: 'true',
               visible: 'true',
               width: 140,
             },
-             {
-              key: 'WorkshopName',
-              label: 'اسم الورشة',
-              type: 'text',
-              input: 'true',
-             visible:'true',
-             // (WorkshopWorkStatus && WorkshopWorkStatus[0]?.value > 0),
-             // visible : WorkorderTypeID== 2 ? true : false,
-              width: 120,
-            },
-          {
-          key: 'WorkorderCode',
-          label:' أمر الشغل الورشة',
-          type: 'text',
-          input: 'false',
-          visible: 'true',
-          //(WorkshopWorkStatus && WorkshopWorkStatus[0]?.value > 0),
 
-         //visible : WorkorderTypeID== 2 ? true : false,
-          width: 90,
-        },
-        {
-          key: 'WorkshopWorkEnded',
-          label:' انتهت اعمال الورشة',
-          type: 'date',
-          input: 'false',
-          visible : 'true',
-          //WorkorderTypeID== 2 ? true : false,
-          isRequired: false,
-          width: 90,
-        },
             {
               key: 'FailureID',
               label: `${CorrectiveMaintenanceLang.FailureCode[Lang]}`,
@@ -221,7 +197,7 @@ const CorrectiveMaintenance = ({}) => {
             },
             {
               key: 'ActiontakenToNotRepeat',
-              label: 'الإجراء المتخذ لمنع التكرار',
+              label: `${CorrectiveMaintenanceLang.ActiontakenToNotRepeat[Lang]}`,
               type: 'text',
               input: 'true',
               visible: 'true',
@@ -237,7 +213,7 @@ const CorrectiveMaintenance = ({}) => {
             },
             {
               key: 'Instructions',
-              label: 'تعليمات وملاحظات الصيانة',
+              label: `${CorrectiveMaintenanceLang.Instructions[Lang]}`,
               type: 'text',
               input: 'true',
               visible: 'true',

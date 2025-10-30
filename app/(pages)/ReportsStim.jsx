@@ -1,59 +1,57 @@
-import React, { useState } from "react";
-import { ActivityIndicator, Dimensions, SafeAreaView, StyleSheet, View } from "react-native";
-import { MainButton, MainLayout, ScrollComponent } from "../../components";
-import ReportViewer from "../../components/report/ReportViewer";
-import { Loader } from "lucide-react-native";
-import WebView from "react-native-webview";
-import { useLocalSearchParams } from "expo-router";
+import React, { useState } from 'react';
+import { ActivityIndicator, Dimensions, SafeAreaView, StyleSheet, View } from 'react-native';
+import { MainButton, MainLayout, ScrollComponent } from '../../components';
+import ReportViewer from '../../components/report/ReportViewer';
+import { Loader } from 'lucide-react-native';
+import WebView from 'react-native-webview';
+import { useLocalSearchParams } from 'expo-router';
 // import { REPORT_SERVER_URL } from "../../utilities/api";
-import { useGlobalContext } from "../../context/GlobalProvider";
-import { REPORT_SERVER_URL } from "../../utilities/api";
+import { useGlobalContext } from '../../context/GlobalProvider';
+import { REPORT_SERVER_URL } from '../../utilities/api';
 const ReportsStim = () => {
-    const {user, Lang, company, DepartmentID} = useGlobalContext()
-    const { ReportName, ReportID, ...filters } = useLocalSearchParams()
-    
-    console.log(filters);
+  const { user, Lang, company, DepartmentID } = useGlobalContext();
+  const { ReportName, ReportID, ...filters } = useLocalSearchParams();
 
-    let params = Object.keys(filters)
-      .map((key) => `${key}=${filters[key]}`)
-      .join("&");
-    let url = `${REPORT_SERVER_URL}/report/Viewer?LangID=${Lang}&CompanyID=${company}&UserName=${user.username}&DepartmentID=${DepartmentID}&ReportID=${ReportID}&mob=1&` + params 
-    console.log(url);
-    
-    const [loading ,setLoading] = useState(false)
-	const { height, width } = Dimensions.get("screen");
-	return (
-		<SafeAreaView>
-        <MainLayout title={ReportName}>
-            {loading && (
-        <ActivityIndicator
-                            size="large"
-                            color="#0000ff"
-                        />
-      )}
-			
-               <View style={{width:width,height:height-100}}>
-               <WebView
-                scalesPageToFit
-                style={{height:height-70,width:width}}
-                originWhitelist={["*"]}
-                source={{ uri: url}} // 🔹 Load the web link
-                onLoadStart={() => setLoading(true)} // 🔹 Show loader when loading starts
-                onLoadEnd={() => setLoading(false)} // 🔹 Hide loader when loading ends
-               />
-       
-               </View>
+  console.log(filters);
 
-        </MainLayout>
-		</SafeAreaView>
-	);
+  let params = Object.keys(filters)
+    .map((key) => `${key}=${filters[key]}`)
+    .join('&');
+  let url =
+    `${REPORT_SERVER_URL}/report/Viewer?LangID=${Lang}&CompanyID=${company}&UserName=${user.username}&DepartmentID=${DepartmentID}&ReportID=${ReportID}&mob=1&` +
+    params;
+
+    
+  console.log(url);
+
+  const [loading, setLoading] = useState(false);
+  const { height, width } = Dimensions.get('screen');
+  return (
+    <SafeAreaView>
+      <MainLayout title={ReportName}>
+        {loading && <ActivityIndicator size="large" color="#0000ff" />}
+
+        <View style={{ width: width, height: height - 100 }}>
+          <WebView
+            scalesPageToFit
+            style={{ height: height - 70, width: width }}
+            originWhitelist={['*']}
+            source={{ uri: url }} // 🔹 Load the web link
+            onLoadStart={() => setLoading(true)} // 🔹 Show loader when loading starts
+            onLoadEnd={() => setLoading(false)} // 🔹 Hide loader when loading ends
+          />
+        </View>
+      </MainLayout>
+    </SafeAreaView>
+  );
 };
 
 const styles = StyleSheet.create({
-	container: {
-		height: "100%",
-		width: "100%",
-	},
+  container: {
+    height: '100%',
+    width: '100%',
+  },
 });
 
 export default ReportsStim;
+('./../../');

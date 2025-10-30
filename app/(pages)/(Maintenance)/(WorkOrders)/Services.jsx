@@ -96,11 +96,11 @@ const Services = () => {
           tableHead={[
             {
               key: 'DepartmentName',
-              label: Lang == 1 ? 'المخزن الجغرافي' : 'Department Name',
+              label: Lang == 1 ? 'المخزن الجغرافي' : 'Department',
               type: 'text',
               input: false,
               visible: true,
-              width: 100,
+              width: 200,
             },
             {
               key: 'SectionID',
@@ -120,7 +120,7 @@ const Services = () => {
               type: 'text',
               input: 'false',
               visible: 'true',
-              width: 100,
+              width: 150,
             },
             {
               key: 'GroupID',
@@ -188,7 +188,7 @@ const Services = () => {
             },
             {
               key: 'UnitCost',
-              label: 'تكلفه الوحده',
+              label: ServicesLang.TableHeaders.UnitCost[Lang],
               type: 'number',
               input: 'false',
               visible: 'true',
@@ -196,7 +196,7 @@ const Services = () => {
             },
             {
               key: 'TotalCost',
-              label: 'اجمالي التكلفة',
+              label: ServicesLang.TableHeaders.TotalCost[Lang],
               type: 'number',
               input: 'false',
               visible: 'true',
@@ -229,11 +229,11 @@ const Services = () => {
               type: '',
               input: 'false',
               visible: 'true',
-              width: 100,
+              width: 150,
             },
             {
               key: 'Repeated',
-              label: 'تكرار المعدات',
+              label: ServicesLang.TableHeaders.Repeated[Lang],
               type: 'checkbox',
               input: 'true',
               visible: 'true',
@@ -245,19 +245,19 @@ const Services = () => {
               type: 'checkbox',
               input: 'true',
               visible: 'true',
-              width: 130,
+              width: 150,
             },
             {
               key: 'LoanNo',
-              label: 'رقم السلفة',
+              label: ServicesLang.TableHeaders.LoanNo[Lang],
               type: 'text',
               input: 'false',
               visible: 'true',
-              width: 100,
+              width: 150,
             },
             {
               key: 'DirectPurchase',
-              label: 'امر شراء مباشر',
+              label: ServicesLang.TableHeaders.DirectPurchase[Lang],
               type: 'checkbox',
               input: 'false',
               visible: 'true',

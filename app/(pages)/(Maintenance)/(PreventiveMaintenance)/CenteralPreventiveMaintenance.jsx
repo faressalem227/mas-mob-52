@@ -105,7 +105,7 @@ const CenteralPreventiveMaintenance = () => {
               label: PreventiveMaintenanceLang.ProcedureCode[Lang],
               input: true,
               visible: true,
-              width: 100,
+              width: 160,
               required: true,
             },
             {
@@ -114,7 +114,7 @@ const CenteralPreventiveMaintenance = () => {
               input: true,
               visible: true,
               lines: 3,
-              width: 150,
+              width: 200,
               required: true,
             },
             {

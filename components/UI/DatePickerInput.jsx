@@ -29,7 +29,7 @@ const DatePickerInput = ({
   disabled = false,
   preventDefault = false, // 👈 NEW PROP
 }) => {
-  const { Rtl } = useGlobalContext();
+  const { Rtl, Lang } = useGlobalContext();
 
   const [selectedDate, setSelectedDate] = useState(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -92,7 +92,7 @@ const DatePickerInput = ({
           style={[styles.input, !Rtl && { textAlign: 'right' }]}
           value={selectedDate ? moment(selectedDate).format('YYYY-MM-DD') : ''}
           editable={false}
-          placeholder="أدخل التاريخ"
+          placeholder={Lang === 1 ? 'أدخل التاريخ' : 'Select Date'}
           placeholderTextColor="#aaa"
         />
         <Image

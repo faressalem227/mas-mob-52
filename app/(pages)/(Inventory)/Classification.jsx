@@ -68,7 +68,7 @@ const Classification = ({ title, hasLeftComponent = false, onDrawerPress }) => {
             <DraftGrid
               parentKey={'GroupParentID'}
               isNested={true}
-              StaticWidth
+              mixedWidth={true}
               tableHead={[
                 {
                   key: 'GroupID',
@@ -87,28 +87,27 @@ const Classification = ({ title, hasLeftComponent = false, onDrawerPress }) => {
                   type: 'number',
                   input: 'true',
                   visible: 'true',
-                  width: 150,
+                  width: 200,
                 },
                 {
                   key: 'GroupName',
-                  label: InvintorySystemSettingLang.ItemName[Lang],
+                  label: InvintorySystemSettingLang.ItemNameAr[Lang],
                   input: 'true',
                   visible: 'true',
-                  width: 150,
+                  width: 200,
                 },
                 {
                   key: 'GroupNameEn',
-                  label: 'اسم التصنيف بالانجليزي',
+                  label: InvintorySystemSettingLang.ItemNameEn[Lang],
                   input: 'true',
                   visible: 'true',
-                  width: 150,
+                  width: 300,
                 },
               ]}
               //   dynamicCode={{
               //     tbName: 'Sc_Item_Group',
               //     codeCol: 'GroupCode',
               //   }}
-              mixedWidth={true}
               pk={'GroupID'}
               spTrx={'api_Sc_Item_Group_Trx'}
               spIns={'api_Sc_Item_Group_Ins'}

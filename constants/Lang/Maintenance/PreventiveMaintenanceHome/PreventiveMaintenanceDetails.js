@@ -1,7 +1,7 @@
 const PreventiveMaintenanceDetails = {
   pageTitle: {
     1: 'تفاصيل اجراءات و مهام الصيانة الوقائية',
-    2: 'Preventive Maintenance Schedule Details',
+    2: 'PM Procedure Details',
   },
   Trade: {
     1: 'التصنيف',
@@ -57,28 +57,28 @@ const PreventiveMaintenanceDetails = {
   },
   SafetyInstructions: {
     1: 'اجراءات السلامه و الصحة المهنية',
-    2: 'Health and safety procedures',
+    2: 'safety procedures',
   },
   PreventiveMaintenanceLaborJobs: {
     1: 'الوظائف / العمالة المخصصة للاجراء',
-    2: 'Preventive Maintenance Labor Jobs',
+    2: 'Assigned Jobs',
   },
   PreventiveMaintenanceTasks: {
     1: 'المهام المخصصة للاجراء',
-    2: 'Preventive Maintenance Tasks',
+    2: 'Assigned Tasks',
   },
   PreventiveMaintenanceServices: {
     1: 'الخدمات المخصصة للاجراء',
-    2: 'Preventive Maintenance Services',
+    2: 'Assigned Services',
   },
   PreventiveMaintenanceStockItems: {
     1: 'الاصناف المخزنية المخصصة للاجراء',
-    2: 'Preventive Maintenance StockItems',
+    2: 'Assigned Stock Items',
   },
 
   PreventiveMaintenanceContracts: {
     1: 'المقاولات المخصصة للاجراء',
-    2: 'Preventive Maintenance Contracts',
+    2: 'Assigned Contracts',
   },
 
   EstimatedLaborHours: {

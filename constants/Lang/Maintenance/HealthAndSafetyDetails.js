@@ -1,7 +1,7 @@
 const HealthAndSafetyDetails = {
   pageTitle: {
     1: 'تفاصيل السلامه و الصحة المهنية',
-    2: 'Health and Safety Details',
+    2: 'Safety Details',
   },
 
   SafetyCode: {
@@ -16,7 +16,7 @@ const HealthAndSafetyDetails = {
 
   SafetyInstructions: {
     1: 'اجراءات السلامه و الصحة المهنية',
-    2: 'Health and safety procedures',
+    2: 'safety procedures',
   },
 
   SafetyTools: {

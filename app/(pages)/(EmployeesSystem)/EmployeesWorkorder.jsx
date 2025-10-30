@@ -120,7 +120,7 @@ const EmployeesWorkorder = () => {
               type: 'date',
               input: true,
               visible: true,
-              width: 160,
+              width: 120,
             },
             {
               key: 'PlannedEndDate',
@@ -128,7 +128,7 @@ const EmployeesWorkorder = () => {
               type: 'date',
               input: true,
               visible: true,
-              width: 160,
+              width: 120,
             },
             {
               key: 'ActualStartDate',
@@ -136,7 +136,7 @@ const EmployeesWorkorder = () => {
               type: 'date',
               input: true,
               visible: true,
-              width: 160,
+              width: 120,
             },
             {
               key: 'ActualEndDate',
@@ -144,7 +144,7 @@ const EmployeesWorkorder = () => {
               type: 'date',
               input: true,
               visible: true,
-              width: 160,
+              width: 120,
             },
             {
               key: 'ClosedDate',
@@ -152,7 +152,7 @@ const EmployeesWorkorder = () => {
               type: 'date',
               input: true,
               visible: true,
-              width: 160,
+              width: 120,
             },
             {
               key: 'CancelledDate',
@@ -160,14 +160,14 @@ const EmployeesWorkorder = () => {
               type: 'date',
               input: true,
               visible: true,
-              width: 160,
+              width: 120,
             },
             {
               key: 'ScheduleCode',
               label: EmployeesText.SchedulledCode[Lang],
               input: true,
               visible: true,
-              width: 160,
+              width: 120,
             },
             {
               key: 'ScheduleName',

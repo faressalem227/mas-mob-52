@@ -75,14 +75,14 @@ const Contracts = () => {
                 type: '',
                 input: 'false',
                 visible: 'true',
-                width: 100,
+                width: 150,
               },
               {
                 key: 'WorkDone',
                 label: ContractsLang.TableHeaders.WorkDone[Lang],
                 input: 'true',
                 visible: 'true',
-                width: 200,
+                width: 150,
                 required: true,
               },
               {
@@ -91,7 +91,7 @@ const Contracts = () => {
                 type: 'date',
                 input: 'true',
                 visible: 'true',
-                width: 100,
+                width: 150,
                 required: true,
               },
               {
@@ -100,7 +100,7 @@ const Contracts = () => {
                 type: 'number',
                 input: 'true',
                 visible: 'true',
-                width: 100,
+                width: 150,
               },
               {
                 key: 'InvoiceDate',
@@ -108,7 +108,7 @@ const Contracts = () => {
                 type: 'date',
                 input: 'true',
                 visible: 'true',
-                width: 100,
+                width: 150,
               },
               {
                 key: 'Mech_Cost',
@@ -116,7 +116,7 @@ const Contracts = () => {
                 type: 'number',
                 input: 'true',
                 visible: 'true',
-                width: 120,
+                width: 150,
               },
               {
                 key: 'Elec_Cost',
@@ -124,7 +124,7 @@ const Contracts = () => {
                 type: 'number',
                 input: 'true',
                 visible: 'true',
-                width: 120,
+                width: 150,
               },
               {
                 key: 'Civil_Cost',
@@ -132,7 +132,7 @@ const Contracts = () => {
                 type: 'number',
                 input: 'true',
                 visible: 'true',
-                width: 120,
+                width: 150,
               },
               {
                 key: 'Supp_Cost',
@@ -140,7 +140,7 @@ const Contracts = () => {
                 type: 'number',
                 input: 'true',
                 visible: 'true',
-                width: 120,
+                width: 150,
               },
               {
                 key: 'WorkCost',
@@ -148,7 +148,7 @@ const Contracts = () => {
                 type: 'number',
                 input: 'false',
                 visible: 'true',
-                width: 120,
+                width: 150,
               },
               {
                 key: 'Percernt_Complete',
@@ -156,7 +156,7 @@ const Contracts = () => {
                 type: 'number',
                 input: 'true',
                 visible: 'true',
-                width: 120,
+                width: 150,
               },
               {
                 key: 'IsFinal',
@@ -175,10 +175,10 @@ const Contracts = () => {
                 visible: 'true',
                 required: false,
 
-                width: 100,
+                width: 300,
               },
             ]}
-            StaticWidth={true}
+            mixedWidth={true}
             pk={'WorkorderContractorID'}
             hasCrud={preventCrud}
             spTrx={'api_ms_Workorders_Contractors_Trx'}

@@ -1,12 +1,12 @@
 const PreventiveMaintenance = {
   pageTitle: {
     1: 'اجراءات و مهام الصيانة الوقائية',
-    2: 'Preventive Maintenance Schedule',
+    2: 'PM Procedures Data',
   },
 
   CenteralpageTitle: {
     1: 'اجراءات و مهام الصيانة الوقائية المركزية',
-    2: 'Centeral Preventive Maintenance Schedule',
+    2: 'PM Procedures Data',
   },
 
   Trade: {

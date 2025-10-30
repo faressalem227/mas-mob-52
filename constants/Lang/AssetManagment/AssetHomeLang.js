@@ -123,7 +123,7 @@ const AssetHomeLang = {
   // Evaluation Bodies button
   EvaluationBodies: {
     1: 'جهات التقييم',
-    2: 'Authority',
+    2: 'Authorities',
   },
   AdditionData: {
     1: 'البيانات الاضافيه',
@@ -131,7 +131,7 @@ const AssetHomeLang = {
   },
   Side: {
     1: '  الجهة ',
-    2: 'Side',
+    2: 'Authority',
   },
   // Risk Score Button
   RiskScore: {
@@ -575,7 +575,7 @@ const AssetHomeLang = {
   },
   AssetsReports: {
     1: ' تقارير الاصول ',
-    2: 'AssetsReports',
+    2: 'Assets Reports',
   },
   Selection: {
     1: 'الإختيار ',

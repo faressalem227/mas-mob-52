@@ -19,7 +19,7 @@ const MaintenanceHome = {
 
   Safty: {
     1: 'السلامه و الصحة المهنية',
-    2: 'Health And Safety Data',
+    2: 'Safety Data',
   },
 
   SchedulePreventiveMaintenance: {
@@ -34,7 +34,7 @@ const MaintenanceHome = {
 
   PreventiveMaintenancee: {
     1: 'اجراءات و مهام الصيانة الوقائية',
-    2: 'Preventive Maintenance Schedule',
+    2: 'PM Procedures Data',
   },
 
   ReportBugs: {

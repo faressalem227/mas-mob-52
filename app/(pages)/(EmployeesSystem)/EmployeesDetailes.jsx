@@ -22,13 +22,13 @@ const EmployeesDetailes = () => {
     { label: MainDataLang.EmployeeName[Lang], value: data?.StaffName },
     { label: MainDataLang.Management[Lang], value: data?.DepartmentName },
     { label: MainDataLang.Job[Lang], value: data?.JobName },
-    { label: MainDataLang.CentralMaintenanceTeam[Lang], value: data?.Centralteam },
+    { label: MainDataLang.CentralMaintenanceTeam[Lang], value: data?.CentralTeam },
     { label: MainDataLang.Grade[Lang], value: data?.DegreeName },
-    { label: MainDataLang.NationalID[Lang], value: data?.NationalID },
+    { label: MainDataLang.NationalID[Lang], value: data?.CivilID },
     { label: MainDataLang.DateOfBirth[Lang], value: data?.BirthDate?.split('T')[0] },
     { label: MainDataLang.Qualification[Lang], value: data?.EducationName },
-    { label: MainDataLang.MaritalStatus[Lang], value: data?.MaritalStatusName },
-    { label: MainDataLang.TypeOfEmployment[Lang], value: data?.JobTypeName },
+    { label: MainDataLang.MaritalStatus[Lang], value: data?.SocialName },
+    { label: MainDataLang.TypeOfEmployment[Lang], value: data?.ContractTypeName },
     { label: MainDataLang.MonthlySalary[Lang], value: data?.MonthlySalary },
     { label: MainDataLang.HourlyWage[Lang], value: data?.HourlySalary },
     { label: MainDataLang.HourlyWage[Lang], value: data?.OverTime1 },
@@ -44,7 +44,7 @@ const EmployeesDetailes = () => {
         <ScrollComponent parentContainerStyle={'min-h-[95vh]'}>
           <InfoDetailes details={detailsData} />
           <View
-            className={`m-auto mt-3 mb-7 flex gap-3 ${Rtl ? 'flex-row-reverse' : 'flex-row'} flex-wrap items-center justify-center px-4`}>
+            className={`m-auto mb-7 mt-3 flex gap-3 ${Rtl ? 'flex-row-reverse' : 'flex-row'} flex-wrap items-center justify-center px-4`}>
             <SmallButton
               style={styles.smlBtn}
               title={EmployeesText.EmployeeAsset[Lang]}

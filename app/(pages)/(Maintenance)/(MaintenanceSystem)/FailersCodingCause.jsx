@@ -29,7 +29,7 @@ const FailersCodingCause = () => {
                 type: 'number',
                 input: true,
                 visible: 'true',
-                width: 100,
+                width: 150,
                 required: true,
               },
               {

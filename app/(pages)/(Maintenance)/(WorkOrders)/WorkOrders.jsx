@@ -7,6 +7,7 @@ import WorkOrdersLang from '../../../../constants/Lang/Maintenance/WorkOrders/Wo
 import ReportBugsLang from '../../../../constants/Lang/Maintenance/ReportBugs';
 
 import DraftGrid from '../../../../components/grid/DraftGrid';
+import { useRouter } from 'expo-router';
 
 const WorkOrders = () => {
   const { user, DepartmentID, Lang, company, Rtl } = useGlobalContext();
@@ -17,6 +18,9 @@ const WorkOrders = () => {
   const [YearID, setYearID] = useState(null);
   const [WorkOrderWaiting, setWorkOrderWaiting] = useState(false);
   const [WaitWorkshop, setWaitWorkshop] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const router = useRouter();
+  const [row, setRow] = useState(null);
 
   const { data: TradeList } = useDropDown(
     'ms_Trade_List_pm',
@@ -78,6 +82,19 @@ const WorkOrders = () => {
     'WorkorderID',
     'WorkorderName'
   );
+  const handlePreview = () => {
+    router.navigate({
+      pathname: './../../ReportsStim',
+      params: {
+        ReportID: '10063',
+        WorkorderID: row?.WorkorderID,
+        // SectionID: SectionID || 0,
+        // GroupID: GroupID,
+        // Date: manipulatedRow?.Date,
+      },
+    });
+  };
+  console.log(row);
 
   return (
     <MainLayout title={WorkOrdersLang.pageTitle[Lang]}>
@@ -162,6 +179,7 @@ const WorkOrders = () => {
           spIns={'api_ms_WorkOrders_Ins'}
           spUpd={'api_ms_Workorders_Upd'}
           spDel={'api_ms_WorkOrders_Del'}
+          onRowPress={(row) => setRow(row)}
           TrxParam={[
             { name: 'DepartmentID', value: DepartmentID },
             { name: 'CompanyID', value: company },
@@ -175,6 +193,18 @@ const WorkOrders = () => {
             { name: 'Wait', value: WorkOrderWaiting ? 1 : 0 },
             { name: 'WaitWorkshop', value: WaitWorkshop ? 1 : 0 },
             { name: 'IsSm', value: 0 },
+          ]}
+          hasSpecialButton
+          specialButton={[
+            {
+              title: Lang === 2 ? 'Workorder Reports' : 'تقارير أمر الشغل ',
+              action: () => {
+                // if (!row) {
+                //   return;
+                // }
+                handlePreview();
+              },
+            },
           ]}
           DelParam={[
             {

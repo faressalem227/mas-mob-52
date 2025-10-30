@@ -122,11 +122,19 @@ const WorkOrders = {
   },
   IsPlanned: {
     1: ' مخططه',
-    2: 'IsPlanned',
+    2: 'Is Planned',
   },
   StateID: {
     1: ' حاله المتابعه',
     2: 'State',
+  },
+  Personincharge: {
+    1: 'القائم بالاعمال',
+    2: 'Person in charge',
+  },
+  CompletePercent: {
+    1: 'نسبه الانجاز',
+    2: 'Complete Percent',
   },
 
   WorkorderFollow: {

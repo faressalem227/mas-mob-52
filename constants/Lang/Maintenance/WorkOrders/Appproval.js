@@ -6,7 +6,7 @@ const Appproval = {
   ApprovalsDetail: {
     EmployeeName: {
       1: 'اسم الموظف',
-      2: 'ُ Employee Name',
+      2: 'Employee Name',
     },
     Remarks: {
       1: ' ملاحظات',

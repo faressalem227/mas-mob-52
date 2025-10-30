@@ -5,15 +5,15 @@ const MaintenanceSystem = {
   },
   FailersCodingCause: {
     1: 'اسباب الاعطال',
-    2: 'Failers Cause',
+    2: 'Failuers Cause',
   },
   FailersCoding: {
     1: 'الاعطال',
-    2: 'Failers',
+    2: 'Failuers',
   },
   BusinessClassification: {
     1: 'تصنيف الاعمال',
-    2: 'Business Classification',
+    2: 'Trade',
   },
   Importance: {
     1: 'درجة الاهمية',

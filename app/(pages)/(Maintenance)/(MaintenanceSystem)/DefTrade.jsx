@@ -59,7 +59,7 @@ const DefTrade = () => {
               input: 'true',
               visible: 'true',
               required: false,
-              width: 100,
+              width: 150,
             },
             {
               key: 'IsNetwork',
@@ -68,7 +68,7 @@ const DefTrade = () => {
               input: 'true',
               visible: 'true',
               required: false,
-              width: 100,
+              width: 150,
             },
             {
               key: 'IsVehicle',
@@ -77,7 +77,7 @@ const DefTrade = () => {
               input: 'true',
               visible: 'true',
               required: false,
-              width: 100,
+              width: 150,
             },
             {
               key: 'IsWorkShop',
@@ -86,7 +86,7 @@ const DefTrade = () => {
               input: 'true',
               visible: 'true',
               required: false,
-              width: 100,
+              width: 150,
             },
           ]}
           mixedWidth={true}

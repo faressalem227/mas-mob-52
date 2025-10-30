@@ -56,9 +56,13 @@ const InvintorySystemSettingLang = {
     1: 'كود التصنيف',
     2: 'Classification Code',
   },
-  ItemName: {
-    1: 'اسم التصنيف',
-    2: 'Classification Name',
+  ItemNameAr: {
+    1: 'اسم التصنيف عربي',
+    2: 'Classification Name Ar',
+  },
+  ItemNameEn: {
+    1: 'اسم التصنيف انجليزي',
+    2: 'Classification Name En',
   },
   // Invintory operation button
   InvintoryOperations: {
@@ -260,7 +264,7 @@ const InvintorySystemSettingLang = {
   },
   QualitativeStore: {
     1: 'المخزن النوعي',
-    2: 'Qualitative Store',
+    2: 'Section',
   },
   Select: {
     1: 'اختر',

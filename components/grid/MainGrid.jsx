@@ -995,7 +995,15 @@ const MainGrid = ({
 
                         <View style={{ marginBottom: hp('1%') }}>
                           <MainButton
-                            title={modalType === 'add' ? 'إضافه' : 'حفظ التعديل'}
+                            title={
+                              modalType === 'add'
+                                ? Lang === 1
+                                  ? 'إضافه'
+                                  : 'Add'
+                                : Lang === 1
+                                  ? 'حفظ التعديل'
+                                  : 'Edit'
+                            }
                             icon={ArrowLineUpRight}
                             // handlePress={async () => {
                             //   await confirmAction(); // Only call confirmAction if valid
@@ -1033,7 +1041,9 @@ const MainGrid = ({
                             marginTop: hp('1%'),
                           }}
                           className="text-center font-tbold">
-                          هل تريد تأكيد عملية الحذف؟
+                          {Lang === 1
+                            ? 'هل تريد تأكيد عملية الحذف؟'
+                            : 'Do you want to Delete This Record?'}
                         </Text>
                         <Text
                           style={{
@@ -1041,11 +1051,13 @@ const MainGrid = ({
                             marginVertical: hp('1%'),
                           }}
                           className="text-center font-tmedium">
-                          يرجي العلم انه سوف تفقد كافة البيانات الخاصة بهذا الادخال{' '}
+                          {Lang === 1
+                            ? ' يرجي العلم انه سوف تفقد كافة البيانات الخاصة بهذا الادخال'
+                            : 'Please note that all data related to this Record will be lost.'}
                         </Text>
                         <View
                           style={{ marginBottom: hp('1%') }}
-                          className="mt-4 flex flex-row justify-center ">
+                          className={`mt-4 flex ${Lang === 1 ? 'flex-row' : 'flex-row-reverse'}  justify-center `}>
                           <TouchableOpacity
                             style={{
                               width:
@@ -1055,14 +1067,14 @@ const MainGrid = ({
                                     ? wp('15%')
                                     : wp('13%'),
                             }}
-                            className=" mx-2 flex flex-row items-center  justify-center rounded-md border-[.5px]  border-[#133E54] bg-none px-4 py-2"
+                            className={` mx-2 flex ${Lang === 1 ? 'flex-row' : 'flex-row-reverse'} items-center  justify-center rounded-md border-[.5px]  border-[#133E54] bg-none px-4 py-2`}
                             onPress={() => setModalVisible(false)}>
                             <Text
                               style={{
                                 fontSize: labelFontSize * 0.9,
                               }}
                               className="font-tbold text-[#133E54]">
-                              إلغاء
+                              {Lang === 1 ? 'إلغاء' : 'Cancel'}
                             </Text>
                           </TouchableOpacity>
                           <TouchableOpacity
@@ -1081,7 +1093,7 @@ const MainGrid = ({
                                 fontSize: labelFontSize,
                               }}
                               className="font-tbold text-white">
-                              حذف
+                              {Lang === 1 ? 'حذف' : 'Delete'}
                             </Text>
                             {modelLoader && (
                               <ActivityIndicator

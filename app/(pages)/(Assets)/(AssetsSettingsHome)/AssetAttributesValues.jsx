@@ -9,7 +9,7 @@ const AssetAttributesValues = () => {
   console.log('AssetClassID', AssetClassID);
 
   return (
-    <MainLayout title={AssetHomeLang.AttributeValues[Lang]}>
+    <MainLayout title={AssetHomeLang.TechnicalSpecifications[Lang]}>
       <MainGrid
         pk={'AttributeID'}
         spTrx={'api_ms_AssetAttributesList_Trx'}

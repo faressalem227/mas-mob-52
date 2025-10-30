@@ -32,7 +32,7 @@ const ServicesLang = {
     },
     Group: {
       1: 'التصنيف',
-      2: 'Classification',
+      2: 'Group',
     },
     Item: {
       1: 'الصنف',
@@ -65,6 +65,13 @@ const ServicesLang = {
     Asset: {
       1: 'الأصل',
       2: 'Asset',
+    },
+    LoanNo: { 1: 'رقم السلفة', 2: 'Loan No' },
+    DirectPurchase: { 1: 'امر شراء مباشر', 2: 'Direct Purchase' },
+
+    Repeated: {
+      1: 'تكرار المعدات',
+      2: 'Repeated',
     },
     AssetCode: {
       1: 'كود الأصل',

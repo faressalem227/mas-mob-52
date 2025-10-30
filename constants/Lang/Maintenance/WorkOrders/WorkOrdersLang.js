@@ -54,15 +54,15 @@ const WorkOrdersLang = {
   },
   WorkorderCode: {
     1: 'رقم أمر الشغل',
-    2: 'Work Order No.',
+    2: 'Workorder No.',
   },
   WorkorderName: {
     1: 'وصف أمر الشغل',
-    2: 'Work Order Description',
+    2: 'Workorder Description',
   },
   WorkorderTypeID: {
     1: 'نوع أمر الشغل',
-    2: 'Work Order Type ID',
+    2: 'Workorder Type',
   },
   PriorityID: {
     1: 'الأهمية',
@@ -70,15 +70,15 @@ const WorkOrdersLang = {
   },
   TradeID: {
     1: 'التصنيف',
-    2: 'Trade ID',
+    2: 'Trade',
   },
   EmployeeID: {
     1: 'المسؤول عن التنفيذ',
-    2: 'Employee ID',
+    2: 'Employee',
   },
   ContractorID: {
     1: 'المقاول',
-    2: 'Contractor ID',
+    2: 'Contractor',
   },
   RequiredExecuteDate: {
     1: 'تاريخ التنفيذ المطلوب',
@@ -94,11 +94,11 @@ const WorkOrdersLang = {
   },
   WorkorderTypeName: {
     1: 'نوع أمر الشغل',
-    2: 'Work Order Type Name',
+    2: 'Workorder Type',
   },
   WorkorderStatusName: {
     1: 'حالة أمر الشغل',
-    2: 'Work Order Status Name',
+    2: 'Workorder Status',
   },
 
   ScheduleName: {

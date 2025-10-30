@@ -137,13 +137,13 @@ const StockItems = () => {
               input: true,
               visible: false,
               required: true,
-              width: 100,
+              width: 150,
             },
             {
               key: 'GroupName',
               label: StockItemsLang.Group[Lang],
               visible: true,
-              width: 100,
+              width: 150,
             },
             {
               key: 'UnitID',
@@ -192,7 +192,7 @@ const StockItems = () => {
               label: StockItemsLang.CountDocuments[Lang],
               input: false,
               required: false,
-              width: 100,
+              width: 120,
               visible: true,
             },
           ]}

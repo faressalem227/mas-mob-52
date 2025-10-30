@@ -110,11 +110,13 @@ const RenderInput = ({
 
     case 'checkbox':
       return (
-        <CheckBox
-          value={value}
-          isEditable={true}
-          onChange={(checked) => handleInputChange(inputkey, checked)}
-        />
+        <View className="flex">
+          <CheckBox
+            value={value}
+            isEditable={true}
+            onChange={(checked) => handleInputChange(inputkey, checked)}
+          />
+        </View>
       );
 
     case 'text':
@@ -289,6 +291,7 @@ const RenderRows = ({
                           width: widthArr[idx],
                           justifyContent: 'center',
                           alignItems: 'center',
+                          display: 'inline',
                         }}>
                         <CheckBox value={!!item} isEditable={false} />
                       </View>
@@ -724,10 +727,10 @@ const DraftGrid = ({
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={{ flex: 1 }}>
+      style={{ flex: 1, width: '100%' }}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <SafeAreaView
-          style={{ flex: 1, backgroundColor: '#fff' }}
+          style={{ flex: 1, backgroundColor: '#fff', width: '100%' }}
           keyboardShouldPersistTaps="handled">
           <View
             style={{
@@ -929,20 +932,31 @@ const DraftGrid = ({
                     ) : (
                       <View className="text-center ">
                         <Image source={Warning} className="mx-auto h-16 w-16"></Image>
-                        <Text className="text-center font-tbold">هل تريد تأكيد عملية الحذف؟</Text>
-                        <Text className="text-center font-tmedium">
-                          يرجي العلم انه سوف تفقد كافة البيانات الخاصة بهذا الادخال
+                        <Text className="text-center font-tbold">
+                          {Lang === 1
+                            ? 'هل تريد تأكيد عملية الحذف؟'
+                            : 'Do you want to Delete This Record?'}
                         </Text>
-                        <View className="mt-4 flex flex-row justify-center ">
+                        <Text className="text-center font-tmedium">
+                          {Lang === 1
+                            ? ' يرجي العلم انه سوف تفقد كافة البيانات الخاصة بهذا الادخال'
+                            : 'Please note that all data related to this Record will be lost.'}{' '}
+                        </Text>
+                        <View
+                          className={`mt-4 flex  ${Lang === 1 ? 'flex-row' : 'flex-row-reverse'}  justify-center `}>
                           <TouchableOpacity
-                            className=" mx-2 flex w-[69px] flex-row  items-center justify-center rounded-md  border-[.5px]  border-[#133E54] bg-none px-4 py-2"
+                            className={`mx-2 flex  ${Lang === 1 ? 'flex-row' : 'flex-row-reverse'}   items-center justify-center rounded-md  border-[.5px]  border-[#133E54] bg-none px-4 py-2`}
                             onPress={() => setModalVisible(false)}>
-                            <Text className="font-tbold text-[#133E54]">إلغاء</Text>
+                            <Text className="font-tbold text-[#133E54]">
+                              {Lang === 1 ? 'إلغاء' : 'Cancel'}
+                            </Text>
                           </TouchableOpacity>
                           <TouchableOpacity
-                            className="mx-2 flex  w-[69px] flex-row items-center justify-center rounded-md bg-[#F15555]"
+                            className={`mx-2 flex   ${Lang === 1 ? 'flex-row' : 'flex-row-reverse'} items-center justify-center rounded-md bg-[#F15555] px-4 py-2`}
                             onPress={confirmAction}>
-                            <Text className="font-tbold text-white">حذف</Text>
+                            <Text className="font-tbold text-white">
+                              {Lang === 1 ? 'حذف' : 'Delete'}
+                            </Text>
                             {modelLoader && (
                               <ActivityIndicator
                                 animating={modelLoader}

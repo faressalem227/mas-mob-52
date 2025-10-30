@@ -1,7 +1,7 @@
 const FailersCoding = {
   pageTitle: {
-    1: 'تكويد الاعطال',
-    2: 'Coding Failers',
+    1: ' الاعطال',
+    2: 'Faiulers',
   },
   FailureCode: {
     1: 'كود العطل',

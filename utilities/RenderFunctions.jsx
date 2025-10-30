@@ -25,7 +25,7 @@ export const RenderInput = ({
   modalType,
   defaultValue,
 }) => {
-  const { Rtl } = useGlobalContext();
+  const { Rtl,Lang } = useGlobalContext();
   const windowWidth = Dimensions.get('window').width;
 
   const [valueFontSize, setValueFontSize] = useState(hp('2%'));
@@ -140,7 +140,7 @@ export const RenderInput = ({
     case 'dropdown':
       return (
         <Dropdown
-          placeholder={'اختر'}
+          placeholder={Lang === 1 ? 'اختر' : 'Select'}
           data={sp ? rowDropDownData : options}
           value={value}
           initailOption={value}

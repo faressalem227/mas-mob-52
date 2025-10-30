@@ -3,7 +3,7 @@ import { Network } from 'lucide-react-native';
 const WorkOrderDetails = {
   pageTitle: {
     1: 'تفاصيل امر الشغل',
-    2: 'Work Orders Details',
+    2: 'Workorders Details',
   },
   WorkorderCode: {
     1: 'رقم أمر الشغل',
@@ -84,23 +84,23 @@ const WorkOrderDetails = {
   },
   works: {
     1: 'أعمال امر الشغل',
-    2: 'Work order works',
+    2: 'Workorder works',
   },
   follow: {
     1: 'متابعة امر الشغل',
-    2: 'Work order follow',
+    2: 'Workorder follow',
   },
   permits: {
     1: 'تصاريح امر الشغل',
-    2: 'Work order permits',
+    2: 'Workorder permits',
   },
   cost: {
     1: 'تكلفه امر الشغل',
-    2: 'Work order cost',
+    2: 'Workorder cost',
   },
   expenses: {
     1: 'مصروفات امر الشغل',
-    2: 'Work order expenses ',
+    2: 'Workorder expenses ',
   },
   Quality: {
     1: 'الجودة',

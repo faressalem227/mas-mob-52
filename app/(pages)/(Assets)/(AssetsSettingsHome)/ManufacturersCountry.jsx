@@ -8,7 +8,7 @@ const ManufacturersCountry = ({ route }) => {
   const screenHeight = Dimensions.get('window').height; // Get screen height dynamically
 
   return (
-    <MainLayout title={AssetHomeLang.Manufacturers[Lang]}>
+    <MainLayout title={AssetHomeLang.ManufacturersCountry[Lang]}>
       <View style={{ height: screenHeight }} className='p-2'>
         <MainGrid 
           pk={'CountryID'}

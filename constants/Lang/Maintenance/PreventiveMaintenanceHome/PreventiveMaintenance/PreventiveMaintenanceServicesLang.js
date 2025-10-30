@@ -1,7 +1,7 @@
 const PreventiveMaintenanceServicesLang = {
   PageTitle: {
-    1: 'الاصناف المخزنية المخصصة للخدمات',
-    2: 'Stock Items Assigned to Services',
+    1: "الخدمات المخصصة للاجراء",
+    2: 'Assigned Services',
   },
   Details: {
     Location: {
