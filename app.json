@@ -15,6 +15,7 @@
     "assetBundlePatterns": ["assets/images/*", "!assets/images/icon.png"],
 
     "android": {
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/icon.png"
       },
