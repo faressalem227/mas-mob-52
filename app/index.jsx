@@ -1,3 +1,5 @@
+import '@react-native-firebase/app';
+
 import { useState, useEffect } from 'react';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -43,21 +45,7 @@ const Welcome = () => {
     try {
       setSubmitting(true);
 
-      // Request FCM permission and get token
-      //  const authStatus = await messaging().requestPermission();
-
-      //   const enabled =
-      //   	authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-      //   	authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-
-      let fcmToken = null;
-      //   if (enabled) {
-      //   	fcmToken = await messaging().getToken();
-      // }
-
-      // Proceed with login regardless of FCM token status
-
-      const result = await login(form.UserName, form.password, fcmToken); //fcmToken
+      const result = await login(form.UserName, form.password); //fcmToken
 
       Toast.show({
         type: 'success',
@@ -160,16 +148,3 @@ const Welcome = () => {
 };
 
 export default Welcome;
-
-// Request FCM permission and get token
-// const authStatus = await messaging().requestPermission();
-// const enabled =
-// 	authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-// 	authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-
-// let fcmToken = null;
-// if (enabled) {
-// 	fcmToken = await messaging().getToken();
-// }
-
-// // Proceed with login regardless of FCM token status

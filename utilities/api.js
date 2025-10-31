@@ -1,6 +1,8 @@
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
 
+import { getFCMToken } from './functions';
+
 // Define your API base URL
 // 192.168.1.29
 // 196.219.138.210
@@ -18,6 +20,7 @@ export const REPORT_SERVER_URL = 'https://apimas.isis-eg.com/api';
 const api = axios.create({
   baseURL: API_BASE_URL,
 });
+
 api.interceptors.request.use(
   async (config) => {
     try {

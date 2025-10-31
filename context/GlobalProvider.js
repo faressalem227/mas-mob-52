@@ -4,6 +4,8 @@ import api from '../utilities/api';
 import { HandleDropdownFormat } from '../utilities/useDropDownData';
 import Toast from 'react-native-toast-message';
 
+import { getFCMToken } from '../utilities/functions';
+
 const GlobalContext = createContext({
   dynamicStore: {},
   handleSetDynamicStore: () => {},
@@ -117,10 +119,17 @@ const GlobalProvider = ({ children }) => {
     checkAuth();
   }, []);
 
-  const login = async (email, password, fcmToken) => {
+  const login = async (email, password) => {
+    let fcmToken = null;
+
+    try {
+      fcmToken = await getFCMToken();
+    } catch (error) {
+      console.log('fcmError', error);
+    }
+
     try {
       console.log(email);
-
       const response = await api.post(`/auth/signin`, {
         UserName: email,
         password,

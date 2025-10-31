@@ -4,7 +4,7 @@ import { useGlobalContext } from '../../context/GlobalProvider';
 
 SplashScreen.preventAutoHideAsync();
 
-const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = () => {
   const router = useRouter();
   const { user, isLogged } = useGlobalContext();
 
@@ -13,6 +13,72 @@ const ProtectedRoute = ({ children }) => {
       router.replace('/');
     }
   }, [user, isLogged]);
+
+  useEffect(() => {
+    // Only initialize notifications when user is logged in
+    if (!isLogged) return;
+
+    // Safe dynamic imports — prevent crashes on Expo Go
+    const setupNotifications = async () => {
+      try {
+        const messaging = (await import('@react-native-firebase/messaging')).default;
+        const notifeeModule = await import('@notifee/react-native');
+        const notifee = notifeeModule.default;
+        const { AndroidImportance, EventType } = notifeeModule;
+
+        // Foreground messages
+        const unsubscribeForeground = messaging().onMessage(async (remoteMessage) => {
+          console.log('Foreground message:', remoteMessage);
+
+          const channelId = await notifee.createChannel({
+            id: 'default',
+            name: 'Default Channel',
+            importance: AndroidImportance.HIGH,
+          });
+
+          await notifee.displayNotification({
+            title: remoteMessage.notification?.title,
+            body: remoteMessage.notification?.body,
+            android: {
+              channelId,
+              pressAction: { id: 'default' },
+            },
+          });
+        });
+
+        // Background handler (only needed once globally, but safe here)
+        messaging().setBackgroundMessageHandler(async (remoteMessage) => {
+          console.log('Background message:', remoteMessage);
+        });
+
+        // Handle when app opened by tapping a notification
+        messaging()
+          .getInitialNotification()
+          .then((remoteMessage) => {
+            if (remoteMessage) {
+              router.push('/');
+            }
+          });
+
+        // Handle Notifee press events
+        const unsubscribeNotifee = notifee.onForegroundEvent(({ type, detail }) => {
+          if (type === EventType.PRESS) {
+            router.push('/');
+          }
+        });
+
+        // Cleanup
+        return () => {
+          unsubscribeForeground();
+          unsubscribeNotifee();
+        };
+      } catch (error) {
+        console.log('Notification setup skipped (Expo Go or missing module):', error);
+      }
+    };
+
+    setupNotifications();
+  }, [isLogged]);
 
   return <Slot />;
 };
