@@ -139,17 +139,17 @@ const Assets = () => {
         setAssetsCounter((prev) => prev + 2);
         Toast.show({
           type: 'success',
-          text1: "'تم النسخ بنجاح'",
+          text1:Lang===1? "تم النسخ بنجاح":"Copied Successfully",
         });
       } catch (error) {
-        Toast.show({ type: 'error', text1: 'حدث خطأ أثناء عملية النسخ' });
+        Toast.show({ type: 'error', text1: Lang===1?'حدث خطأ أثناء عملية النسخ':"An error occurred during the copying process" });
       } finally {
         setIsLoading(false);
       }
     } else {
       Toast.show({
         type: 'error',
-        text1: 'يجب اختيار أصل أولا',
+        text1: Lang===1?'يجب اختيار أصل أولا':"Select Asset First",
       });
     }
   };
@@ -327,7 +327,7 @@ const Assets = () => {
               input: false,
               visible: true,
               required: false,
-              width: 100,
+              width: 150,
               label: AssetsLang.AssetImportance[Lang],
             },
             {

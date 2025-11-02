@@ -1,7 +1,7 @@
 const EmploymentsCoding = {
   pageTitle: {
     1: 'الوظائف',
-    2: 'Jobs',
+    2: 'Jobs Definition',
   },
   JobCode: {
     1: 'الكود',
@@ -13,7 +13,7 @@ const EmploymentsCoding = {
   },
   AvgLabourHourCost: {
     1: 'متوسط اجر الساعة',
-    2: 'Avrage Hour Cost',
+    2: 'Average Hour Cost',
   },
 };
 export default EmploymentsCoding;

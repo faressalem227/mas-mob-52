@@ -82,7 +82,7 @@ const AssetMaintenance = () => {
             },
             {
               key: 'LabourCost',
-              label: 'تكلفه العماله',
+              label: AssetHomeLang.LaborCost[Lang],
               type: 'number',
               input: 'true',
               visible: 'true',
@@ -90,7 +90,7 @@ const AssetMaintenance = () => {
             },
             {
               key: 'MaterialCost',
-              label: 'تكلفه قطع الغيار',
+              label: AssetHomeLang.SparePartsCost[Lang],
               type: 'number',
               input: 'true',
               visible: 'true',
@@ -98,7 +98,7 @@ const AssetMaintenance = () => {
             },
             {
               key: 'ServiceCost',
-              label: 'تكلفه  الخدمات',
+              label: AssetHomeLang.ServicesCost[Lang],
               type: 'number',
               input: 'true',
               visible: 'true',
@@ -106,7 +106,7 @@ const AssetMaintenance = () => {
             },
             {
               key: 'ContractorsCost',
-              label: 'تكلفه  مقاولات',
+              label: AssetHomeLang.ContractorsCost[Lang],
               type: 'number',
               input: 'true',
               visible: 'true',
@@ -114,7 +114,7 @@ const AssetMaintenance = () => {
             },
             {
               key: 'WorkorderCounter',
-              label: 'عداد',
+              label: AssetHomeLang.Counter[Lang],
               type: 'number',
               input: 'true',
               visible: 'true',
@@ -122,7 +122,7 @@ const AssetMaintenance = () => {
             },
             {
               key: 'WorkorderCode',
-              label: 'رقم امر الشغل',
+              label: AssetHomeLang.WorkorderNo[Lang],
               type: 'text',
               input: 'true',
               visible: 'true',
@@ -130,7 +130,7 @@ const AssetMaintenance = () => {
             },
             {
               key: 'WorkorderStatusName',
-              label: 'حاله امر الشغل',
+              label: AssetHomeLang.WorkOrderStatus[Lang],
               type: 'text',
               input: 'true',
               visible: 'true',

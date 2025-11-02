@@ -1,7 +1,7 @@
 const WorkOrdersLang = {
   pageTitle: {
     1: 'أوامر الشغل',
-    2: 'Work Orders',
+    2: 'Workorders',
   },
 
   CenteralWorkOrders: {

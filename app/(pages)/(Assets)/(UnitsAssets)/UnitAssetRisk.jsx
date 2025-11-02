@@ -112,7 +112,7 @@ const UnitAssetRisk = () => {
               input: false,
               required: false,
               visible: true,
-              width: 100,
+              width: 150,
               label: UnitAssetRiskLang.AssetImportance[Lang],
             },
             {

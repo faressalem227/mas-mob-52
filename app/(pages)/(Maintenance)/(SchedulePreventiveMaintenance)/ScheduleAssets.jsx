@@ -52,16 +52,18 @@ const ScheduleAsset = () => {
 
   const { data: ProceduresList } = useDropDown(
     'api_ms_Procedures_List',
-    { DepartmentID, ScheduleID, AssetID , IsSm: 1},
+    { DepartmentID, ScheduleID, AssetID, IsSm: 1 },
     'ProcedureID',
     'FullProcedureName'
   );
 
-  
   return (
     <MainLayout title={ScheduleAssetLang.pageTitle[Lang]} className="">
       <View className="flex-1">
         <MainGrid
+          onRowPress={(row) => {
+            setSubLocationID(row?.SubLocationID);
+          }}
           pk={'ScheduleAssetID'}
           spTrx={'api_ms_Schedule_Assets_Trx'}
           spIns={'api_ms_Schedule_Assets_Ins'}
@@ -91,7 +93,7 @@ const ScheduleAsset = () => {
             },
             {
               key: 'SubLocationID',
-              label: 'الموقع',
+              label: ScheduleAssetLang.Location[Lang],
               input: true,
               type: 'dropdown',
               options: SubLocationData,
@@ -99,7 +101,7 @@ const ScheduleAsset = () => {
             },
             {
               key: 'SubLocationName',
-              label: 'الموقع',
+              label: ScheduleAssetLang.Location[Lang],
               visible: true,
               width: 150,
             },

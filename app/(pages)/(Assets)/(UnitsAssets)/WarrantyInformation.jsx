@@ -117,37 +117,37 @@ const WarrantyAssets = () => {
       const transformedData = [
         {
           KeyName: 'ContractorID',
-          Label: 'المقاول',
+          Label: Lang===1?'المقاول':"Contractor",
           DataType: 'dropDown',
           Value: data[0]?.ContractorID || '',
         },
         {
           KeyName: 'SupplierID',
-          Label: 'المورد',
+          Label:Lang===1? 'المورد':"Supplier",
           DataType: 'dropDown',
           Value: data[0]?.SupplierID || '',
         },
         {
           KeyName: 'WarrantyProvider',
-          Label: 'شركه الضمان',
+          Label: Lang===1?'شركه الضمان':"Warranty Provider",
           DataType: 'text',
           Value: data[0]?.WarrantyProvider || '',
         },
         {
           KeyName: 'WarrantyContact',
-          Label: 'مسؤول الضمان',
+          Label: Lang===1?'مسؤول الضمان':"Warranty Contact",
           DataType: 'text',
           Value: data[0]?.WarrantyContact || '',
         },
         {
           KeyName: 'WarrantyStartDate',
-          Label: 'تاريخ بدايه الضمان',
+          Label: Lang===1?'تاريخ بدايه الضمان':"Start Date",
           DataType: 'date',
           Value: data[0]?.WarrantyStartDate || '',
         },
         {
           KeyName: 'WarrantyEndDate',
-          Label: 'تاريخ نهايه الضمان',
+          Label: Lang===1?'تاريخ نهايه الضمان':"End Date",
           DataType: 'date',
           Value: data[0]?.WarrantyEndDate || '',
         },
@@ -226,7 +226,7 @@ const WarrantyAssets = () => {
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         keyboardVerticalOffset={80}>
         <View className="flex-1">
-          <View className="flex-1 px-4">
+          <View className="flex-1 p-4">
             <FlatList
               data={WarrantyData}
               keyExtractor={(item) => String(item?.KeyName)}

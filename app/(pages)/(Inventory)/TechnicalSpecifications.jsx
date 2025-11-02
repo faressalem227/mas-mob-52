@@ -49,7 +49,6 @@ const TechnicalSpecifications = () => {
           spDel={'api_Sc_Items_Spec_Del'}
           TrxParam={[
             { name: 'ItemID', value: ItemID },
-            { name: 'LangID', value: Lang },
             { name: 'CompanyID', value: company },
             { name: 'UserName', value: user.username },
             { name: 'LangID', value: Lang },

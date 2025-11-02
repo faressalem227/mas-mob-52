@@ -6,7 +6,7 @@ import { useRouter } from 'expo-router';
 const UnitInventoryHomeLang = {
   Inventory: {
     1: 'المخازن',
-    2: 'Inventory',
+    2: 'Stores',
   },
 
   StockItems: {

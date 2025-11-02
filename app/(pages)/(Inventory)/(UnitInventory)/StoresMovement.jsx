@@ -257,7 +257,7 @@ const StoresPage = () => {
       {
         key: 'WorkorderID',
         visible: colsData.UseWorkorderID,
-        input: colsData.UseWorkorderID,
+        input: colsData?.UseWorkorderID,
         label: Lang === 2 ? 'Workorder' : 'أمر الشغل',
         type: 'dropdown',
         width: 200,
@@ -395,7 +395,10 @@ const StoresPage = () => {
           rowStyle={(row) => {
             return row.Color;
           }}
-          onRowPress={(row) => setActiveRow(row)}
+          onRowPress={(row) => {
+            setActiveRow(row);
+            setSelectDepartmentID(row?.DepartmentID);
+          }}
           pk="OrderID"
           spTrx="api_Sc_Orders_Trx"
           spIns="api_Sc_Orders_Ins"

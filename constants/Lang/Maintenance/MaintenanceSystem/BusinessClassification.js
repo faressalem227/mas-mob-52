@@ -13,7 +13,7 @@ const BusinessClassification = {
   },
   TradeName: {
     1: 'تصنيف العمل',
-    2: 'Work Classification',
+    2: 'Trade',
   },
   TradeNameEn: {
     1: 'نوع الموقع إنجليزي ',

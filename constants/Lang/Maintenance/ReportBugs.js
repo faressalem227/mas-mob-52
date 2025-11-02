@@ -52,7 +52,7 @@ const ReportBugs = {
     2: 'Do you want to Cancel Report ?',
   },
   FailureReportCode: {
-    1: 'رقم البلاغ',
+    1: 'كود البلاغ',
     2: 'Report Code',
   },
   FailureReportDate: {
@@ -89,11 +89,11 @@ const ReportBugs = {
   },
   PriorityName: {
     1: 'أولويه العمل',
-    2: 'Work Priority',
+    2: 'Priority',
   },
   PriorityID: {
     1: 'أولويه العمل',
-    2: 'Work Priority',
+    2: 'Priority',
   },
   TradeID: {
     1: ' التصنيف',
@@ -138,6 +138,10 @@ const ReportBugs = {
     1: 'حاله البلاغ',
     2: 'Report Status',
   },
+    WorkorderStatusName: {
+    1:  'حاله امر الشغل',
+    2: 'Workorder Status',
+  },
   FailureReportStatusID: {
     1: 'نوع البلاغ',
     2: 'Report Type',
@@ -169,7 +173,7 @@ const ReportBugs = {
 
   CancelledBy: {
     1: `الالغاء بواسطه`,
-    2: 'CancelledName',
+    2: 'Cancelled By',
   },
 
   GenerateWorkOrder: {

@@ -23,7 +23,7 @@ export default StockItemsLang = {
   },
   Group: {
     1: 'التصنيف',
-    2: 'Classification',
+    2: 'Group',
   },
   Unit: {
     1: 'الوحدة',

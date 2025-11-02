@@ -308,15 +308,15 @@ const MainGrid = ({
 
   const { fetchNextCode, fetchReportFilters } = useTableApi();
 
-  const showErrorToast = (msg = 'حدث خطأ اثناء تنفيذ العملية') => {
+  const showErrorToast = (msg = Lang===1?'حدث خطأ اثناء تنفيذ العملية':"An error occurred") => {
     Toast.show({
       type: 'error',
-      text1: 'حدث خطأ',
+      text1: Lang===1?'حدث خطأ':"An error occurred",
       text2: msg,
       autoHide: true,
       visibilityTime: 3000,
-      text1Style: { textAlign: 'right' },
-      text2Style: { textAlign: 'right' },
+      text1Style: { textAlign: Lang===1?'right':"left" },
+      text2Style: { textAlign: Lang===1?'right':"left" },
     });
   };
 
@@ -340,7 +340,7 @@ const MainGrid = ({
         );
         setCode(nextCode);
       } catch {
-        showErrorToast('حدث خطأ اثناء تنفيذ العمليه حاول مره اخرى ❌');
+        showErrorToast(Lang===1?'حدث خطأ اثناء تنفيذ العمليه حاول مره اخرى ❌':"An error occurred, Please try again. ❌");
         return;
       } finally {
         setLoading(false);
@@ -376,7 +376,7 @@ const MainGrid = ({
   // Update the handleEdit function:
   const handleEdit = () => {
     if (!selectedRow) {
-      showErrorToast('من فضلك اختر صف لاستكمال العمليه');
+      showErrorToast(Lang===1?'من فضلك اختر صف لاستكمال العمليه':"Please select a row to complete the process.");
       return;
     }
 

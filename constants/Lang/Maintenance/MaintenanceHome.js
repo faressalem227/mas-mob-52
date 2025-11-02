@@ -5,7 +5,7 @@ const MaintenanceHome = {
   },
   pageTitle: {
     1: 'منظومة الصيانة',
-    2: 'Maintenance System',
+    2: 'Units Maintenance',
   },
   MaintenanceSystemSettings: {
     1: 'اعدادات منظومة الصيانة',
@@ -24,7 +24,7 @@ const MaintenanceHome = {
 
   SchedulePreventiveMaintenance: {
     1: 'جدولة الصيانة الوقائية',
-    2: 'Schedule Preventive Maintenance',
+    2: ' PM Schedules Data',
   },
 
   PreventiveMaintenance: {
@@ -39,12 +39,12 @@ const MaintenanceHome = {
 
   ReportBugs: {
     1: 'الابلاغ عن الاعطال',
-    2: 'failure reports',
+    2: 'Failure reports',
   },
 
   WorkOrders: {
     1: 'اوامر الشغل',
-    2: 'Work Orders',
+    2: 'Workorders',
   },
 
   CenteralWorkOrders: {
@@ -54,11 +54,11 @@ const MaintenanceHome = {
 
   CreateWorkOrders: {
     1: 'انشاء اوامر الشغل للصيانة الوقائية',
-    2: 'Create Preventive Maintenance WorkOrders',
+    2: 'Generate PM Workorders',
   },
   Classification: {
     1: 'التصنيفات',
-    2: 'Classifications',
+    2: 'Trade',
   },
   CurrentStatus: {
     1: ' الوضع الحالي',
@@ -66,7 +66,7 @@ const MaintenanceHome = {
   },
   EmploymentsCoding: {
     1: 'تعريفات الوظائف',
-    2: 'Employments Definitions',
+    2: 'Jobs Definition',
   },
   CentralSchedule: {
     1: 'الجدولة المركزية',

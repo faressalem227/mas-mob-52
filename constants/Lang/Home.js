@@ -45,7 +45,7 @@ const HomeLang = {
   },
   maintenanceSystem: {
     1: 'الصيانة',
-    2: 'Central Maintenance',
+    2: 'Units Maintenance',
   },
   scada: {
     1: 'اسكادا',

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { View } from 'react-native';
 import { useGlobalContext } from '../../../../context/GlobalProvider';
-import { MainLayout, CheckBox, Dropdown } from '../../../../components';
+import { MainLayout, CheckBox, Dropdown, MainGrid } from '../../../../components';
 import { useDropDown } from '../../../../hooks/useDropDownData';
 import WorkOrdersLang from '../../../../constants/Lang/Maintenance/WorkOrders/WorkOrdersLang'; // Import the language file
 import ReportBugsLang from '../../../../constants/Lang/Maintenance/ReportBugs';
@@ -115,7 +115,7 @@ const WorkOrders = () => {
           placeholder={ReportBugsLang.YearChoose[Lang]}
           label={ReportBugsLang.Year[Lang]}
           data={YearList}
-          initailOption={YearList[5]?.key}
+          initailOption={new Date().getFullYear()}
           onChange={(e) => {
             setYearID(e);
           }}
@@ -170,10 +170,10 @@ const WorkOrders = () => {
         </View>
       </View>
       <View className="flex-1">
-        <DraftGrid
-          isNested
+        <MainGrid
+          // isNested
           StaticWidth
-          pk={'WorkorderID'}
+          // pk={'WorkorderID'}
           parentKey={'WorkorderParentID'}
           spTrx={'api_ms_WorkOrders_List'}
           spIns={'api_ms_WorkOrders_Ins'}

@@ -177,7 +177,7 @@ const ReportFailure = () => {
               placeholder={ReportBugsLang.YearChoose[Lang]}
               label={ReportBugsLang.Year[Lang]}
               data={yearList}
-              initailOption={yearList[5]?.key}
+              initailOption={new Date().getFullYear()}
               onChange={(e) => {
                 setYearID(e);
               }}
@@ -323,7 +323,7 @@ const ReportFailure = () => {
                 },
                 {
                   key: 'WorkorderCode',
-                  label: 'رقم امر الشغل',
+                  label: `${ReportBugsLang.WorkorderCode[Lang]}`,
                   type: 'number',
                   input: 'false',
                   visible: 'true',
@@ -331,11 +331,11 @@ const ReportFailure = () => {
                 },
                 {
                   key: 'WorkorderStatusName',
-                  label: 'حاله امر الشغل',
+                  label: `${ReportBugsLang.WorkorderStatusName[Lang]}`,
                   type: 'text',
                   input: 'false',
                   visible: 'true',
-                  width: 100,
+                  width: 150,
                 },
                 {
                   key: 'PriorityID',
@@ -349,7 +349,7 @@ const ReportFailure = () => {
                 },
                 {
                   key: 'FailureReportID',
-                  label: 'كود البلاغ',
+                  label: `${ReportBugsLang.FailureReportCode[Lang]}`,
                   type: 'number',
                   input: 'false',
                   visible: 'false',
@@ -371,29 +371,29 @@ const ReportFailure = () => {
                   visible: 'true',
                   width: 100,
                 },
-                {
-                  key: 'CancelledName',
-                  label: `الالغاء بواسطه`,
-                  type: 'text',
-                  input: 'false',
-                  visible: 'true',
-                  width: 100,
-                },
+                // {
+                //   key: 'CancelledName',
+                //   label: `${ReportBugsLang.CancelledBy[Lang]}`,
+                //   type: 'text',
+                //   input: 'false',
+                //   visible: 'true',
+                //   width: 150,
+                // },
                 {
                   key: 'CancelledDate',
-                  label: `تاريخ االغاء`,
+                  label: `${ReportBugsLang.CancelledDate[Lang]}`,
                   type: 'date',
                   input: 'false',
                   visible: 'true',
-                  width: 100,
+                  width: 120,
                 },
                 {
                   key: 'CancelReason',
-                  label: `سبب الالغاء`,
+                  label: `${ReportBugsLang.CancelReason[Lang]}`,
                   type: 'text',
                   input: 'false',
                   visible: 'true',
-                  width: 100,
+                  width: 200,
                 },
               ]}
             />

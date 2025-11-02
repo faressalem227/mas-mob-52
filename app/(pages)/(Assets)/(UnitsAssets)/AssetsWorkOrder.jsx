@@ -82,7 +82,7 @@ const AssetsWorkOrder = () => {
             },
             {
               key: 'TradeName', //
-              label: 'تصنيف الاعمال',
+              label: AssetHomeLang.trade[Lang],
               type: '',
               input: 'true',
               visible: 'true',
@@ -90,7 +90,7 @@ const AssetsWorkOrder = () => {
             },
             {
               key: 'PriorityName',
-              label: 'الاولوية',
+              label: AssetHomeLang.Priority[Lang],
               type: '',
               input: 'true',
               visible: 'true',
@@ -98,7 +98,7 @@ const AssetsWorkOrder = () => {
             },
             {
               key: 'StaffCode',
-              label: 'كود الموظف',
+              label: AssetHomeLang.StaffCode[Lang],
               type: '',
               input: 'true',
               visible: 'true',
@@ -106,7 +106,7 @@ const AssetsWorkOrder = () => {
             },
             {
               key: 'StaffName',
-              label: 'اسم الموظف المسئول',
+              label: AssetHomeLang.StaffName[Lang],
               type: '',
               input: 'true',
               visible: 'true',
@@ -114,7 +114,7 @@ const AssetsWorkOrder = () => {
             },
             {
               key: 'RequiredExecuteDate',
-              label: 'تاريخ التنفيذ المطلوب',
+              label: AssetHomeLang.RequiredExecuteDate[Lang],
               type: '',
               input: 'true',
               visible: 'true',
@@ -122,7 +122,7 @@ const AssetsWorkOrder = () => {
             },
             {
               key: 'Safety',
-              label: 'مهمات الوقاية والامان',
+              label: AssetHomeLang.Safety[Lang],
               type: '',
               input: 'true',
               visible: 'true',
@@ -130,7 +130,7 @@ const AssetsWorkOrder = () => {
             },
             {
               key: 'FailureCauseName',
-              label: 'سبب العطل',
+              label: AssetHomeLang.FailureCauseName[Lang],
               type: '',
               input: 'true',
               visible: 'true',
@@ -138,7 +138,7 @@ const AssetsWorkOrder = () => {
             },
             {
               key: 'PlannedStartDate',
-              label: 'تاريخ بدء مخطط',
+              label: AssetHomeLang.PlannedStartDate[Lang],
               type: '',
               input: 'true',
               visible: 'true',
@@ -146,7 +146,7 @@ const AssetsWorkOrder = () => {
             },
             {
               key: 'PlannedEndDate',
-              label: 'تاريخ نهو مخطط',
+              label: AssetHomeLang.PlannedEndDate[Lang],
               type: '',
               input: 'true',
               visible: 'true',
@@ -154,7 +154,7 @@ const AssetsWorkOrder = () => {
             },
             {
               key: 'ActualStartDate',
-              label: 'تاريخ بدا فعلي',
+              label: AssetHomeLang.ActualStartDate[Lang],
               type: '',
               input: 'true',
               visible: 'true',
@@ -162,7 +162,7 @@ const AssetsWorkOrder = () => {
             },
             {
               key: 'ActualEndDate',
-              label: 'تاريخ نهو فعلي',
+              label: AssetHomeLang.ActualEndDate[Lang],
               type: '',
               input: 'true',
               visible: 'true',
@@ -170,7 +170,7 @@ const AssetsWorkOrder = () => {
             },
             {
               key: 'ClosedDate',
-              label: 'تاريخ الاغلاق ',
+              label: AssetHomeLang.ClosedDate[Lang],
               type: '',
               input: 'true',
               visible: 'true',
@@ -178,7 +178,7 @@ const AssetsWorkOrder = () => {
             },
             {
               key: 'CancelledDate',
-              label: 'تاريخ الالغاء ',
+              label: AssetHomeLang.CancelledDate[Lang],
               type: '',
               input: 'true',
               visible: 'true',
@@ -186,7 +186,7 @@ const AssetsWorkOrder = () => {
             },
             {
               key: 'ScheduleCode',
-              label: 'كود الجدولة ',
+              label: AssetHomeLang.ScheduleCode[Lang],
               type: '',
               input: 'true',
               visible: 'true',
@@ -194,7 +194,7 @@ const AssetsWorkOrder = () => {
             },
             {
               key: 'ScheduleName',
-              label: 'اسم الجدولة ',
+              label: AssetHomeLang.ScheduleName[Lang],
               type: '',
               input: 'true',
               visible: 'true',

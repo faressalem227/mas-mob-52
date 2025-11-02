@@ -203,7 +203,6 @@ const UnitAssignedWorkorders = () => {
               visible: true,
               required: false,
               width: 160,
-              format: handleDateFormat,
               label: UnitAssignedWorkordersLang.RequiredExecuteDate[Lang],
             },
             {
@@ -240,7 +239,6 @@ const UnitAssignedWorkorders = () => {
               visible: true,
               required: false,
               width: 160,
-              format: handleDateFormat,
               label: UnitAssignedWorkordersLang.PlannedStartDate[Lang],
             },
             {
@@ -250,7 +248,6 @@ const UnitAssignedWorkorders = () => {
               visible: true,
               required: false,
               width: 160,
-              format: handleDateFormat,
               label: UnitAssignedWorkordersLang.PlannedEndDate[Lang],
             },
             {
@@ -260,7 +257,6 @@ const UnitAssignedWorkorders = () => {
               visible: true,
               required: false,
               width: 160,
-              format: handleDateFormat,
               label: UnitAssignedWorkordersLang.ActualStartDate[Lang],
             },
             {
@@ -270,7 +266,6 @@ const UnitAssignedWorkorders = () => {
               visible: true,
               required: false,
               width: 160,
-              format: handleDateFormat,
               label: UnitAssignedWorkordersLang.ActualEndDate[Lang],
             },
             {
@@ -280,7 +275,6 @@ const UnitAssignedWorkorders = () => {
               visible: true,
               required: false,
               width: 160,
-              format: handleDateFormat,
               label: UnitAssignedWorkordersLang.ClosedDate[Lang],
             },
             {
@@ -290,7 +284,6 @@ const UnitAssignedWorkorders = () => {
               visible: true,
               required: false,
               width: 160,
-              format: handleDateFormat,
               label: UnitAssignedWorkordersLang.CancelledDate[Lang],
             },
             {

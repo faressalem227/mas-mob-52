@@ -23,6 +23,10 @@ const AssetHomeLang = {
     1: 'نوع الموقع',
     2: 'Trade',
   },
+  Priority: {
+    1: 'الاولوية',
+    2: 'Priority',
+  },
   SubDepartments: {
     1: ' الإدارات الفرعية',
     2: 'Sub Departments ',
@@ -249,7 +253,7 @@ const AssetHomeLang = {
   },
   TechnicalSpecifications: {
     1: 'المواصفات الفنية للاصول',
-    2: 'Assets Attributes Definintion',
+    2: 'Technical Specifications',
   },
   TechnicalEvaluation: {
     1: ' التقييم الفني',
@@ -349,7 +353,7 @@ const AssetHomeLang = {
   },
   WorkOrderStatus: {
     1: 'حالة أمر الشغل',
-    2: 'Work Order Status',
+    2: 'Workorder Status',
   },
   // Status: {
   //     1: "الحالة",
@@ -483,19 +487,19 @@ const AssetHomeLang = {
   // WorkOrders
   WorkOrders: {
     1: ' أوامر الشغل',
-    2: 'Work Orders ',
+    2: 'Workorders ',
   },
   WorkOrderNumber: {
     1: 'رقم أمر الشغل',
-    2: ' Work Order Number ',
+    2: ' Workorder NO ',
   },
   WorkOrderDescription: {
     1: ' وصف أمر الشغل',
-    2: ' Work Order Description ',
+    2: ' Workorder Description ',
   },
   WorkOrderType: {
     1: ' نوع أمر الشغل',
-    2: ' Work Order Type',
+    2: ' Workorder Type',
   },
   //
   AssetCategories: {
@@ -696,9 +700,95 @@ const AssetHomeLang = {
     1: 'الوزن ',
     2: 'Weight',
   },
+
   RiskQu: {
     1: 'السؤال',
     2: 'Question',
   },
+  LaborCost: {
+    1: 'تكلفه العماله',
+    2: 'Labor Cost',
+  },
+  SparePartsCost: {
+    1: 'تكلفه قطع الغيار',
+    2: 'Spare Parts Cost',
+  },
+  ServicesCost: {
+    1: 'تكلفه الخدمات',
+    2: 'Services Cost',
+  },
+  ContractorsCost: {
+    1: 'تكلفه  مقاولات',
+    2: 'Contractors Cost',
+  },
+  Counter: {
+    1: 'عداد',
+    2: 'Counter',
+  },
+  WorkorderNo: {
+    1: 'رقم امر الشغل',
+    2: 'Workorder No',
+  },
+  WorkorderStatus: {
+    1: 'حاله امر الشغل',
+    2: 'Workorder Status',
+  },
+  StaffName: {
+    1: 'اسم الموظف المسئول',
+    2: 'Responsible Name',
+  },
+  RequiredExecuteDate: {
+    1: 'تاريخ التنفيذ المطلوب',
+    2: 'Required Execute Date',
+  },
+  Safety: {
+    1: 'مهمات الوقاية والامان',
+    2: 'Safety',
+  },
+  FailureCauseName: {
+    1: 'سبب العطل',
+    2: 'Failure Cause',
+  },
+  PlannedStartDate: {
+    1: 'تاريخ بدء مخطط',
+    2: 'Planned Start Date',
+  },
+  PlannedEndDate: {
+    1: 'تاريخ نهو مخطط',
+    2: 'Planned End Date',
+  },
+  ActualStartDate: {
+    1: 'تاريخ بدء فعلي',
+    2: 'Actual Start Date',
+  },
+  ActualEndDate: {
+    1: 'تاريخ نهو فعلي',
+    2: 'Actual End Date',
+  },
+  ClosedDate: {
+    1: 'تاريخ الاغلاق ',
+    2: 'Closed Date',
+  },
+  CancelledDate: {
+    1: 'تاريخ الالغاء ',
+    2: 'Cancelled Date',
+  },
+  ActualEndDate: {
+    1: 'تاريخ نهو فعلي',
+    2: 'Actual End Date',
+  },
+  ActualEndDate: {
+    1: 'تاريخ نهو فعلي',
+    2: 'Actual End Date',
+  },
+  ActualEndDate: {
+    1: 'تاريخ نهو فعلي',
+    2: 'Actual End Date',
+  },
+  StaffCode: {
+    1: 'كود الموظف',
+    2: 'Staff Code',
+  },
 };
+
 export default AssetHomeLang;

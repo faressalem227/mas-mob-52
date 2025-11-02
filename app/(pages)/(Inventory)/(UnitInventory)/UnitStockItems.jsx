@@ -144,7 +144,7 @@ const UnitStockItems = () => {
               key: 'GroupName',
               label: StockItemsLang.Group[Lang],
               visible: true,
-              width: 100,
+              width: 120,
             },
             {
               key: 'UnitID',
@@ -193,7 +193,7 @@ const UnitStockItems = () => {
               label: StockItemsLang.CountDocuments[Lang],
               input: false,
               required: false,
-              width: 100,
+              width: 120,
               visible: true,
             },
           ]}

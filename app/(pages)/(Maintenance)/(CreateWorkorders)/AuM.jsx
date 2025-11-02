@@ -24,7 +24,7 @@ const Pm = () => {
   ];
 
   return (
-    <MainLayout title={CreateWorkOrdersLang.preventiveMs[Lang]}>
+    <MainLayout title={CreateWorkOrdersLang.automaticMs[Lang]}>
       <View className="flex-1">
         <InfoDetailes details={detailsData} />
 
@@ -63,28 +63,28 @@ const Pm = () => {
               label: CreateWorkOrdersLang.PlannedStartDate[Lang],
               type: 'date',
               visible: true,
-              width: 120,
+              width: 150,
             },
             {
               key: 'PlannedEndDate',
               label: CreateWorkOrdersLang.PlannedEndDate[Lang],
               type: 'date',
               visible: true,
-              width: 120,
+              width: 150,
             },
             {
               key: 'WorkorderCounter',
               label: CreateWorkOrdersLang.Counter[Lang],
               type: 'number',
               visible: true,
-              width: 100,
+              width: 120,
             },
             {
               key: 'LabourCost',
               label: CreateWorkOrdersLang.LaborCost[Lang],
               type: 'number',
               visible: true,
-              width: 110,
+              width: 120,
             },
             {
               key: 'MaterialCost',
@@ -104,34 +104,34 @@ const Pm = () => {
               label: CreateWorkOrdersLang.GenerateWODateStart[Lang],
               type: 'date',
               visible: true,
-              width: 130,
+              width: 150,
             },
             {
               key: 'GenerateWODateEnd',
               label: CreateWorkOrdersLang.GenerateWODateEnd[Lang],
               type: 'date',
               visible: true,
-              width: 130,
+              width: 150,
             },
             {
               key: 'GenerateWOUserName',
               label: CreateWorkOrdersLang.GenerateWOUserName[Lang],
               visible: true,
-              width: 130,
+              width: 150,
             },
             {
               key: 'ServiceCost',
               label: CreateWorkOrdersLang.ServiceCost[Lang],
               type: 'number',
               visible: true,
-              width: 120,
+              width: 150,
             },
             {
               key: 'ContractorsCost',
               label: CreateWorkOrdersLang.ContractorsCost[Lang],
               type: 'number',
               visible: true,
-              width: 120,
+              width: 150,
             },
             {
               key: 'Execluded',
@@ -146,7 +146,7 @@ const Pm = () => {
               label: CreateWorkOrdersLang.ExecludReason[Lang],
               input: true,
               visible: true,
-              width: 160,
+              width: 200,
             },
           ]}
         />
