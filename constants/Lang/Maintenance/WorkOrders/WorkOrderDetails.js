@@ -36,7 +36,7 @@ const WorkOrderDetails = {
 
   RegularMaintenance: {
     1: 'بيانات الصيانة الدورية',
-    2: 'Regular Maintenance',
+    2: 'PM Data',
   },
 
   WorkOrderAssets: {
@@ -124,7 +124,7 @@ const WorkOrderDetails = {
   },
   WorkOrderSafty: {
     1: 'السلامة و الصحة المهنية',
-    2: 'WorkOrder Safty',
+    2: 'Workorder Safty',
   },
   Approvals: {
     1: 'الاعتمادات',
@@ -132,11 +132,11 @@ const WorkOrderDetails = {
   },
     WorkOrderCancel: {
     1: 'إلغاء أمر الشغل',
-    2: 'WorkOrder Cancel',
+    2: 'Workorder Cancel',
   },
   WorkOrderClose: {
     1: 'إغلاق أمر الشغل',
-    2: 'WorkOrder Close',
+    2: 'Workorder Close',
   },
 
   Safety: {

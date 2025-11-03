@@ -23,6 +23,10 @@ const WorkOrders = {
     1: 'نوع المصروفات',
     2: 'Expense Type',
   },
+  PredecessorCode: {
+    1: 'رقم السلفة',
+    2: 'Predecessor Code',
+  },
   ExpnsesDate: {
     1: 'تاريخ الصرف',
     2: 'Expnses Date',
@@ -74,15 +78,15 @@ const WorkOrders = {
   },
   CostTitle: {
     1: 'تكلفه أمر الشغل',
-    2: 'Work order Cost',
+    2: 'Workorder Cost',
   },
   workOrderPermits: {
     1: 'تصاريح أمر الشغل',
-    2: 'workOrder Permits',
+    2: 'workorder Permits',
   },
   workOrderExpnses: {
     1: 'مصروفات أمر الشغل',
-    2: 'workOrder Expnses',
+    2: 'workorder Expnses',
   },
   PermitType: {
     1: 'نوع التصريح',

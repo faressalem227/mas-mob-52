@@ -66,7 +66,7 @@ const HistoricalData = ({ title, hasLeftComponent = false, onDrawerPress }) => {
               },
               {
                 key: "quality",
-                label: "الجوده",
+                label:  SCADALang.quality[Lang],
                 input: "true",
                 visible: "true",
                 width: 120,

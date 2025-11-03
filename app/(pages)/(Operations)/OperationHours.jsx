@@ -9,7 +9,7 @@ const OperationHours = () => {
   const { TradeID, subLocationID, date } = useLocalSearchParams();
 
   return (
-    <MainLayout title={OperatingSystemLang.hourlyOperation[Lang]}>
+    <MainLayout title={OperatingSystemLang.operationHours[Lang]}>
       <MainGrid
         pk={'AssetID'}
         hasIns={false}
@@ -33,7 +33,7 @@ const OperationHours = () => {
           },
           {
             key: 'AssetCode',
-            label: 'كود الاصل',
+            label: OperatingSystemLang.AssetCode[Lang],
             type: 'number',
             input: 'false',
             visible: 'true',
@@ -41,7 +41,7 @@ const OperationHours = () => {
           },
           {
             key: 'AssetName',
-            label: 'اسم الاصل',
+            label:OperatingSystemLang.AssetName[Lang],
             type: 'text',
             input: 'false',
             visible: 'true',
@@ -49,7 +49,7 @@ const OperationHours = () => {
           },
           {
             key: 'OperationItemName',
-            label: 'بند التشغيل',
+            label: OperatingSystemLang.OperationItem[Lang],
             type: 'text',
             input: 'false',
             visible: 'true',
@@ -57,7 +57,7 @@ const OperationHours = () => {
           },
           {
             key: 'OperatingHours',
-            label: 'قيمه اليوم',
+            label: OperatingSystemLang.ValueOfDay[Lang],
             type: 'number',
             input: 'true',
             visible: 'true',

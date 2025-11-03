@@ -82,7 +82,7 @@ const Expenses = () => {
           tableHead={[
             {
               key: 'PredecessorCode',
-              label: 'رقم السلفة',
+              label: WorkOrders.PredecessorCode[Lang],
               type: 'text',
               input: 'TRUE',
               visible: 'true',

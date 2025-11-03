@@ -11,23 +11,23 @@ const WorkOrderAssetsLang = {
 
   WorkorderCode: {
     1: 'رقم امر الشغل',
-    2: 'Work Order Number',
+    2: 'Workorder Number',
   },
   WorkOrderTasks: {
     1: 'مهمات امر الشغل',
-    2: 'Work Order Tasks',
+    2: 'Workorder Tasks',
   },
   WorkorderName: {
     1: 'وصف امر الشغل',
-    2: 'Work Order Description',
+    2: 'Workorder Description',
   },
   WorkorderTypeName: {
     1: 'نوع امر الشغل',
-    2: 'Work Order Type',
+    2: 'Workorder Type',
   },
   WorkorderStatusName: {
     1: 'حاله امر الشغل',
-    2: 'Work Order Status',
+    2: 'Workorder Status',
   },
   SubLocation: {
     1: 'الموقع الفرعي',

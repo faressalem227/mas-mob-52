@@ -59,7 +59,7 @@ function CentralData() {
             handlePress={() => router.navigate('/CentralDataAssetHome')}
           />
           <SmallButton
-            title={HomeLang.maintenanceSystem[Lang]}
+            title={HomeLang.CenteralMaintenanceSystem[Lang]}
             icon={icons.Setting}
             handlePress={() => router.navigate('/CentralDataMaintenanceHome')}
           />

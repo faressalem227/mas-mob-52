@@ -1,11 +1,11 @@
 const RegularMaintenanceLang = {
     PageTitle: {
       1: "بيانات الصيانة الدورية",
-      2: "Regular Maintenance Data",
+      2: "PM Data",
     },
     WorkOrderSafty: {
       1: "السلامه و الصحه المهنيه",
-      2: "Workorder Safty",
+      2: "Workorder Safety",
     },
     WorkOrderTasks: {
       1: "مهمات امر الشغل",

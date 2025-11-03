@@ -69,11 +69,11 @@ const HealthAndSafety = {
   },
   SparePartsRequired: {
     1: 'قطع الغيار المطلوبة لأوامر الشغل',
-    2: 'Spare parts required for work orders',
+    2: 'Spare parts required for workorders',
   },
   ServicesRequired: {
     1: 'الخدمات المطلوبة لأوامر الشغل',
-    2: 'Services required for work orders',
+    2: 'Services required for workorders',
   },
   SparePartsExceeding: {
     1: 'قطع الغيار المتجاوزة لحد الطلب',
@@ -81,7 +81,7 @@ const HealthAndSafety = {
   },
   title: {
     1: 'اوامر الشغل',
-    2: 'Work Orders',
+    2: 'Workorders',
   },
   Asset: {
     1: 'اسم الاصل',

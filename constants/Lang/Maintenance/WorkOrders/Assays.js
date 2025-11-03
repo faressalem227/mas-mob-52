@@ -5,23 +5,23 @@ const AssaysLang = {
     },
     WorkOrderWorks: {
       1: "أعمال أمر الشغل",
-      2: "Work Order Works",
+      2: "Workorder Works",
     },
     WorkOrderCode: {
       1: "رقم أمر الشغل",
-      2: "Work Order Code",
+      2: "Workorder Code",
     },
     WorkOrderDescription: {
       1: "وصف أمر الشغل",
-      2: "Work Order Description",
+      2: "Workorder Description",
     },
     WorkOrderType: {
       1: "نوع أمر الشغل",
-      2: "Work Order Type",
+      2: "Workorder Type",
     },
     WorkOrderStatus: {
       1: "حالة أمر الشغل",
-      2: "Work Order Status",
+      2: "Workorder Status",
     },
     TaskCode: {
         1: "كود البند",

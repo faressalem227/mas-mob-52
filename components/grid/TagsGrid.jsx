@@ -37,7 +37,7 @@ const TagsGrid = ({ LocationID, TagClass, TagGroup }) => {
   const [SelectedAsset, setSelectedAsset] = useState([]);
   // const [operationList, setOperationList] = useState([]);
   const [SelectedSubLocation, setSelectedSubLocation] = useState([]);
-  const { Lang, DepartmentID, user } = useGlobalContext();
+  const { Lang, DepartmentID, user, Rtl } = useGlobalContext();
   // const [Items, setItems] = useState([]);
   ///////////////////////////////////////////////////////////////
 
@@ -210,7 +210,7 @@ const TagsGrid = ({ LocationID, TagClass, TagGroup }) => {
       options: ClassTagList,
       input: 'true',
       visible: 'true',
-      width: 100,
+      width: 150,
     },
     {
       key: 'IsActive',
@@ -362,7 +362,7 @@ const TagsGrid = ({ LocationID, TagClass, TagGroup }) => {
       options: NotificationTypes,
       input: 'true',
       visible: 'false',
-      width: 120,
+      width: 170,
     },
     {
       key: 'ServerName',
@@ -551,7 +551,7 @@ const TagsGrid = ({ LocationID, TagClass, TagGroup }) => {
                 handleInputChange(key, selectedValue);
                 setSelectedSubLocation(selectedValue); // Update state for MaterialClassID
                 fetchAsset(selectedValue);
-              }} 
+              }}
               data={SubLocationData} // Assuming Materials is populated
               placeholder="Select SubLocation"
               initailOption={value[0] ? value[0] : value} // Set initial option if needed
@@ -594,12 +594,24 @@ const TagsGrid = ({ LocationID, TagClass, TagGroup }) => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
-      <View className="flex flex-col" dir="rtl">
-        <View style={styles.buttonContainer}>
-          <CustomButton Icon={add_outline} title="إضافه" onPress={handleAdd} />
-          <CustomButton Icon={PencilLine} title="تعديل" onPress={handleEdit} />
-          <CustomButton Icon={trashh} title="حذف" onPress={handleDelete} />
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }} dir={Rtl ? 'rtl' : 'ltr'}>
+      <View className="flex flex-col" dir={Rtl ? 'rtl' : 'ltr'}>
+        <View style={[styles.buttonContainer, { flexDirection: Rtl ? 'row-reverse' : 'row' }]}>
+          <CustomButton
+            Icon={add_outline}
+            title={Lang === 1 ? 'اضافة' : 'Add'}
+            onPress={handleAdd}
+          />
+          <CustomButton
+            Icon={PencilLine}
+            title={Lang === 1 ? 'تعديل' : 'Edit'}
+            onPress={handleEdit}
+          />
+          <CustomButton
+            Icon={trashh}
+            title={Lang === 1 ? 'حذف' : 'Delete'}
+            onPress={handleDelete}
+          />
         </View>
       </View>
 
@@ -686,7 +698,11 @@ const TagsGrid = ({ LocationID, TagClass, TagGroup }) => {
       )}
 
       {/* Modal */}
-      <Modal animationType="fade" visible={modalVisible} transparent={true}>
+      <Modal
+        animationType="fade"
+        visible={modalVisible}
+        transparent={true}
+        dir={Rtl ? 'rtl' : 'ltr'}>
         <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
           <View style={styles.modalOverlay} dir={'rtl'}>
             <TouchableWithoutFeedback>
@@ -714,7 +730,15 @@ const TagsGrid = ({ LocationID, TagClass, TagGroup }) => {
                       })}
                     </ScrollView>
                     <MainButton
-                      title={modalType === 'add' ? 'إضافه' : 'حفظ التعديل'}
+                      title={
+                        modalType === 'add'
+                          ? Lang === 1
+                            ? 'إضافه'
+                            : 'Add'
+                          : Lang === 1
+                            ? 'حفظ التعديل'
+                            : 'Edit'
+                      }
                       icon={ArrowLineUpRight}
                       handlePress={confirmAction}
                       isLoading={modelLoader}
@@ -723,20 +747,33 @@ const TagsGrid = ({ LocationID, TagClass, TagGroup }) => {
                 ) : (
                   <View className="text-center">
                     <Image source={Warning} className="mx-auto h-16 w-16"></Image>
-                    <Text className="text-center font-tbold">هل انت متأكد من حذف هذا الموقع</Text>
-                    <Text className="text-center font-tmedium">
-                      يرجي العلم انه سوف تفقد كافة البيانات الخاصة بهذا الادخال{' '}
+                    <Text className="text-center font-tbold">
+                      {' '}
+                      {Lang === 1
+                        ? 'هل تريد تأكيد عملية الحذف؟'
+                        : 'Do you want to Delete This Record?'}
                     </Text>
-                    <View className="mt-4 flex flex-row justify-center ">
+                    <Text className="text-center font-tmedium">
+                      {Lang === 1
+                        ? ' يرجي العلم انه سوف تفقد كافة البيانات الخاصة بهذا الادخال'
+                        : 'Please note that all data related to this Record will be lost.'}
+                    </Text>
+                    <View
+                      className={`mt-4 ${Lang === 1 ? 'flex-row' : 'flex-row-reverse'} flex flex-row justify-center `}>
                       <TouchableOpacity
-                        className=" mx-2 flex w-[69px] flex-row  items-center justify-center rounded-md  border-[.5px]  border-[#133E54] bg-none px-4 py-2"
+                        className={` mx-2 flex  items-center  justify-center rounded-md border-[.5px]  border-[#133E54] bg-none px-4 py-2`}
                         onPress={() => setModalVisible(false)}>
-                        <Text className="font-tbold text-[#133E54]">إلغاء</Text>
+                        <Text className="font-tbold text-[#133E54]">
+                          {Lang === 1 ? 'إلغاء' : 'Cancel'}
+                        </Text>
                       </TouchableOpacity>
                       <TouchableOpacity
                         className="mx-2 flex  w-[69px] flex-row items-center justify-center rounded-md bg-[#F15555]"
                         onPress={confirmAction}>
-                        <Text className="font-tbold text-white">حذف</Text>
+                        <Text className="font-tbold text-white">
+                          {' '}
+                          {Lang === 1 ? 'حذف' : 'Delete'}
+                        </Text>
                       </TouchableOpacity>
                     </View>
                   </View>
@@ -752,7 +789,6 @@ const TagsGrid = ({ LocationID, TagClass, TagGroup }) => {
 
 const styles = {
   buttonContainer: {
-    flexDirection: 'row-reverse',
     marginBottom: 16,
   },
   head: {

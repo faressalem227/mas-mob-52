@@ -22,7 +22,7 @@ const OperatingSystemLang = {
   },
   DefiningOperatingItems: {
     1: 'تعريف بنود التشغيل',
-    2: 'Defining Operating Items ',
+    2: 'Operating Items Definition ',
   },
   Automatic: {
     1: 'تلقائي',
@@ -368,15 +368,18 @@ const OperatingSystemLang = {
     1: 'بيانات تشغيل الاصول',
     2: 'Asset operation data',
   },
-
+  ValueOfDay: {
+    1: 'قيمة اليوم',
+    2: 'Value of the Day',
+  },
   dailyOpertaion: {
     1: 'بيانات التشغيل اليوميه',
-    2: 'Daily opeartion data',
+    2: 'Daily operation data',
   },
 
   operationHours: {
     1: 'ساعات التشغيل',
-    2: 'opertaion hours',
+    2: 'operation hours',
   },
 };
 export default OperatingSystemLang;
